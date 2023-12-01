@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "codeium.codeium",
+    "eamodio.gitlens",
+    "zixuanchen.vitest-explorer",
+    "antfu.vite",
+    "bradlc.vscode-tailwindcss",
+    "clinyong.vscode-css-modules",
+    "esbenp.prettier-vscode"
+  ]
+}

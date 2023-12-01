@@ -1,0 +1,8 @@
+{
+  "name": "move-in",
+  "packageManager": "yarn@4.0.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
