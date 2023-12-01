@@ -12,6 +12,7 @@
 ### packages
 - 어플리케이션에서 사용되는 패키지들을 작성합니다.
   - 각 어플리케이션에서 공통으로 사용되거나 관리 소요로 인해 분리된 패키지 등
+- [move-in-design-system](./move-in-design-system) : 디자인 시스템 패키지
 
 ## 시작하기
 - `yarn install`로 의존성 패키지 설치
