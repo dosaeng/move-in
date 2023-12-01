@@ -1,5 +1,5 @@
 # Move In
-- Move In 클라이언트 서비스를 위한 Monorepo 입니다.
+- Move In 클라이언트 서비스를 위한 저장소 입니다.
 
 ## 구조
 ### apps 
