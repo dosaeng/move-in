@@ -1,4 +1,11 @@
 @layer reset, base, tokens, recipes, utilities;
 
-@import './theme/modern-mormalize.css';
-@import './theme/typography.scss';
+@import './theme/pretendard.scss';
+
+:root {
+  --font-pretendard: 'Pretendard';
+}
+
+body {
+  font-family: var(--font-pretendard), sans-serif;
+}

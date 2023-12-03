@@ -1,7 +1,9 @@
 import { defineConfig } from '@pandacss/dev';
-import { textStyles } from './src/theme/typography';
+import moveInPreset from './src/panda-preset';
 
 export default defineConfig({
+  presets: [moveInPreset],
+  
   // Whether to use css reset
   preflight: true,
 
@@ -11,14 +13,7 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
-  // Useful for theme customization
-  theme: {
-    extend: {
-      textStyles,
-    },
-  },
-
   // The output directory for your css system
   emitPackage: true,
-  outdir: '@move-in/move-in-design-system',
+  outdir: '@move-in/styled-system',
 });

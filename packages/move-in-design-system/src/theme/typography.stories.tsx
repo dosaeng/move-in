@@ -1,3 +1,4 @@
+import { css } from '@move-in/styled-system/css';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
@@ -26,28 +27,32 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const ExampleRow: React.FC<{ name: string; className: string; text: string }> = ({ name, className, text }) => {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', columnGap: '52px', color: '#111' }}>
+      <div style={{ flex: '0 0 100px' }}>{name}</div>
+      <h1 className={className} style={{ flex: 1 }}>
+        {text.split('\n').map((line, index) => (
+          <div key={index}>{line}</div>
+        ))}
+      </h1>
+    </div>
+  );
+};
+
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Header: Story = {
   render: ({ text }) => {
     return (
       <>
         {[
-          { name: '28B (132%)', className: 'text-header-28-b' },
-          { name: '26B (132%)', className: 'text-header-26-b' },
-          { name: '24SB (132%)', className: 'text-header-24-sb' },
-          { name: '20SB (132%)', className: 'text-header-20-sb' },
-          { name: '18SB (132%)', className: 'text-header-18-sb' },
+          { name: '28B (132%)', className: css({ textStyle: 'header-28-b' }) },
+          { name: '26B (132%)', className: css({ textStyle: 'header-26-b' }) },
+          { name: '24SB (132%)', className: css({ textStyle: 'header-24-sb' }) },
+          { name: '20SB (132%)', className: css({ textStyle: 'header-20-sb' }) },
+          { name: '18SB (132%)', className: css({ textStyle: 'header-18-sb' }) },
         ].map(({ name, className }) => {
-          return (
-            <div style={{ display: 'flex', justifyContent: 'center', columnGap: '52px', color: '#111' }}>
-              <div style={{ flex: '0 0 100px' }}>{name}</div>
-              <h1 className={className} style={{ flex: 1 }}>
-                {text.split('\n').map((line, index) => (
-                  <div key={index}>{line}</div>
-                ))}
-              </h1>
-            </div>
-          );
+          return <ExampleRow name={name} className={className} text={text} />;
         })}
       </>
     );
@@ -59,25 +64,16 @@ export const Body: Story = {
     return (
       <>
         {[
-          { name: '18M (140%)', className: 'text-body-18-m' },
-          { name: '16M (140%)', className: 'text-body-16-m' },
-          { name: '14SB (140%)', className: 'text-body-14-sb' },
-          { name: '14M (140%)', className: 'text-body-14-m' },
-          { name: '14R (140%)', className: 'text-body-14-r' },
-          { name: '12M (140%)', className: 'text-body-12-m' },
-          { name: '12R (140%)', className: 'text-body-12-r' },
-          { name: '10R (140%)', className: 'text-body-10-r' },
+          { name: '18M (140%)', className: css({ textStyle: 'body-18-m' }) },
+          { name: '16M (140%)', className: css({ textStyle: 'body-16-m' }) },
+          { name: '14SB (140%)', className: css({ textStyle: 'body-14-sb' }) },
+          { name: '14M (140%)', className: css({ textStyle: 'body-14-m' }) },
+          { name: '14R (140%)', className: css({ textStyle: 'body-14-r' }) },
+          { name: '12M (140%)', className: css({ textStyle: 'body-12-m' }) },
+          { name: '12R (140%)', className: css({ textStyle: 'body-12-r' }) },
+          { name: '10R (140%)', className: css({ textStyle: 'body-10-r' }) },
         ].map(({ name, className }) => {
-          return (
-            <div style={{ display: 'flex', justifyContent: 'center', columnGap: '52px', color: '#111' }}>
-              <div style={{ flex: '0 0 100px' }}>{name}</div>
-              <div className={className} style={{ flex: 1 }}>
-                {text.split('\n').map((line, index) => (
-                  <div key={index}>{line}</div>
-                ))}
-              </div>
-            </div>
-          );
+          return <ExampleRow name={name} className={className} text={text} />;
         })}
       </>
     );
@@ -93,20 +89,11 @@ export const Paragraph: Story = {
     return (
       <>
         {[
-          { name: '16R (172%, 12px)', className: 'text-paragraph-16-r' },
-          { name: '14R (180%, 10px)', className: 'text-paragraph-14-r' },
-          { name: '12R (188%, 8px)', className: 'text-paragraph-12-r' },
+          { name: '16R (172%, 12px)', className: css({ textStyle: 'paragraph-16-r', color: '#484848' }) },
+          { name: '14R (180%, 10px)', className: css({ textStyle: 'paragraph-14-r', color: '#484848' }) },
+          { name: '12R (188%, 8px)', className: css({ textStyle: 'paragraph-12-r', color: '#484848' }) },
         ].map(({ name, className }) => {
-          return (
-            <div style={{ display: 'flex', justifyContent: 'center', columnGap: '52px', color: '#484848' }}>
-              <div style={{ flex: '0 0 100px', whiteSpace: 'nowrap' }}>{name}</div>
-              <p className={className} style={{ flex: 1 }}>
-                {text.split('\n').map((line, index) => (
-                  <div key={index}>{line}</div>
-                ))}
-              </p>
-            </div>
-          );
+          return <ExampleRow name={name} className={className} text={text} />;
         })}
       </>
     );

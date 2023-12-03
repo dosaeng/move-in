@@ -1,5 +1,5 @@
 import React from 'react';
-import { cva } from '@move-in/move-in-design-system/css';
+import { cva } from '@move-in/styled-system/css';
 
 const buttonStyle = cva({
   base: {
