@@ -1,5 +1,4 @@
 import { css } from '@move-in/styled-system/css';
-import { token } from '@move-in/styled-system/tokens';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
