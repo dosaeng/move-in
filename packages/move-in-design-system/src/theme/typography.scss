@@ -1,0 +1,126 @@
+@import './pretendard.scss';
+@import './color.scss';
+
+body {
+  font-family: Pretendard, sans-serif;
+  // color: color;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+
+  margin: 0;
+  padding: 0;
+}
+
+.text-header-28-b {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 132%; /* 36.96px */
+}
+
+.text-header-26-b {
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 132%; /* 34.32px */
+}
+
+.text-header-24-sb {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 132%; /* 31.68px */
+}
+
+.text-header-20-sb {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 132%; /* 26.4px */
+}
+
+.text-header-18-sb {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 132%; /* 23.76px */
+}
+
+.text-body-18-m {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 25.2px */
+}
+
+.text-body-16-m {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 22.4px */
+}
+
+.text-body-14-sb {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 19.6px */
+}
+
+.text-body-14-m {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
+}
+
+.text-body-14-r {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 19.6px */
+}
+
+.text-body-12-m {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 16.8px */
+}
+
+.text-body-12-r {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 16.8px */
+}
+
+.text-body-10-r {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 14px */
+}
+
+.text-paragraph-16-r {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 172%; /* 27.52px */
+}
+
+.text-paragraph-14-r {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 25.2px */
+}
+
+.text-paragraph-12-r {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 188%; /* 22.56px */
+}
