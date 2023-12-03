@@ -1,6 +1,7 @@
 import { definePreset } from '@pandacss/dev';
-import { textStyles } from './theme/typography';
 import { colors } from './theme/colors';
+import { shadow } from './theme/effects';
+import { textStyles } from './theme/typography';
 
 export default definePreset({
   theme: {
@@ -12,6 +13,11 @@ export default definePreset({
     },
     extend: {
       textStyles,
+    },
+  },
+  utilities: {
+    extend: {
+      mdsShadow: shadow,
     },
   },
 });
