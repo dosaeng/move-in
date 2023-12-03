@@ -1,5 +1,40 @@
 import React from 'react';
-import styles from './button.module.scss';
+import { cva } from '@move-in/move-in-design-system/css';
+
+const buttonStyle = cva({
+  base: {
+    fontWeight: 700,
+    border: 0,
+    borderRadius: '3em',
+    cursor: 'pointer',
+    display: 'inline-block',
+    lineHeight: 1,
+  },
+  variants: {
+    size: {
+      small: {
+        fontSize: '12px',
+        padding: '10px 16px',
+      },
+      medium: {
+        fontSize: '14px',
+        padding: '11px 20px',
+      },
+      large: {
+        fontSize: '16px',
+        padding: '12px 24px',
+      },
+    },
+    mode: {
+      primary: { color: 'white', backgroundColor: '#1ea7fd' },
+      secondary: {
+        color: '#333',
+        backgroundColor: 'transparent',
+        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset',
+      },
+    },
+  },
+});
 
 interface ButtonProps {
   /**
@@ -28,12 +63,10 @@ interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button = ({ primary = false, size = 'medium', backgroundColor, label, ...props }: ButtonProps) => {
-  const mode = primary ? styles.primary : styles.secondary;
-  
   return (
     <button
       type="button"
-      className={[styles.button, `${styles.button}--${size}`, mode].join(' ')}
+      className={buttonStyle({ size, mode: primary ? 'primary' : 'secondary' })}
       style={{ backgroundColor }}
       {...props}
     >

@@ -3,6 +3,7 @@
   "main": "./src/index.ts",
   "packageManager": "yarn@4.0.2",
   "scripts": {
+    "prepare": "panda codegen",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -11,6 +12,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.20.1",
     "@storybook/addon-essentials": "7.6.3",
     "@storybook/addon-interactions": "7.6.3",
     "@storybook/addon-links": "7.6.3",
