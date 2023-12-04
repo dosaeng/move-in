@@ -29,18 +29,22 @@ const buttonStyle = cva({
       l: {
         width: '48px',
         height: '48px',
+        minWidth: '48px',
       },
       m: {
         width: '40px',
         height: '40px',
+        minWidth: '40px',
       },
       s: {
         width: '32px',
         height: '32px',
+        minWidth: '32px',
       },
       xs: {
         width: '24px',
         height: '24px',
+        minWidth: '24px',
         borderRadius: '8px',
       },
     },

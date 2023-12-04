@@ -7,6 +7,7 @@ const buttonStyle = cva({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: '12px',
+    paddingX: '26px',
     gap: '8px',
     cursor: 'pointer',
     _disabled: {
@@ -32,21 +33,18 @@ const buttonStyle = cva({
         height: '48px',
         minWidth: '154px',
         maxWidth: '320px',
-        padding: '13px 26px',
       },
       m: {
         width: '320px',
         height: '40px',
         minWidth: '154px',
         maxWidth: '320px',
-        padding: '10px 26px',
       },
       s: {
         width: '154px',
         height: '32px',
         minWidth: '71px',
         maxWidth: '154px',
-        padding: '7.5px 26px',
         gap: '4px',
       },
       xs: {
@@ -54,7 +52,6 @@ const buttonStyle = cva({
         height: '24px',
         minWidth: '40px',
         maxWidth: '154px',
-        padding: '13px 26px',
         borderRadius: '8px',
         gap: '4px',
       },
