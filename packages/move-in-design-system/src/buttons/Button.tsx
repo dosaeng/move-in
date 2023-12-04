@@ -3,74 +3,197 @@ import { cva } from '@move-in/styled-system/css';
 
 const buttonStyle = cva({
   base: {
-    fontWeight: 700,
-    border: 0,
-    borderRadius: '3em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '12px',
+    gap: '8px',
     cursor: 'pointer',
-    display: 'inline-block',
-    lineHeight: 1,
+    _disabled: {
+      opacity: 0.5,
+      cursor: 'not-allowed',
+    },
+    _hover: {
+      opacity: 0.8,
+      _disabled: {
+        opacity: 0.5,
+      },
+    },
   },
   variants: {
-    size: {
-      small: {
-        fontSize: '12px',
-        padding: '10px 16px',
-      },
-      medium: {
-        fontSize: '14px',
-        padding: '11px 20px',
-      },
-      large: {
-        fontSize: '16px',
-        padding: '12px 24px',
+    rounded: {
+      true: {
+        borderRadius: '24px',
       },
     },
-    mode: {
-      primary: { color: 'white', backgroundColor: '#1ea7fd' },
-      secondary: {
-        color: '#333',
-        backgroundColor: 'transparent',
-        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset',
+    size: {
+      l: {
+        width: '320px',
+        height: '48px',
+        minWidth: '154px',
+        maxWidth: '320px',
+        padding: '13px 26px',
       },
+      m: {
+        width: '320px',
+        height: '40px',
+        minWidth: '154px',
+        maxWidth: '320px',
+        padding: '10px 26px',
+      },
+      s: {
+        width: '154px',
+        height: '32px',
+        minWidth: '71px',
+        maxWidth: '154px',
+        padding: '7.5px 26px',
+        gap: '4px',
+      },
+      xs: {
+        width: '154px',
+        height: '24px',
+        minWidth: '40px',
+        maxWidth: '154px',
+        padding: '13px 26px',
+        borderRadius: '8px',
+        gap: '4px',
+      },
+    },
+    shape: {
+      fill: {},
+      outline: {},
+      clear: {},
+    },
+    theme: {
+      neutral: {},
+      brand: {},
+      positive: {},
+      negative: {},
     },
   },
+  compoundVariants: [
+    {
+      shape: 'fill',
+      theme: 'neutral',
+      css: {
+        bg: 'fill.light.01',
+        color: 'text.dark.02',
+      },
+    },
+    {
+      shape: 'fill',
+      theme: 'brand',
+      css: { bg: 'brand.purple.03', color: 'text.light.01' },
+    },
+    {
+      shape: 'fill',
+      theme: 'positive',
+      css: { bg: 'success.green.03', color: 'text.light.01' },
+    },
+    {
+      shape: 'fill',
+      theme: 'negative',
+      css: { bg: 'error.red.03', color: 'text.light.01' },
+    },
+    {
+      shape: 'outline',
+      theme: 'neutral',
+      css: {
+        bg: 'fill.light.01',
+        color: 'text.dark.03',
+        borderWidth: '1.4px',
+        borderStyle: 'solid',
+        borderColor: 'stroke.light.01',
+      },
+    },
+    {
+      shape: 'outline',
+      theme: 'brand',
+      css: {
+        bg: 'fill.light.01',
+        color: 'brand.purple.03',
+        borderWidth: '1.4px',
+        borderStyle: 'solid',
+        borderColor: 'brand.purple.03',
+      },
+    },
+    {
+      shape: 'outline',
+      theme: 'positive',
+      css: {
+        bg: 'fill.light.01',
+        color: 'success.green.03',
+        borderWidth: '1.4px',
+        borderStyle: 'solid',
+        borderColor: 'success.green.03',
+      },
+    },
+    {
+      shape: 'outline',
+      theme: 'negative',
+      css: {
+        bg: 'fill.light.01',
+        color: 'error.red.03',
+        borderWidth: '1.4px',
+        borderStyle: 'solid',
+        borderColor: 'error.red.03',
+      },
+    },
+    {
+      shape: 'clear',
+      theme: 'neutral',
+
+      css: { bg: 'fill.light.01', color: 'text.dark.03' },
+    },
+    {
+      shape: 'clear',
+      theme: 'brand',
+      css: { bg: 'fill.light.01', color: 'brand.purple.03' },
+    },
+    {
+      shape: 'clear',
+      theme: 'positive',
+      css: { bg: 'fill.light.01', color: 'success.green.03' },
+    },
+    {
+      shape: 'clear',
+      theme: 'negative',
+      css: { bg: 'fill.light.01', color: 'error.red.03' },
+    },
+  ],
 });
 
 interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
+  shape?: 'fill' | 'outline' | 'clear';
+  theme?: 'neutral' | 'brand' | 'positive' | 'negative';
+  size?: 'l' | 'm' | 's' | 'xs';
+  rounded?: boolean;
+  disabled?: boolean;
   label: string;
-  /**
-   * Optional click handler
-   */
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   onClick?: () => void;
 }
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ primary = false, size = 'medium', backgroundColor, label, ...props }: ButtonProps) => {
+export const Button = ({
+  shape = 'fill',
+  theme = 'brand',
+  size = 'l',
+  rounded,
+  disabled,
+  label,
+  leftIcon,
+  rightIcon,
+  ...props
+}: ButtonProps) => {
   return (
-    <button
-      type="button"
-      className={buttonStyle({ size, mode: primary ? 'primary' : 'secondary' })}
-      style={{ backgroundColor }}
-      {...props}
-    >
+    <button type="button" className={buttonStyle({ shape, size, theme, rounded })} disabled={disabled} {...props}>
+      {leftIcon && <span>{leftIcon}</span>}
       {label}
+      {rightIcon && <span>{rightIcon}</span>}
     </button>
   );
 };
