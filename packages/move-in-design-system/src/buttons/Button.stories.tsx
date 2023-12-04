@@ -31,23 +31,27 @@ export const Interaction: Story = {
 
 const SizeVariantsTemplate = (args) => {
   return (
-    <div style={{ display: 'flex', flexFlow: 'column wrap', gap: '8px' }}>
+    <div style={{ display: 'flex', flexFlow: 'column wrap', gap: '16px' }}>
       {['fill', 'outline', 'clear'].map((shape) => {
         return (
-          <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '8px' }}>
-            <Button {...args} shape={shape} theme="brand" />
-            <Button {...args} shape={shape} theme="positive" />
-            <Button {...args} shape={shape} theme="negative" />
-            <Button {...args} shape={shape} theme="brand" disabled />
-            <Button {...args} shape={shape} theme="positive" disabled />
-            <Button {...args} shape={shape} theme="negative" disabled />
-            <Button {...args} shape={shape} theme="brand" rounded />
-            <Button {...args} shape={shape} theme="positive" rounded />
-            <Button {...args} shape={shape} theme="negative" rounded />
-            <Button {...args} shape={shape} theme="brand" disabled rounded />
-            <Button {...args} shape={shape} theme="positive" disabled rounded />
-            <Button {...args} shape={shape} theme="negative" disabled rounded />
-          </div>
+          <>
+            {['neutral', 'brand', 'positive', 'negative'].map((theme) => {
+              if (shape === 'fill' && theme === 'neutral') return null;
+
+              return (
+                <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '8px' }}>
+                  <Button {...args} shape={shape} theme={theme} />
+                  <Button {...args} shape={shape} theme={theme} disabled />
+                  {shape !== 'clear' && (
+                    <>
+                      <Button {...args} shape={shape} theme={theme} rounded />
+                      <Button {...args} shape={shape} theme={theme} rounded disabled />
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </>
         );
       })}
     </div>
