@@ -1,15 +1,19 @@
 import React from 'react';
-import { cva } from '@move-in/styled-system/css';
+import { css, cva, cx } from '@move-in/styled-system/css';
 
 const buttonStyle = cva({
   base: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: '12px',
     paddingX: '26px',
     gap: '8px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
     cursor: 'pointer',
+    textStyle: 'body-14-m',
     _disabled: {
       opacity: 0.5,
       cursor: 'not-allowed',
@@ -29,26 +33,22 @@ const buttonStyle = cva({
     },
     size: {
       l: {
-        width: '320px',
         height: '48px',
         minWidth: '154px',
         maxWidth: '320px',
       },
       m: {
-        width: '320px',
         height: '40px',
         minWidth: '154px',
         maxWidth: '320px',
       },
       s: {
-        width: '154px',
         height: '32px',
         minWidth: '71px',
         maxWidth: '154px',
         gap: '4px',
       },
       xs: {
-        width: '154px',
         height: '24px',
         minWidth: '40px',
         maxWidth: '154px',
@@ -160,7 +160,8 @@ const buttonStyle = cva({
   ],
 });
 
-interface ButtonProps {
+export interface ButtonProps {
+  className?: string;
   shape?: 'fill' | 'outline' | 'clear';
   theme?: 'neutral' | 'brand' | 'positive' | 'negative';
   size?: 'l' | 'm' | 's' | 'xs';
@@ -172,10 +173,8 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-/**
- * Primary UI component for user interaction
- */
 export const Button = ({
+  className,
   shape = 'fill',
   theme = 'brand',
   size = 'l',
@@ -187,9 +186,14 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button type="button" className={buttonStyle({ shape, size, theme, rounded })} disabled={disabled} {...props}>
+    <button
+      type="button"
+      className={cx(buttonStyle({ shape, size, theme, rounded }), className)}
+      disabled={disabled}
+      {...props}
+    >
       {leftIcon && <span>{leftIcon}</span>}
-      {label}
+      <span className={css({ overflow: 'hidden', textOverflow: 'clip' })}>{label}</span>
       {rightIcon && <span>{rightIcon}</span>}
     </button>
   );
