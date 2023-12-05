@@ -140,22 +140,22 @@ const buttonStyle = cva({
       shape: 'clear',
       theme: 'neutral',
 
-      css: { bg: 'fill.light.01', color: 'text.dark.03' },
+      css: { bg: 'transparent', color: 'text.dark.03' },
     },
     {
       shape: 'clear',
       theme: 'brand',
-      css: { bg: 'fill.light.01', color: 'brand.purple.03' },
+      css: { bg: 'transparent', color: 'brand.purple.03' },
     },
     {
       shape: 'clear',
       theme: 'positive',
-      css: { bg: 'fill.light.01', color: 'success.green.03' },
+      css: { bg: 'transparent', color: 'success.green.03' },
     },
     {
       shape: 'clear',
       theme: 'negative',
-      css: { bg: 'fill.light.01', color: 'error.red.03' },
+      css: { bg: 'transparent', color: 'error.red.03' },
     },
   ],
 });
