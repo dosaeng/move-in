@@ -2160,6 +2160,46 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ionic/core@npm:7.5.7":
+  version: 7.5.7
+  resolution: "@ionic/core@npm:7.5.7"
+  dependencies:
+    "@stencil/core": "npm:^4.7.2"
+    ionicons: "npm:^7.2.1"
+    tslib: "npm:^2.1.0"
+  checksum: fcef4663ca4bacbcd9300f9bb4900c3a4e32444f592e59fadf9a11f5e5efd01b58f8a014bfe2c07c782ee39a83efee444563237e0eefc1d89e2d657d46e489f2
+  languageName: node
+  linkType: hard
+
+"@ionic/react-router@npm:^7.5.7":
+  version: 7.5.7
+  resolution: "@ionic/react-router@npm:7.5.7"
+  dependencies:
+    "@ionic/react": "npm:7.5.7"
+    tslib: "npm:*"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-dom: ">=16.8.6"
+    react-router: ^5.0.1
+    react-router-dom: ^5.0.1
+  checksum: 5b5acfc1d5767ad5590ca849d3714067b82fa62c73abef65ce88b77ee3724444aefc8dbaaf8b1c996e3df846e0df23bcab7db7c987ef6dcd90c0d2df940a5f1e
+  languageName: node
+  linkType: hard
+
+"@ionic/react@npm:7.5.7, @ionic/react@npm:^7.5.7":
+  version: 7.5.7
+  resolution: "@ionic/react@npm:7.5.7"
+  dependencies:
+    "@ionic/core": "npm:7.5.7"
+    ionicons: "npm:^7.0.0"
+    tslib: "npm:*"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-dom: ">=16.8.6"
+  checksum: 2268eba33877935e170cee0be2605450e09e306d5061a4afd1879ff6df8ed934b07978208e00d3deda3181b0c62d34eaae961f9364b4b946b6525b3a876f99d1
+  languageName: node
+  linkType: hard
+
 "@ionic/utils-array@npm:2.1.6":
   version: 2.1.6
   resolution: "@ionic/utils-array@npm:2.1.6"
@@ -2425,6 +2465,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@move-in/move-in-design-system@workspace:packages/move-in-design-system"
   dependencies:
+    "@ionic/react": "npm:^7.5.7"
+    "@ionic/react-router": "npm:^7.5.7"
     "@pandacss/dev": "npm:^0.20.1"
     "@storybook/addon-essentials": "npm:7.6.3"
     "@storybook/addon-interactions": "npm:7.6.3"
@@ -3465,6 +3507,15 @@ __metadata:
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
   checksum: ef6351ae073c45c2ac89494dbb3e1f87cc60a93ce4cde797b782812b6f97da0d620ae81973f104b43c9b7eaa789ad20ba4f6a1359f1cc62f63729a55a7d22d4e
+  languageName: node
+  linkType: hard
+
+"@stencil/core@npm:^4.0.3, @stencil/core@npm:^4.7.2":
+  version: 4.8.1
+  resolution: "@stencil/core@npm:4.8.1"
+  bin:
+    stencil: bin/stencil
+  checksum: 8730060903374c93270199773b3e7ebd510be61d1d1399470eca93b0c4800646539909f4cef620ae34bd12a9f7d3ebaa14deaa07f63dce42cba16ce784aca3b4
   languageName: node
   linkType: hard
 
@@ -7916,6 +7967,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ionicons@npm:^7.0.0, ionicons@npm:^7.2.1":
+  version: 7.2.1
+  resolution: "ionicons@npm:7.2.1"
+  dependencies:
+    "@stencil/core": "npm:^4.0.3"
+  checksum: a134cb0978dd15146a0f02f5054b60468563d881bdc0417a88d1a1d462b3178f0923d7199dfa4b675d48835af165ba3d6eb64adcd897e898c4982ced407daaa4
+  languageName: node
+  linkType: hard
+
 "ip@npm:^2.0.0":
   version: 2.0.0
   resolution: "ip@npm:2.0.0"
@@ -11461,17 +11521,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:*, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.13.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: 69ae09c49eea644bc5ebe1bca4fa4cc2c82b7b3e02f43b84bd891504edf66dbc6b2ec0eef31a957042de2269139e4acff911e6d186a258fb14069cd7f6febce2
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
-  version: 2.6.2
-  resolution: "tslib@npm:2.6.2"
-  checksum: e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
   languageName: node
   linkType: hard
 

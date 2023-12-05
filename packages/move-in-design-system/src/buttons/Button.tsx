@@ -162,6 +162,7 @@ const buttonStyle = cva({
 
 export interface ButtonProps {
   className?: string;
+  id?: string;
   shape?: 'fill' | 'outline' | 'clear';
   theme?: 'neutral' | 'brand' | 'positive' | 'negative';
   size?: 'l' | 'm' | 's' | 'xs';
@@ -175,6 +176,7 @@ export interface ButtonProps {
 
 export const Button = ({
   className,
+  id,
   shape = 'fill',
   theme = 'brand',
   size = 'l',
@@ -187,6 +189,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
+      id={id}
       type="button"
       className={cx(buttonStyle({ shape, size, theme, rounded }), className)}
       disabled={disabled}
