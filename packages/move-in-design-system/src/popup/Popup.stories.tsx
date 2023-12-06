@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Popup, PopupButton } from './Popup';
+import { Popup, PopupView, PopupViewButton } from './Popup';
 import { IonApp, IonContent, IonModal, IonPage } from '@ionic/react';
 import { Button } from '../buttons/Button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  component: Popup,
+  component: PopupView,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
@@ -33,7 +33,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Popup>;
+} satisfies Meta<typeof PopupView>;
 
 export default meta;
 
@@ -46,12 +46,12 @@ export const Default: Story = {
       '캐치나우로 대박 나서 포르쉐를 뽑고 싶어요. 그때까지는 모르쉐로 열심히 달려야지요. 이왕이면 포르쉐 911 GTS 모델이면 좋겠네요.',
     actions: (
       <>
-        <PopupButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
       </>
     ),
   },
   render: (args) => {
-    return <Popup {...args} />;
+    return <PopupView {...args} />;
   },
 };
 
@@ -60,12 +60,12 @@ export const WithoutDescription: Story = {
     title: '여기에는 팝업 헤더 텍스트가 들어가겠지요 아마도',
     actions: (
       <>
-        <PopupButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
       </>
     ),
   },
   render: (args) => {
-    return <Popup {...args} />;
+    return <PopupView {...args} />;
   },
 };
 
@@ -75,13 +75,13 @@ export const TwoActionHorizontal: Story = {
     actionsFlow: 'column',
     actions: (
       <>
-        <PopupButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
-        <PopupButton shape="clear" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="clear" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
       </>
     ),
   },
   render: (args) => {
-    return <Popup {...args} />;
+    return <PopupView {...args} />;
   },
 };
 
@@ -91,13 +91,13 @@ export const TwoActionVertical: Story = {
     actionsFlow: 'row',
     actions: (
       <>
-        <PopupButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
-        <PopupButton shape="clear" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="clear" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
       </>
     ),
   },
   render: (args) => {
-    return <Popup {...args} />;
+    return <PopupView {...args} />;
   },
 };
 
@@ -107,24 +107,24 @@ export const MultipleActionHorizontal: Story = {
     actionsFlow: 'column',
     actions: (
       <>
-        <PopupButton
+        <PopupViewButton
           shape="fill"
           theme="positive"
           label="버튼 텍스트를 입력해주세요"
           onClick={() => alert('Clicked!')}
-        />{' '}
-        <PopupButton
+        />
+        <PopupViewButton
           shape="fill"
           theme="negative"
           label="버튼 텍스트를 입력해주세요"
           onClick={() => alert('Clicked!')}
         />
-        <PopupButton shape="clear" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
+        <PopupViewButton shape="clear" label="버튼 텍스트를 입력해주세요" onClick={() => alert('Clicked!')} />
       </>
     ),
   },
   render: (args) => {
-    return <Popup {...args} />;
+    return <PopupView {...args} />;
   },
 };
 
@@ -154,27 +154,17 @@ export const Interaction: Story = {
           <IonPage>
             <IonContent className="ion-padding">
               <Button id="open-custom-dialog" label="Open Popup" />
-              <IonModal
+              <Popup
                 id="example-modal"
                 ref={modal}
                 trigger="open-custom-dialog"
-                style={{
-                  '--width': 'fit-content',
-                  '--min-width': '250px',
-                  '--height': 'fit-content',
-                  '--border-radius': '6px',
-                  '--box-shadow': '0 28px 48px rgba(0, 0, 0, 0.4)',
-                }}
-              >
-                <Popup
-                  {...args}
-                  actions={
-                    <>
-                      <PopupButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={dismiss} />
-                    </>
-                  }
-                />
-              </IonModal>
+                {...args}
+                actions={
+                  <>
+                    <PopupViewButton shape="fill" label="버튼 텍스트를 입력해주세요" onClick={dismiss} />
+                  </>
+                }
+              />
             </IonContent>
           </IonPage>
         </IonApp>

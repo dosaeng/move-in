@@ -1,6 +1,7 @@
 import { css, cva, sva } from '@move-in/styled-system/css';
 import React from 'react';
 import { Button, ButtonProps } from '../buttons/Button';
+import { IonModal } from '@ionic/react';
 
 const titleStyle = cva({
   base: {
@@ -59,7 +60,7 @@ const actionStyle = cva({
   },
 });
 
-interface PopupProps {
+interface PopupViewProps {
   title: React.ReactNode;
   description?: React.ReactNode;
   actions: React.ReactNode;
@@ -67,7 +68,7 @@ interface PopupProps {
   actionsFlow?: 'row' | 'column';
 }
 
-export const Popup: React.FC<PopupProps> = ({
+export const PopupView: React.FC<PopupViewProps> = ({
   title,
   description,
   actions,
@@ -94,7 +95,7 @@ export const Popup: React.FC<PopupProps> = ({
   );
 };
 
-export const PopupButton: React.FC<ButtonProps> = ({ ...props }: ButtonProps) => {
+export const PopupViewButton: React.FC<ButtonProps> = ({ ...props }: ButtonProps) => {
   return (
     <Button
       {...props}
@@ -102,5 +103,30 @@ export const PopupButton: React.FC<ButtonProps> = ({ ...props }: ButtonProps) =>
         minWidth: '110px',
       })}
     />
+  );
+};
+
+interface PopupProps extends PopupViewProps {
+  id?: string;
+  trigger?: string;
+  ref?: React.RefObject<HTMLIonModalElement>;
+}
+
+export const Popup: React.FC<PopupProps> = ({ id, trigger, ref, ...props }) => {
+  return (
+    <IonModal
+      id={id}
+      ref={ref}
+      trigger={trigger}
+      style={{
+        '--width': 'fit-content',
+        '--min-width': '280px',
+        '--height': 'fit-content',
+        '--border-radius': '6px',
+        '--box-shadow': '0 28px 48px rgba(0, 0, 0, 0.4)',
+      }}
+    >
+      <PopupView {...props} />
+    </IonModal>
   );
 };
