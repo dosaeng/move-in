@@ -1475,6 +1475,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor-community/keyboard-react@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@capacitor-community/keyboard-react@npm:0.1.0"
+  peerDependencies:
+    "@capacitor/core": ">=3.0.0"
+    "@capacitor/keyboard": "*"
+    react: "*"
+  checksum: c952749edaa6c0b063de7fa3ba9ecc0f947fed3582e1fda565304c068622361fedc8958f34a325248ac76e24e491b58370c0d7a8a06ef77ca91386f40f680175
+  languageName: node
+  linkType: hard
+
 "@capacitor/android@npm:^5.5.1":
   version: 5.5.1
   resolution: "@capacitor/android@npm:5.5.1"
@@ -1527,6 +1538,15 @@ __metadata:
   peerDependencies:
     "@capacitor/core": ^5.5.0
   checksum: 73e6bf8a43b56d03b163de7317f23a8651a7a8e3eb6b07d6df0c6dff1a7f686212a442574caa12b2682e61b2d2a951d71823051cf79f83cb319288a910cfcf46
+  languageName: node
+  linkType: hard
+
+"@capacitor/keyboard@npm:^5.0.6":
+  version: 5.0.6
+  resolution: "@capacitor/keyboard@npm:5.0.6"
+  peerDependencies:
+    "@capacitor/core": ^5.0.0
+  checksum: 49000f4ad173afa6a0626b371a8d4c90742b5d8ca49a5dda396a2794e89b2dd5e644cf87425e2317a0602d9b3e4bbb8282468ea0be2816ce446e98aa51abe9d1
   languageName: node
   linkType: hard
 
@@ -2204,10 +2224,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@move-in/move-in@workspace:apps/move-in"
   dependencies:
+    "@capacitor-community/keyboard-react": "npm:^0.1.0"
     "@capacitor/android": "npm:^5.5.1"
     "@capacitor/cli": "npm:^5.5.1"
     "@capacitor/core": "npm:^5.5.1"
     "@capacitor/ios": "npm:^5.5.1"
+    "@capacitor/keyboard": "npm:^5.0.6"
+    "@ionic/react": "npm:^7.5.7"
     "@ionic/react-router": "npm:^7.5.7"
     "@move-in/move-in-design-system": "workspace:^"
     "@pandacss/dev": "npm:^0.20.1"
@@ -2222,6 +2245,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.4.4"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-hook-form: "npm:^7.48.2"
     react-router-dom: "npm:^5.3.4"
     typescript: "npm:^5.2.2"
     vite: "npm:^5.0.0"
@@ -9902,6 +9926,15 @@ __metadata:
     react: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1 || ^18.0.0
     react-dom: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1 || ^18.0.0
   checksum: 0d60a0ea758529c32a706d0c69d70b69fb94de3c46442fffdee34f08f51ffceddbb5395b41dfd1565895653e9f60f98ca525835be9d5db1f16d6b22be12f4cd4
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.48.2":
+  version: 7.48.2
+  resolution: "react-hook-form@npm:7.48.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 77663276288d3e240da76c469612fec2bfb2dd34ed0512adb8554b8567e89a316c3df62266e51639f66a9a9d50ce175e8dc965f94bc31afecb460ed48333dafa
   languageName: node
   linkType: hard
 
