@@ -1,7 +1,7 @@
 import { useIonToast } from "@ionic/react";
 import { toastStyle } from "./Toast";
 
-const useToast = () => {
+export const useToast = () => {
   const [present, dismiss] = useIonToast();
 
   return {
@@ -15,5 +15,3 @@ const useToast = () => {
     dismiss,
   }
 }
-
-export default useToast;

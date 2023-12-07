@@ -1,3 +1,12 @@
 export { Button } from './buttons/Button';
+export { CTAButtonBlock } from './buttons/CTAButtonBlock';
+export { IconButton } from './buttons/IconButton';
+export { Divider } from './divider/Divider';
+export { LineDivider } from './divider/LineDivider';
+export { PageHeader } from './header/PageHeader';
 export * from './icons/icons';
-export * from '@ionic/react';
+export { Modal } from './popup/Modal';
+export { Popup } from './popup/Popup';
+export { Toast } from './toast/Toast';
+export { useToast } from './toast/useToast';
+export { TextField } from './input/TextField';

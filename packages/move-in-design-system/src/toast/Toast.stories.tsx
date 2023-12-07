@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { IonApp, IonContent, IonPage, IonToast, useIonToast } from '@ionic/react';
 import { Button } from '../buttons/Button';
-import useToast from './useToast';
+import { useToast } from './useToast';
 import { Toast } from './Toast';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export

@@ -1,9 +1,13 @@
 {
   "name": "@move-in/move-in-design-system",
   "main": "./src/index.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
   "packageManager": "yarn@4.0.2",
   "scripts": {
-    "prepare": "panda codegen",
+    "codegen": "panda codegen --clean",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

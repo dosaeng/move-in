@@ -9,7 +9,7 @@ export default defineConfig({
   // Where to look for your css declarations
   include: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    './node_modules/@move-in/design-system/src/**/*.{js,jsx,ts,tsx}',
+    '../../node_modules/@move-in/move-in-design-system/src/**/*.{js,jsx,ts,tsx}',
   ],
 
   // Files to exclude
@@ -21,5 +21,5 @@ export default defineConfig({
   },
 
   emitPackage: true,
-  outdir: "@move-in/styled-system",
+  outdir: "@move-in/styled-system"
 });

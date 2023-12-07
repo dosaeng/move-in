@@ -59,7 +59,7 @@ const headerStyle = sva({
 });
 
 interface PagerHeaderProps {
-  title: string;
+  title?: string;
   left?: React.ReactNode;
   right?: React.ReactNode;
   theme?: 'default' | 'clearWhite' | 'clearBlack';

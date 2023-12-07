@@ -1,7 +1,7 @@
-import { css, cva, sva } from '@move-in/styled-system/css';
+import { IonModal } from '@ionic/react';
+import { css, cva } from '@move-in/styled-system/css';
 import React from 'react';
 import { Button, ButtonProps } from '../buttons/Button';
-import { IonModal } from '@ionic/react';
 
 const titleStyle = cva({
   base: {
