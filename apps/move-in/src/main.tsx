@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
-import { setupIonicReact } from '@move-in/move-in-design-system';
+import { setupIonicReact } from '@ionic/react';
 
 import '@move-in/move-in-design-system/src/index.scss';
+import './index.scss';
 
 setupIonicReact({
   mode: 'md',
