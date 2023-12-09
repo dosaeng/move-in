@@ -13,6 +13,7 @@
   "dependencies": {
     "@capacitor-community/keyboard-react": "^0.1.0",
     "@capacitor/android": "^5.5.1",
+    "@capacitor/app": "^5.0.6",
     "@capacitor/core": "^5.5.1",
     "@capacitor/ios": "^5.5.1",
     "@capacitor/keyboard": "^5.0.6",
