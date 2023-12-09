@@ -1,12 +1,11 @@
 import { useKeyboard } from '@capacitor-community/keyboard-react';
-import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar, useIonRouter } from '@ionic/react';
 import { Button, TextField } from '@move-in/move-in-design-system';
 import { css } from '@move-in/styled-system/css';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
 
 const SignUpPage: React.FC = () => {
-  const history = useHistory();
+  const router = useIonRouter();
   const {
     register,
     handleSubmit,
@@ -39,7 +38,7 @@ const SignUpPage: React.FC = () => {
           onSubmit={handleSubmit(() => {
             // TODO. 데이터 저장
 
-            history.push('/sign-up/user-info');
+            router.push('/sign-up/user-info');
           })}
         >
           <div

@@ -1,13 +1,12 @@
 import { useKeyboard } from '@capacitor-community/keyboard-react';
-import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar, useIonRouter } from '@ionic/react';
 import { Button, PageHeader, TextField } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
 
 const UserInfoFormPage: React.FC = () => {
-  const history = useHistory();
+  const router = useIonRouter();
   const {
     register,
     handleSubmit,
@@ -28,7 +27,7 @@ const UserInfoFormPage: React.FC = () => {
             left={
               <PageHeaderBackButton
                 onClick={() => {
-                  history.goBack();
+                  router.goBack();
                 }}
               />
             }
