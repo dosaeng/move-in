@@ -9,7 +9,7 @@ const SignUpCompletePage: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      history.replace('/desired-conditions');
+      history.replace('/product-filters');
     }, 1000);
   }, []);
 
