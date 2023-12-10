@@ -10,3 +10,4 @@ export { Popup } from './popup/Popup';
 export { Toast } from './toast/Toast';
 export { useToast } from './toast/useToast';
 export { TextField } from './input/TextField';
+export { CheckBox } from './input/CheckBox';
