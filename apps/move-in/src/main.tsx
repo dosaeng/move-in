@@ -1,7 +1,8 @@
+import { setupIonicReact } from '@ionic/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App.tsx';
-import { setupIonicReact } from '@ionic/react';
 
 import '@move-in/move-in-design-system/src/index.scss';
 import './index.scss';
@@ -10,8 +11,12 @@ setupIonicReact({
   mode: 'md',
 });
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );

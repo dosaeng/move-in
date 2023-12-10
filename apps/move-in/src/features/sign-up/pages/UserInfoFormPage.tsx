@@ -1,12 +1,15 @@
 import { useKeyboard } from '@capacitor-community/keyboard-react';
-import { IonContent, IonHeader, IonPage, IonToolbar, useIonRouter } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
 import { Button, PageHeader, TextField } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import SignUpTermsModal from '../components/SignUpTermsModal';
 
 const UserInfoFormPage: React.FC = () => {
-  const router = useIonRouter();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -16,8 +19,9 @@ const UserInfoFormPage: React.FC = () => {
     birthday: string;
     phone_number: string;
   }>();
-  const { isOpen } = useKeyboard();
-  const visibleSubmitButton = isOpen || isValid;
+  const { isOpen: isOpenKeyboard } = useKeyboard();
+  const [isOpenTermsModal, setIsOpenTermsModal] = useState(false);
+  const visibleSubmitButton = isOpenKeyboard || isValid;
 
   return (
     <IonPage>
@@ -27,7 +31,7 @@ const UserInfoFormPage: React.FC = () => {
             left={
               <PageHeaderBackButton
                 onClick={() => {
-                  router.goBack();
+                  history.goBack();
                 }}
               />
             }
@@ -45,7 +49,11 @@ const UserInfoFormPage: React.FC = () => {
           아래 정보를 입력해주세요
         </h1>
 
-        <form onSubmit={handleSubmit(() => {})}>
+        <form
+          onSubmit={handleSubmit(() => {
+            setIsOpenTermsModal(true);
+          })}
+        >
           <div
             className={css({
               paddingTop: '40px',
@@ -92,6 +100,16 @@ const UserInfoFormPage: React.FC = () => {
             />
           )}
         </form>
+        <SignUpTermsModal
+          isOpen={isOpenTermsModal}
+          onDidDismiss={(isAgree) => {
+            if (isAgree) {
+              history.push('/sign-up/complete');
+            }
+
+            setIsOpenTermsModal(false);
+          }}
+        />
       </IonContent>
     </IonPage>
   );
