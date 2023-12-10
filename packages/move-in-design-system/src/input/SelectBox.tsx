@@ -1,9 +1,9 @@
-import React, { Key } from 'react';
-import { css, cva } from '@move-in/styled-system/css';
+import React, { Key, PropsWithChildren } from 'react';
+import { css, cva, cx } from '@move-in/styled-system/css';
 import { Modal } from '../popup/Modal';
 import { IconChevronRight } from '../icons/icons';
 
-const modalListItemStyle = cva({
+const selectBoxOptionRowStyle = cva({
   base: {
     border: '1px solid',
     borderRadius: '12px',
@@ -78,32 +78,9 @@ export const SelectBox = <K extends Key, V>({
 
   return (
     <>
-      <div
-        className={css({
-          border: '1px solid',
-          borderRadius: '12px',
-          borderColor: 'stroke.light.02',
-          paddingX: '16px',
-          paddingY: '14px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          textStyle: 'body-16-m',
-        })}
-        onClick={!disabled ? () => setIsOpen(true) : undefined}
-      >
-        <span className={selectBoxText({ hasValue: currentOption != null })}>
-          {(renderValue && renderValue(currentOption)) ?? (currentOption?.value ?? placeholder ?? '').toString()}
-        </span>
-        {!disabled && (
-          <IconChevronRight
-            className={css({
-              color: 'text.light.04',
-            })}
-            size={16}
-          />
-        )}
-      </div>
+      <SelectBoxTrigger hasValue={currentOption != null} disabled={disabled} onClick={() => setIsOpen(true)}>
+        {(renderValue && renderValue(currentOption)) ?? (currentOption?.value ?? placeholder ?? '').toString()}
+      </SelectBoxTrigger>
       <Modal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
         <div
           className={css({
@@ -114,14 +91,7 @@ export const SelectBox = <K extends Key, V>({
             gap: '24px',
           })}
         >
-          <div
-            className={css({
-              textStyle: 'header-18-sb',
-              color: 'text.dark.04',
-            })}
-          >
-            {modalTitle}
-          </div>
+          <SelectBoxModalTitle>{modalTitle}</SelectBoxModalTitle>
           <div
             className={css({
               display: 'flex',
@@ -131,9 +101,9 @@ export const SelectBox = <K extends Key, V>({
           >
             {options.map((option) => {
               return (
-                <div
+                <SelectBoxOptionRow
                   key={option.key}
-                  className={modalListItemStyle({ selected: option.key === selectedValue?.key })}
+                  selected={option.key === selectedValue?.key}
                   onClick={() => {
                     setSelectedValue(option);
                     onChange && onChange(option);
@@ -141,12 +111,85 @@ export const SelectBox = <K extends Key, V>({
                   }}
                 >
                   {(renderValue && renderValue(option)) ?? (option.value ?? '').toString()}
-                </div>
+                </SelectBoxOptionRow>
               );
             })}
           </div>
         </div>
       </Modal>
     </>
+  );
+};
+
+export const SelectBoxTrigger: React.FC<
+  React.PropsWithChildren<{
+    className?: string;
+    hasValue?: boolean;
+    disabled?: boolean;
+    onClick?: () => void;
+  }>
+> = ({ className, hasValue, disabled, onClick, children }) => {
+  return (
+    <div
+      className={cx(
+        css({
+          border: '1px solid',
+          borderRadius: '12px',
+          borderColor: 'stroke.light.02',
+          paddingX: '16px',
+          paddingY: '14px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          textStyle: 'body-16-m',
+        }),
+        className
+      )}
+      onClick={!disabled ? onClick : undefined}
+    >
+      <span className={selectBoxText({ hasValue })}>{children}</span>
+      {!disabled && (
+        <IconChevronRight
+          className={css({
+            color: 'text.light.04',
+          })}
+          size={16}
+        />
+      )}
+    </div>
+  );
+};
+
+export const SelectBoxModalTitle: React.FC<
+  PropsWithChildren<{
+    className?: string;
+  }>
+> = ({ className, children }) => {
+  return (
+    <div
+      className={cx(
+        css({
+          textStyle: 'header-18-sb',
+          color: 'text.dark.04',
+        }),
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const SelectBoxOptionRow: React.FC<
+  React.PropsWithChildren<{
+    className?: string;
+    selected?: boolean;
+    onClick?: () => void;
+  }>
+> = ({ className, selected, onClick, children }) => {
+  return (
+    <div className={cx(selectBoxOptionRowStyle({ selected }), className)} onClick={onClick}>
+      {children}
+    </div>
   );
 };
