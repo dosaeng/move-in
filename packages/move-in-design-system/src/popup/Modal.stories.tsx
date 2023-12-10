@@ -41,7 +41,10 @@ export const Default: Story = {
   },
 };
 
-export const Interaction: Story = {
+export const Interaction: StoryObj<typeof Modal> = {
+  args: {
+    isOpen: false,
+  },
   render: (args) => {
     const modal = React.useRef<HTMLIonModalElement>(null);
 
@@ -61,9 +64,10 @@ export const Interaction: Story = {
           <IonPage>
             <IonContent className="ion-padding">
               <Button id="open-custom-modal" label="Open Modal" />
-              <Modal id="example-modal" ref={modal} trigger="open-custom-modal">
+              <Modal id="example-modal" ref={modal} isOpen={args.isOpen} trigger="open-custom-modal">
                 <div style={{ height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   Modal Body
+                  <Button label="Close Modal" onClick={dismiss} />
                 </div>
               </Modal>
             </IonContent>

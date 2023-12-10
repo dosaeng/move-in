@@ -1,5 +1,5 @@
 import React from 'react';
-import { cva } from '@move-in/styled-system/css';
+import { cva, cx } from '@move-in/styled-system/css';
 
 const buttonStyle = cva({
   base: {
@@ -111,6 +111,7 @@ const buttonStyle = cva({
 });
 
 interface ButtonProps {
+  className?: string;
   shape?: 'fill' | 'outline' | 'clear';
   theme?: 'neutral' | 'brand';
   size?: 'l' | 'm' | 's' | 'xs';
@@ -124,6 +125,7 @@ interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const IconButton = ({
+  className,
   shape = 'fill',
   theme = 'brand',
   size = 'l',
@@ -133,7 +135,12 @@ export const IconButton = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button type="button" className={buttonStyle({ shape, size, theme, rounded })} disabled={disabled} {...props}>
+    <button
+      type="button"
+      className={cx(buttonStyle({ shape, size, theme, rounded }), className)}
+      disabled={disabled}
+      {...props}
+    >
       {icon}
     </button>
   );

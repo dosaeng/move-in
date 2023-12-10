@@ -42,21 +42,32 @@ export const ModalView: React.FC<React.PropsWithChildren> = ({ children }) => {
   );
 };
 
-interface ModalProps {
+export interface ModalProps {
   id?: string;
   trigger?: string;
+  isOpen?: boolean;
   ref?: React.RefObject<HTMLIonModalElement>;
+  onDidDismiss?: () => void;
 }
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ id, trigger, ref, children }) => {
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
+  id,
+  trigger,
+  isOpen,
+  ref,
+  children,
+  onDidDismiss,
+}) => {
   return (
     <IonModal
       id={id}
       ref={ref}
+      isOpen={isOpen}
       trigger={trigger}
       initialBreakpoint={1}
       breakpoints={[0, 1]}
       handle={false}
+      onDidDismiss={onDidDismiss}
       style={{
         '--width': 'fit-content',
         '--min-width': '320px',
