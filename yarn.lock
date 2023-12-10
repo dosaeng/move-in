@@ -2197,6 +2197,7 @@ __metadata:
     "@storybook/react-vite": "npm:7.6.3"
     "@storybook/test": "npm:7.6.3"
     "@tabler/icons-react": "npm:^2.42.0"
+    date-fns: "npm:^2.30.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     sass: "npm:^1.69.5"
