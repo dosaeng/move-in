@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import SignUpTermsModal from '../components/SignUpTermsModal';
 
-const UserInfoFormPage: React.FC = () => {
+const SignUpUserInfoFormPage: React.FC = () => {
   const history = useHistory();
   const {
     register,
@@ -115,4 +115,4 @@ const UserInfoFormPage: React.FC = () => {
   );
 };
 
-export default UserInfoFormPage;
+export default SignUpUserInfoFormPage;

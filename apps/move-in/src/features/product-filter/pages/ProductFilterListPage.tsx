@@ -117,7 +117,7 @@ const ProductFilterListPage: React.FC = () => {
             className={css({ maxW: 'initial' })}
             label="새로운 희망 조건 작성하기"
             onClick={() => {
-              // TODO. 새로운 희망 조건 작성 페이지로
+              history.push('/product-filters-create');
             }}
           />
         </CTAButtonBlock>
