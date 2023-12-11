@@ -17,3 +17,5 @@ export { DateInput } from './input/DateInput';
 export type { DateInputProps } from './input/DateInput';
 export { CurrencyInput } from './input/CurrencyInput';
 export type { CurrencyInputProps } from './input/CurrencyInput';
+export { SearchInput } from './input/SearchInput';
+export type { SearchInputProps } from './input/SearchInput';
