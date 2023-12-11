@@ -3,6 +3,7 @@
   "packageManager": "yarn@4.0.2",
   "scripts": {
     "user:dev": "yarn workspace @move-in/move-in dev",
+    "user:build": "yarn workspace @move-in/move-in build",
     "manager:dev": "yarn workspace @move-in/move-in-manager dev",
     "design-system:storybook": "yarn workspace @move-in/move-in-design-system storybook"
   },
