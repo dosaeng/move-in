@@ -35,6 +35,7 @@ const selectBoxText = cva({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     color: 'text.dark.04',
+    flex: 1,
   },
   variants: {
     hasValue: {
@@ -104,7 +105,7 @@ export const SelectBox = <K extends Key, V>({
               return (
                 <SelectBoxOptionRow
                   key={option.key}
-                  selected={option.key === selectedValue?.key}
+                  selected={option.key === currentOption?.key}
                   onClick={() => {
                     setSelectedValue(option);
                     onChange && onChange(option);

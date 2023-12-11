@@ -13,6 +13,8 @@ export { TextField } from './input/TextField';
 export { CheckBox } from './input/CheckBox';
 export { SelectBox, SelectBoxTrigger, SelectBoxOptionRow, SelectBoxModalContent } from './input/SelectBox';
 export type { SelectBoxProps, SelectBoxOption } from './input/SelectBox';
+export { MultipleSelectBox } from './input/MultipleSelectBox';
+export type { MultipleSelectBoxProps } from './input/MultipleSelectBox';
 export { DateInput } from './input/DateInput';
 export type { DateInputProps } from './input/DateInput';
 export { CurrencyInput } from './input/CurrencyInput';
