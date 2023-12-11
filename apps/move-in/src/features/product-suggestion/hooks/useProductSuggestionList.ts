@@ -29,7 +29,8 @@ export interface ProductSuggestionListItemModel {
 
 }
 
-const useProductSuggestionList = (filterId: string | number) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const useProductSuggestionList = (_filterId: string | number) => {
   return useQuery<ProductSuggestionListItemModel[]>(['product-suggestion-list'], async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
