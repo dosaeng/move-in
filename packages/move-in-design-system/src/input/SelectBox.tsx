@@ -54,6 +54,7 @@ export interface SelectBoxProps<K, V> {
   disabled?: boolean;
   placeholder?: string;
   modalTitle?: React.ReactNode;
+  modalColumnsCount?: number;
   renderValue?: (value: SelectBoxOption<K, V> | undefined) => React.ReactNode;
   onChange?: (value: SelectBoxOption<K, V>) => void;
 }
@@ -65,6 +66,7 @@ export const SelectBox = <K extends Key, V>({
   disabled = false,
   placeholder,
   modalTitle,
+  modalColumnsCount,
   renderValue,
   onChange,
 }: SelectBoxProps<K, V>) => {
@@ -78,26 +80,25 @@ export const SelectBox = <K extends Key, V>({
 
   return (
     <>
-      <SelectBoxTrigger hasValue={currentOption != null} disabled={disabled} onClick={() => setIsOpen(true)}>
-        {(renderValue && renderValue(currentOption)) ?? (currentOption?.value ?? placeholder ?? '').toString()}
+      <SelectBoxTrigger
+        hasValue={currentOption != null}
+        disabled={disabled}
+        placeholder={placeholder}
+        onClick={() => setIsOpen(true)}
+      >
+        {(renderValue && renderValue(currentOption)) ?? (currentOption?.value ?? '').toString()}
       </SelectBoxTrigger>
       <Modal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
-        <div
-          className={css({
-            paddingX: '24px',
-            paddingBottom: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '24px',
-          })}
-        >
-          <SelectBoxModalTitle>{modalTitle}</SelectBoxModalTitle>
+        <SelectBoxModalContent title={modalTitle}>
           <div
             className={css({
-              display: 'flex',
+              display: 'grid',
               flexDirection: 'column',
               gap: '12px',
             })}
+            style={{
+              gridTemplateColumns: `repeat(${modalColumnsCount ?? 1}, 1fr)`,
+            }}
           >
             {options.map((option) => {
               return (
@@ -115,7 +116,7 @@ export const SelectBox = <K extends Key, V>({
               );
             })}
           </div>
-        </div>
+        </SelectBoxModalContent>
       </Modal>
     </>
   );
@@ -126,9 +127,10 @@ export const SelectBoxTrigger: React.FC<
     className?: string;
     hasValue?: boolean;
     disabled?: boolean;
+    placeholder?: string;
     onClick?: () => void;
   }>
-> = ({ className, hasValue, disabled, onClick, children }) => {
+> = ({ className, hasValue, disabled, placeholder, onClick, children }) => {
   return (
     <div
       className={cx(
@@ -147,7 +149,7 @@ export const SelectBoxTrigger: React.FC<
       )}
       onClick={!disabled ? onClick : undefined}
     >
-      <span className={selectBoxText({ hasValue })}>{children}</span>
+      <span className={selectBoxText({ hasValue })}>{hasValue ? children : placeholder}</span>
       {!disabled && (
         <IconChevronRight
           className={css({
@@ -160,21 +162,33 @@ export const SelectBoxTrigger: React.FC<
   );
 };
 
-export const SelectBoxModalTitle: React.FC<
+export const SelectBoxModalContent: React.FC<
   PropsWithChildren<{
     className?: string;
+    title?: React.ReactNode;
   }>
-> = ({ className, children }) => {
+> = ({ className, title, children }) => {
   return (
     <div
       className={cx(
         css({
-          textStyle: 'header-18-sb',
-          color: 'text.dark.04',
+          paddingX: '24px',
+          paddingBottom: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
         }),
         className
       )}
     >
+      <div
+        className={css({
+          textStyle: 'header-18-sb',
+          color: 'text.dark.04',
+        })}
+      >
+        {title}
+      </div>
       {children}
     </div>
   );

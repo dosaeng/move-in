@@ -11,7 +11,7 @@ export { Toast } from './toast/Toast';
 export { useToast } from './toast/useToast';
 export { TextField } from './input/TextField';
 export { CheckBox } from './input/CheckBox';
-export { SelectBox, SelectBoxTrigger, SelectBoxOptionRow, SelectBoxModalTitle } from './input/SelectBox';
+export { SelectBox, SelectBoxTrigger, SelectBoxOptionRow, SelectBoxModalContent } from './input/SelectBox';
 export type { SelectBoxProps, SelectBoxOption } from './input/SelectBox';
 export { DateInput } from './input/DateInput';
 export type { DateInputProps } from './input/DateInput';
