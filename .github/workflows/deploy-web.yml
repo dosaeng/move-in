@@ -1,5 +1,6 @@
 name: Deploying to the web
-on: []
+on:
+  workflow_dispatch:
 
 jobs:
   publish:
