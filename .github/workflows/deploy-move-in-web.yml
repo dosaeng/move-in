@@ -1,4 +1,4 @@
-name: Deploying to the web
+name: Deploying MoveIn to the web
 on:
   workflow_dispatch:
 
@@ -19,7 +19,10 @@ jobs:
       - name: Install Yarn
         run: corepack use yarn@*
       - run: corepack yarn --frozen-lockfile
-      - run: corepack yarn user:build
+      - run: corepack yarn codegen
+        working-directory: ./apps/move-in
+      - run: corepack yarn build
+        working-directory: ./apps/move-in
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -34,6 +37,6 @@ jobs:
           # By default this will be the branch which triggered this workflow
           branch: main
           # Optional: Change the working directory
-          workingDirectory: apps/move-in
+          workingDirectory: ./apps/move-in
           # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
           wranglerVersion: '3'
