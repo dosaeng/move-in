@@ -5,7 +5,8 @@
     "user:dev": "yarn workspace @move-in/move-in dev",
     "user:build": "yarn workspace @move-in/move-in build",
     "manager:dev": "yarn workspace @move-in/move-in-manager dev",
-    "design-system:storybook": "yarn workspace @move-in/move-in-design-system storybook"
+    "design-system:storybook": "yarn workspace @move-in/move-in-design-system storybook",
+    "codegen": "yarn workspaces foreach -A run codegen"
   },
   "workspaces": [
     "apps/*",
