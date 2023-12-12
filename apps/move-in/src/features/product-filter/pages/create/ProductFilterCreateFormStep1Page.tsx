@@ -8,6 +8,7 @@ import FamilyTypeSelectBox from '../../components/create/form/FamilyTypeSelectBo
 import MinimumRoomCountSelectBox from '../../components/create/form/MinimumRoomCountSelectBox';
 import PetPresenceSelectBox from '../../components/create/form/PetPresenceSelectBox';
 import ProductMinimumSizeSelectBox from '../../components/create/form/ProductMinimumSizeSelectBox';
+import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 
 const ProductFilterCreateFormStep1Page = () => {
   const history = useHistory();
@@ -33,18 +34,9 @@ const ProductFilterCreateFormStep1Page = () => {
           title="나의 관심 설정 1단계"
         />
       </IonHeader>
-      <IonContent
-        className={css({
-          '--padding-top': '24px',
-          '--padding-bottom': '40px',
-          '--padding-start': '16px',
-          '--padding-end': '16px',
-        })}
-      >
+      <IonContent className="move-in-padding">
         <StepIndicator className={css({ marginBottom: '12px' })} step={1} maxStep={5} />
-        <h2 className={css({ textStyle: 'header-24-sb', color: 'text.dark.04', marginBottom: '24px' })}>
-          함께 하는 가족
-        </h2>
+        <ProductFilterCreateFormHeader title="함께 하는 가족" />
         <div
           className={css({
             display: 'flex',

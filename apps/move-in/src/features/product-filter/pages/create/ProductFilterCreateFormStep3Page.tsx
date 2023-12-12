@@ -7,6 +7,7 @@ import StepIndicator from '../../components/create/base/StepIndicator';
 import CostPreferenceTypeSelectBox from '../../components/create/form/CostPreferenceTypeSelectBox';
 import DepositCurrencyInput from '../../components/create/form/DepositCurrencyInput';
 import MonthlyRentCurrencyInput from '../../components/create/form/MonthlyRentCurrencyInput';
+import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 
 const ProductFilterCreateFormStep3Page = () => {
   const history = useHistory();
@@ -32,18 +33,12 @@ const ProductFilterCreateFormStep3Page = () => {
           title="나의 관심 설정 3단계"
         />
       </IonHeader>
-      <IonContent
-        className={css({
-          '--padding-top': '24px',
-          '--padding-bottom': '40px',
-          '--padding-start': '16px',
-          '--padding-end': '16px',
-        })}
-      >
+      <IonContent className="move-in-padding">
         <StepIndicator className={css({ marginBottom: '12px' })} step={3} maxStep={5} />
-        <h2 className={css({ textStyle: 'header-24-sb', color: 'text.dark.04', marginBottom: '40px' })}>
-          주거 비용 예산
-        </h2>
+        <ProductFilterCreateFormHeader
+          title="주거 비용 예산"
+          subtitle="개략적인 시기를 알려주시면 더 좋은 추천을 해드려요"
+        />
         <div
           className={css({
             display: 'flex',

@@ -1,1 +1,8 @@
 @layer reset, base, tokens, recipes, utilities;
+
+ion-content.move-in-padding {
+  --padding-top: 24px;
+  --padding-bottom: 40px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}

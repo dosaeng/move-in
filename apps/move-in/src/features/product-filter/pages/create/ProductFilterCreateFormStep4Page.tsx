@@ -8,6 +8,7 @@ import StepIndicator from '../../components/create/base/StepIndicator';
 import ItemHouseTypeSelectBox from '../../components/create/form/ItemHouseTypeSelectBox';
 import ItemHouseConditionSelectBox from '../../components/create/form/ItemHouseConditionSelectBox';
 import ItemWishListSelectBox from '../../components/create/form/ItemWishListSelectBox';
+import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 
 const ProductFilterCreateFormStep4Page = () => {
   const history = useHistory();
@@ -33,21 +34,12 @@ const ProductFilterCreateFormStep4Page = () => {
           title="나의 관심 설정 4단계"
         />
       </IonHeader>
-      <IonContent
-        className={css({
-          '--padding-top': '24px',
-          '--padding-bottom': '40px',
-          '--padding-start': '16px',
-          '--padding-end': '16px',
-        })}
-      >
+      <IonContent className="move-in-padding">
         <StepIndicator className={css({ marginBottom: '12px' })} step={4} maxStep={5} />
-        <h2 className={css({ textStyle: 'header-24-sb', color: 'text.dark.04', marginBottom: '8px' })}>
-          원하는 집의 조건
-        </h2>
-        <div className={css({ textStyle: 'header-14-r', color: 'text.dark.02', marginBottom: '40px' })}>
-          원하는 조건을 알려주시면 딱 맞는 집을 추천해 드려요
-        </div>
+        <ProductFilterCreateFormHeader
+          title="원하는 집의 조건"
+          subtitle="원하는 조건을 알려주시면 딱 맞는 집을 추천해 드려요"
+        />
         <div
           className={css({
             display: 'flex',

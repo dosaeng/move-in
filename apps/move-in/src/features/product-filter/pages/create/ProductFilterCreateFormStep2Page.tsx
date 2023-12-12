@@ -5,6 +5,7 @@ import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
 import DateInputField from '../../components/create/base/DateInputField';
 import StepIndicator from '../../components/create/base/StepIndicator';
+import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 
 const ProductFilterCreateFormStep2Page = () => {
   const history = useHistory();
@@ -30,21 +31,12 @@ const ProductFilterCreateFormStep2Page = () => {
           title="나의 관심 설정 2단계"
         />
       </IonHeader>
-      <IonContent
-        className={css({
-          '--padding-top': '24px',
-          '--padding-bottom': '40px',
-          '--padding-start': '16px',
-          '--padding-end': '16px',
-        })}
-      >
+      <IonContent  className="move-in-padding">
         <StepIndicator className={css({ marginBottom: '12px' })} step={2} maxStep={5} />
-        <h2 className={css({ textStyle: 'header-24-sb', color: 'text.dark.04', marginBottom: '8px' })}>
-          희망 입주 시기
-        </h2>
-        <div className={css({ textStyle: 'header-14-r', color: 'text.dark.02', marginBottom: '40px' })}>
-          개략적인 시기를 알려주시면 더 좋은 추천을 해드려요
-        </div>
+        <ProductFilterCreateFormHeader
+          title="희망 입주 시기"
+          subtitle="개략적인 시기를 알려주시면 더 좋은 추천을 해드려요"
+        />
         <div
           className={css({
             display: 'flex',

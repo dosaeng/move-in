@@ -1,10 +1,16 @@
 import { setupIonicReact } from '@ionic/react';
 import type { Preview } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import '@move-in/move-in-design-system/src/index.scss';
 import '../src/index.scss';
+import React from 'react';
 
-setupIonicReact();
+setupIonicReact({
+  mode: 'md',
+});
+
+const queryClient = new QueryClient();
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +22,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
 };
 
 export default preview;
