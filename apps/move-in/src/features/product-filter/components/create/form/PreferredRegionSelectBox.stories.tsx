@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import TrafficLifeSelectBox from './TrafficLifeSelectBox';
+import PreferredRegionSelectBox from './PreferredRegionSelectBox';
 import { IonApp, IonContent, IonPage } from '@ionic/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  component: TrafficLifeSelectBox,
+  component: PreferredRegionSelectBox,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -22,7 +22,7 @@ const meta = {
       </IonApp>
     ),
   ],
-} satisfies Meta<typeof TrafficLifeSelectBox>;
+} satisfies Meta<typeof PreferredRegionSelectBox>;
 
 export default meta;
 
@@ -32,7 +32,7 @@ export const Default: Story = {
   render: (args) => {
     return (
       <>
-        <TrafficLifeSelectBox
+        <PreferredRegionSelectBox
           {...args}
           onChange={(value) => {
             alert(value);
