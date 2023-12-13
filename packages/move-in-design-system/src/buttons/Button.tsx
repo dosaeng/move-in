@@ -34,22 +34,26 @@ const buttonStyle = cva({
     size: {
       l: {
         height: '48px',
+        minHeight: '48px',
         minWidth: '154px',
         maxWidth: '320px',
       },
       m: {
         height: '40px',
+        minHeight: '40px',
         minWidth: '154px',
         maxWidth: '320px',
       },
       s: {
         height: '32px',
+        minHeight: '32px',
         minWidth: '71px',
         maxWidth: '154px',
         gap: '4px',
       },
       xs: {
         height: '24px',
+        minHeight: '24px',
         minWidth: '40px',
         maxWidth: '154px',
         borderRadius: '8px',

@@ -164,6 +164,7 @@ export const SelectBoxModalContent: React.FC<
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
+          flex: 1,
         }),
         className
       )}

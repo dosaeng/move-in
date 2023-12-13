@@ -6,6 +6,7 @@ import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import StepIndicator from '../../components/create/base/StepIndicator';
 import TrafficLifeSelectBox from '../../components/create/form/TrafficLifeSelectBox';
+import ExtraOptionSelectBox from '../../components/create/form/ExtraOptionSelectBox';
 
 const ProductFilterCreateFormStep5Page = () => {
   const history = useHistory();
@@ -42,6 +43,7 @@ const ProductFilterCreateFormStep5Page = () => {
           })}
         >
           <TrafficLifeSelectBox />
+          <ExtraOptionSelectBox />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">

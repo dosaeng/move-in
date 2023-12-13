@@ -26,7 +26,7 @@ const styles = sva({
 });
 
 interface Props {
-  title: string;
+  title: React.ReactNode;
   subtitle?: string;
 }
 
