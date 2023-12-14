@@ -1,5 +1,5 @@
 import React from 'react';
-import { cva } from '@move-in/styled-system/css';
+import { cx, cva } from '@move-in/styled-system/css';
 
 const dividerStyle = cva({
   base: {
@@ -30,10 +30,11 @@ const dividerStyle = cva({
 });
 
 interface DividerProps {
+  className?: string;
   size?: 's' | 'm' | 'l';
   color?: 'fill_2' | 'fill_3';
 }
 
-export const Divider: React.FC<DividerProps> = ({ size = 's', color = 'fill_2' }) => {
-  return <hr className={dividerStyle({ size, color })} />;
+export const Divider: React.FC<DividerProps> = ({ className, size = 's', color = 'fill_2' }) => {
+  return <hr className={cx(dividerStyle({ size, color }), className)} />;
 };

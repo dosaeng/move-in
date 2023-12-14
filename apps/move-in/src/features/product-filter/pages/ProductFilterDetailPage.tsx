@@ -84,9 +84,8 @@ const ProductFilterDetailPage: React.FC<
             paddingX: '16px',
           })}
           filterId={filterId}
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          onClick={(_item) => {
-            // TODO: 상세 페이지로 이동
+          onClick={(item) => {
+            history.push(`/product-suggestions/${item.id}`);
           }}
         />
       </IonContent>

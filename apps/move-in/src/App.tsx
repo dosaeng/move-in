@@ -6,6 +6,7 @@ import ProductFilterDetailPage from './features/product-filter/pages/ProductFilt
 import ProductFilterDraftListPage from './features/product-filter/pages/ProductFilterDraftListPage';
 import ProductFilterListPage from './features/product-filter/pages/ProductFilterListPage';
 import SignUpPage from './features/sign-up/pages/SignUpPage';
+import ProductSuggestionDetailPage from './features/product-suggestion/pages/ProductSuggestionDetailPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/product-filters-draft" component={ProductFilterDraftListPage} />
           <Route path="/product-filters-create" component={ProductFilterCreatePage} />
           <Route exact path="/product-filters/:id" component={ProductFilterDetailPage} />
+          <Route exact path="/product-suggestions/:id" component={ProductSuggestionDetailPage} />
           <Route exact path="/" render={() => <Redirect to="/sign-up" />} />
         </IonRouterOutlet>
       </IonReactRouter>

@@ -11,7 +11,7 @@ const SignUpCompletePage: React.FC = () => {
     setTimeout(() => {
       history.replace('/product-filters');
     }, 1000);
-  }, []);
+  }, [history]);
 
   return (
     <IonPage>
