@@ -21,7 +21,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({ ...props }) => {
           css({
             width: '100%',
             borderRadius: '12px',
-            border: '1.4px solid',
+            borderWidth: '1.4px',
+            borderStyle: 'solid',
             borderColor: 'brand.purple.03',
             paddingLeft: '16px',
             paddingRight: '40px',

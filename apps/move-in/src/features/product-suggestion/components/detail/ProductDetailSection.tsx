@@ -51,7 +51,8 @@ const ProductDetailHeader: React.FC<{ className?: string; data?: ProductSuggesti
       >
         <div
           className={css({
-            border: '1px solid',
+            borderWidth: '1px',
+            borderStyle: 'solid',
             borderColor: 'brand.purple.03',
             color: 'brand.purple.03',
             paddingX: '8px',

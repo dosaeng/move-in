@@ -94,7 +94,8 @@ export const SelectBoxTrigger: React.FC<
       className={cx(
         cva({
           base: {
-            border: '1px solid',
+            borderWidth: '1px',
+            borderStyle: 'solid',
             borderRadius: '12px',
             borderColor: 'stroke.light.02',
             paddingX: '16px',
@@ -194,7 +195,8 @@ export const SelectBoxOptionRow: React.FC<
       className={cx(
         cva({
           base: {
-            border: '1px solid',
+            borderWidth: '1px',
+            borderStyle: 'solid',
             borderRadius: '12px',
             borderColor: 'stroke.light.02',
             paddingX: '16px',
@@ -211,7 +213,8 @@ export const SelectBoxOptionRow: React.FC<
           variants: {
             selected: {
               true: {
-                border: '1.4px solid',
+                borderWidth: '1.4px',
+                borderStyle: 'solid',
                 borderColor: 'brand.purple.03',
                 color: 'brand.purple.03',
               },
