@@ -10,7 +10,14 @@ interface SignUpTermsModalProps {
 
 const SignUpTermsModal: React.FC<SignUpTermsModalProps> = ({ isOpen, onDidDismiss }) => {
   return (
-    <Modal isOpen={isOpen} onDidDismiss={() => onDidDismiss && onDidDismiss(false)}>
+    <Modal
+      isOpen={isOpen}
+      onDidDismiss={() => {
+        if (!isOpen) return;
+
+        onDidDismiss && onDidDismiss(false);
+      }}
+    >
       <div
         className={css({
           display: 'flex',

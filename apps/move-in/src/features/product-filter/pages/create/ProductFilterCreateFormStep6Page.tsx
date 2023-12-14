@@ -1,15 +1,19 @@
+import ProductSuggestionRequestModal from '@/features/product-suggestion/components/ProductSuggestionRequestModal';
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, PageHeader, TextField } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
-import { useHistory } from 'react-router-dom';
 import { css } from '@move-in/styled-system/css';
-import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
+import ProductSuggestionRequestNudgePopup from '@/features/product-suggestion/components/ProductSuggestionRequestNudgePopup';
 
 const ProductFilterCreateFormStep5Page = () => {
   const history = useHistory();
   const [filterName, setFilterName] = useState('');
   const hasFilterName = filterName.length > 0;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNudgeOpen, setIsNudgeOpen] = useState(false);
 
   return (
     <IonPage>
@@ -62,11 +66,38 @@ const ProductFilterCreateFormStep5Page = () => {
             })}
             label={hasFilterName ? '완료했어요' : '넘어갈께요'}
             onClick={() => {
-              history.push('/product-filters');
+              setIsModalOpen(true);
             }}
           />
         </CTAButtonBlock>
       </IonFooter>
+      <ProductSuggestionRequestModal
+        filterName={filterName}
+        isOpen={isModalOpen}
+        onDidDismiss={(isAgree) => {
+          setIsModalOpen(false);
+
+          if (isAgree) {
+            // TODO. 제안 요청 보내기
+            history.push('/product-filters');
+            return;
+          } else {
+            setIsNudgeOpen(true);
+          }
+        }}
+      />
+      <ProductSuggestionRequestNudgePopup
+        isOpen={isNudgeOpen}
+        onDidDismiss={(isAgree) => {
+          setIsNudgeOpen(false);
+
+          if (isAgree) {
+            // TODO. 제안 요청 보내기
+          }
+
+          history.push('/product-filters');
+        }}
+      />
     </IonPage>
   );
 };

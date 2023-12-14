@@ -108,15 +108,19 @@ export const PopupViewButton: React.FC<ButtonProps> = ({ ...props }: ButtonProps
 
 interface PopupProps extends PopupViewProps {
   id?: string;
+  isOpen?: boolean;
+  onDidDismiss?: () => void;
   trigger?: string;
   ref?: React.RefObject<HTMLIonModalElement>;
 }
 
-export const Popup: React.FC<PopupProps> = ({ id, trigger, ref, ...props }) => {
+export const Popup: React.FC<PopupProps> = ({ id, trigger, ref, isOpen, onDidDismiss, ...props }) => {
   return (
     <IonModal
       id={id}
       ref={ref}
+      isOpen={isOpen}
+      onDidDismiss={onDidDismiss}
       trigger={trigger}
       style={{
         '--width': 'fit-content',
