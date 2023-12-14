@@ -26,6 +26,7 @@ const ProductFilterDetailActionModal: React.FC<Props> = ({ data, isOpen, onDidDi
           alignItems: 'center',
           justifyContent: 'center',
           paddingBottom: '24px',
+          width: '100%',
         })}
       >
         <div
@@ -46,6 +47,7 @@ const ProductFilterDetailActionModal: React.FC<Props> = ({ data, isOpen, onDidDi
             gap: '8px',
             alignItems: 'center',
             justifyContent: 'center',
+            width: '100%',
           })}
         >
           <Button
