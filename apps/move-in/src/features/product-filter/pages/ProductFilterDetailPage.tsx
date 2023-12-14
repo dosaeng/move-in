@@ -93,8 +93,20 @@ const ProductFilterDetailPage: React.FC<
         <ProductFilterDetailActionModal
           data={detail!}
           isOpen={isOpenActionModal}
-          onDidDismiss={() => {
+          onDidDismiss={(action) => {
             setIsOpenActionModal(false);
+
+            switch (action) {
+              case 'EDIT':
+                history.push(`/product-filters/${filterId}/update`);
+                break;
+              case 'STOP_REQUEST':
+                // TODO. 요청 취소 처리
+                break;
+              case 'DELETE':
+                // TODO. 삭제 처리
+                break;
+            }
           }}
         />
       )}

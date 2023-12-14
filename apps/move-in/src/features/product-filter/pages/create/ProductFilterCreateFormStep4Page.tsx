@@ -1,36 +1,25 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, PageHeader } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
-import { useHistory } from 'react-router-dom';
 import { css } from '@move-in/styled-system/css';
-import PreferredRegionSelectBox from '../../components/create/form/PreferredRegionSelectBox';
-import StepIndicator from '../../components/create/base/StepIndicator';
-import ItemHouseTypeSelectBox from '../../components/create/form/ItemHouseTypeSelectBox';
-import ItemHouseConditionSelectBox from '../../components/create/form/ItemHouseConditionSelectBox';
-import ItemWishListSelectBox from '../../components/create/form/ItemWishListSelectBox';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
+import StepIndicator from '../../components/create/base/StepIndicator';
+import ItemHouseConditionSelectBox from '../../components/create/form/ItemHouseConditionSelectBox';
+import ItemHouseTypeSelectBox from '../../components/create/form/ItemHouseTypeSelectBox';
+import ItemWishListSelectBox from '../../components/create/form/ItemWishListSelectBox';
+import PreferredRegionSelectBox from '../../components/create/form/PreferredRegionSelectBox';
 
-const ProductFilterCreateFormStep4Page = () => {
-  const history = useHistory();
-
+const ProductFilterCreateFormStep4Page: React.FC<{
+  onBack: () => void;
+  onClose: () => void;
+  onNext: () => void;
+}> = ({ onBack, onClose, onNext }) => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <PageHeader
-          left={
-            <PageHeaderBackButton
-              onClick={() => {
-                history.goBack();
-              }}
-            />
-          }
-          right={
-            <PageHeaderCloseButton
-              onClick={() => {
-                history.replace('/product-filters');
-              }}
-            />
-          }
+          left={<PageHeaderBackButton onClick={onBack} />}
+          right={<PageHeaderCloseButton onClick={onClose} />}
           title="나의 관심 설정 4단계"
         />
       </IonHeader>
@@ -60,9 +49,7 @@ const ProductFilterCreateFormStep4Page = () => {
               width: '100%',
               maxWidth: '100%',
             })}
-            onClick={() => {
-              history.push('/product-filters-create/step5');
-            }}
+            onClick={onNext}
             label={'다음'}
           />
         </CTAButtonBlock>

@@ -4,9 +4,9 @@ import { ProductFilterState } from '../hooks/useProductFilterList';
 import { css } from '@move-in/styled-system/css';
 
 enum ProductFilterDetailAction {
-  EDIT,
-  STOP_REQUEST,
-  DELETE,
+  EDIT = 'EDIT',
+  STOP_REQUEST = 'STOP_REQUEST',
+  DELETE = 'DELETE',
 }
 
 interface Props {

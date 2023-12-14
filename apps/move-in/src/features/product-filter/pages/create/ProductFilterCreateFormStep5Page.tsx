@@ -1,34 +1,23 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, PageHeader } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
-import { useHistory } from 'react-router-dom';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import StepIndicator from '../../components/create/base/StepIndicator';
-import TrafficLifeSelectBox from '../../components/create/form/TrafficLifeSelectBox';
 import ExtraOptionSelectBox from '../../components/create/form/ExtraOptionSelectBox';
+import TrafficLifeSelectBox from '../../components/create/form/TrafficLifeSelectBox';
 
-const ProductFilterCreateFormStep5Page = () => {
-  const history = useHistory();
-
+const ProductFilterCreateFormStep5Page: React.FC<{
+  onBack: () => void;
+  onClose: () => void;
+  onNext: () => void;
+}> = ({ onBack, onClose, onNext }) => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <PageHeader
-          left={
-            <PageHeaderBackButton
-              onClick={() => {
-                history.goBack();
-              }}
-            />
-          }
-          right={
-            <PageHeaderCloseButton
-              onClick={() => {
-                history.replace('/product-filters');
-              }}
-            />
-          }
+          left={<PageHeaderBackButton onClick={onBack} />}
+          right={<PageHeaderCloseButton onClick={onClose} />}
           title="나의 관심 설정 5단계"
         />
       </IonHeader>
@@ -53,9 +42,7 @@ const ProductFilterCreateFormStep5Page = () => {
               width: '100%',
               maxWidth: '100%',
             })}
-            onClick={() => {
-              history.push('/product-filters-create/step6');
-            }}
+            onClick={onNext}
             label={'입력을 모두 마쳤어요'}
           />
         </CTAButtonBlock>

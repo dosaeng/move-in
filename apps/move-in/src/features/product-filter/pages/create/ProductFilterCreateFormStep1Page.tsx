@@ -2,35 +2,24 @@ import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, PageHeader } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
-import { useHistory } from 'react-router-dom';
+import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import StepIndicator from '../../components/create/base/StepIndicator';
 import FamilyTypeSelectBox from '../../components/create/form/FamilyTypeSelectBox';
 import MinimumRoomCountSelectBox from '../../components/create/form/MinimumRoomCountSelectBox';
 import PetPresenceSelectBox from '../../components/create/form/PetPresenceSelectBox';
 import ProductMinimumSizeSelectBox from '../../components/create/form/ProductMinimumSizeSelectBox';
-import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 
-const ProductFilterCreateFormStep1Page = () => {
-  const history = useHistory();
-
+const ProductFilterCreateFormStep1Page: React.FC<{
+  onBack: () => void;
+  onClose: () => void;
+  onNext: () => void;
+}> = ({ onBack, onClose, onNext }) => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <PageHeader
-          left={
-            <PageHeaderBackButton
-              onClick={() => {
-                history.goBack();
-              }}
-            />
-          }
-          right={
-            <PageHeaderCloseButton
-              onClick={() => {
-                history.replace('/product-filters');
-              }}
-            />
-          }
+          left={<PageHeaderBackButton onClick={onBack} />}
+          right={<PageHeaderCloseButton onClick={onClose} />}
           title="나의 관심 설정 1단계"
         />
       </IonHeader>
@@ -57,9 +46,7 @@ const ProductFilterCreateFormStep1Page = () => {
               width: '100%',
               maxWidth: '100%',
             })}
-            onClick={() => {
-              history.push('/product-filters-create/step2');
-            }}
+            onClick={onNext}
             label={'다음'}
           />
         </CTAButtonBlock>

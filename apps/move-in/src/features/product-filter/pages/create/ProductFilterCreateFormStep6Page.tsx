@@ -1,15 +1,17 @@
 import ProductSuggestionRequestModal from '@/features/product-suggestion/components/ProductSuggestionRequestModal';
+import ProductSuggestionRequestNudgePopup from '@/features/product-suggestion/components/ProductSuggestionRequestNudgePopup';
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, PageHeader, TextField } from '@move-in/move-in-design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
-import ProductSuggestionRequestNudgePopup from '@/features/product-suggestion/components/ProductSuggestionRequestNudgePopup';
 
-const ProductFilterCreateFormStep5Page = () => {
-  const history = useHistory();
+const ProductFilterCreateFormStep5Page: React.FC<{
+  onBack: () => void;
+  onClose: () => void;
+  onNext: () => void;
+}> = ({ onBack, onClose, onNext }) => {
   const [filterName, setFilterName] = useState('');
   const hasFilterName = filterName.length > 0;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,20 +21,8 @@ const ProductFilterCreateFormStep5Page = () => {
     <IonPage>
       <IonHeader className="ion-no-border">
         <PageHeader
-          left={
-            <PageHeaderBackButton
-              onClick={() => {
-                history.goBack();
-              }}
-            />
-          }
-          right={
-            <PageHeaderCloseButton
-              onClick={() => {
-                history.replace('/product-filters');
-              }}
-            />
-          }
+          left={<PageHeaderBackButton onClick={onBack} />}
+          right={<PageHeaderCloseButton onClick={onClose} />}
           title="나의 관심 설정"
         />
       </IonHeader>
@@ -79,7 +69,8 @@ const ProductFilterCreateFormStep5Page = () => {
 
           if (isAgree) {
             // TODO. 제안 요청 보내기
-            history.push('/product-filters');
+
+            onNext && onNext();
             return;
           } else {
             setIsNudgeOpen(true);
@@ -95,7 +86,7 @@ const ProductFilterCreateFormStep5Page = () => {
             // TODO. 제안 요청 보내기
           }
 
-          history.push('/product-filters');
+          onNext && onNext();
         }}
       />
     </IonPage>

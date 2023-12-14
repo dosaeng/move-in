@@ -1,5 +1,5 @@
 import { IonPage, IonRouterOutlet } from '@ionic/react';
-import { Redirect, Route, useHistory } from 'react-router-dom';
+import { Redirect, Route, RouteComponentProps, useHistory } from 'react-router-dom';
 import ProductFilterCreateFormStep1Page from './create/ProductFilterCreateFormStep1Page';
 import ProductFilterCreateFormStep2Page from './create/ProductFilterCreateFormStep2Page';
 import ProductFilterCreateFormStep3Page from './create/ProductFilterCreateFormStep3Page';
@@ -7,71 +7,76 @@ import ProductFilterCreateFormStep4Page from './create/ProductFilterCreateFormSt
 import ProductFilterCreateFormStep5Page from './create/ProductFilterCreateFormStep5Page';
 import ProductFilterCreateFormStep6Page from './create/ProductFilterCreateFormStep6Page';
 
-const ProductFilterCreatePage: React.FC = () => {
+const ProductFilterUpdatePage: React.FC<
+  RouteComponentProps<{
+    id: string;
+  }>
+> = ({ match }) => {
+  const { id } = match.params;
   const history = useHistory();
 
   const onBack = () => {
     history.goBack();
   };
   const onClose = () => {
-    history.push(`/product-filters`);
+    history.push(`/product-filters/${id}`);
   };
 
   return (
     <IonPage>
       <IonRouterOutlet>
-        <Redirect exact path="/product-filters-create" to="/product-filters-create/step1" />
-        <Route exact path="/product-filters-create/step1">
+        <Redirect exact path="/product-filters/:id/update" to="/product-filters/:id/update/step1" />
+        <Route exact path="/product-filters/:id/update/step1">
           <ProductFilterCreateFormStep1Page
             onBack={onBack}
             onClose={onClose}
             onNext={() => {
-              history.push(`/product-filters-create/step2`);
+              history.push(`/product-filters/${id}/update/step2`);
             }}
           />
         </Route>
-        <Route exact path="/product-filters-create/step2">
+        <Route exact path="/product-filters/:id/update/step2">
           <ProductFilterCreateFormStep2Page
             onBack={onBack}
             onClose={onClose}
             onNext={() => {
-              history.push(`/product-filters-create/step3`);
+              history.push(`/product-filters/${id}/update/step3`);
             }}
           />
         </Route>
-        <Route exact path="/product-filters-create/step3">
+        <Route exact path="/product-filters/:id/update/step3">
           <ProductFilterCreateFormStep3Page
             onBack={onBack}
             onClose={onClose}
             onNext={() => {
-              history.push(`/product-filters-create/step4`);
+              history.push(`/product-filters/${id}/update/step4`);
             }}
           />
         </Route>
-        <Route exact path="/product-filters-create/step4">
+        <Route exact path="/product-filters/:id/update/step4">
           <ProductFilterCreateFormStep4Page
             onBack={onBack}
             onClose={onClose}
             onNext={() => {
-              history.push(`/product-filters-create/step5`);
+              history.push(`/product-filters/${id}/update/step5`);
             }}
           />
         </Route>
-        <Route exact path="/product-filters-create/step5">
+        <Route exact path="/product-filters/:id/update/step5">
           <ProductFilterCreateFormStep5Page
             onBack={onBack}
             onClose={onClose}
             onNext={() => {
-              history.push(`/product-filters-create/step6`);
+              history.push(`/product-filters/${id}/update/step6`);
             }}
           />
         </Route>
-        <Route exact path="/product-filters-create/step6">
+        <Route exact path="/product-filters/:id/update/step6">
           <ProductFilterCreateFormStep6Page
             onBack={onBack}
             onClose={onClose}
             onNext={() => {
-              history.push(`/product-filters`);
+              history.push(`/product-filters/${id}`);
             }}
           />
         </Route>
@@ -80,4 +85,4 @@ const ProductFilterCreatePage: React.FC = () => {
   );
 };
 
-export default ProductFilterCreatePage;
+export default ProductFilterUpdatePage;
