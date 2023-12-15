@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { sva } from '@move-in/styled-system/css';
+import { cx, sva } from '@move-in/styled-system/css';
 
 const blockStyle = sva({
   slots: ['root', 'floatingContainer', 'buttonContainer'],
@@ -19,7 +19,7 @@ const blockStyle = sva({
       alignItems: 'center',
       padding: '16px 20px 24px 20px',
       gap: '12px',
-      backgroundColor: 'fill.light.01'
+      backgroundColor: 'fill.light.01',
     },
   },
   variants: {
@@ -34,14 +34,15 @@ const blockStyle = sva({
 });
 
 interface CTAButtonBlockProps {
+  className?: string;
   floating?: boolean;
 }
 
-export const CTAButtonBlock: React.FC<PropsWithChildren<CTAButtonBlockProps>> = ({ floating, children }) => {
+export const CTAButtonBlock: React.FC<PropsWithChildren<CTAButtonBlockProps>> = ({ className, floating, children }) => {
   const classes = blockStyle({ floating });
 
   return (
-    <div className={classes.root}>
+    <div className={cx(classes.root, className)}>
       <div className={classes.floatingContainer} />
       <div className={classes.buttonContainer}>{children}</div>
     </div>
