@@ -126,7 +126,7 @@ export const Popup: React.FC<PopupProps> = ({ id, trigger, ref, isOpen, onDidDis
         '--width': 'fit-content',
         '--min-width': '280px',
         '--height': 'fit-content',
-        '--border-radius': '6px',
+        '--border-radius': '24px',
         '--box-shadow': '0 28px 48px rgba(0, 0, 0, 0.4)',
       }}
     >
