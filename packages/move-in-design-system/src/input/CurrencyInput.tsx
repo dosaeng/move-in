@@ -10,6 +10,8 @@ const inputStyle = sva({
     input: {
       width: '1px',
       outline: 'none',
+      caretColor: 'transparent',
+      color: 'transparent'
     },
     label: {
       textStyle: 'header-28-b',
