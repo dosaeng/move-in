@@ -9,9 +9,9 @@ function App() {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/" component={HomePage} />
+          <Route path="/tabs" component={HomePage} />
           <Route exact path="/product-filters/:id" component={ProductFilterDetailPage} />
-          <Route render={() => <Redirect to="/" />} />
+          <Route render={() => <Redirect to="/tabs" />} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
