@@ -8,6 +8,8 @@ import { RouteComponentProps, useHistory } from 'react-router-dom';
 import ProductFilterDetailActionModal from '../components/ProductFilterDetailActionModal';
 import ProductFilterTagList from '../components/ProductFilterTagList';
 import useProductFilterDetail from '../hooks/useProductFilterDetail';
+import ProductFilterDeleteRequestPopup from '../components/ProductFilterDeleteRequestPopup';
+import ProductSuggestionStopRequestPopup from '@/features/product-suggestion/components/ProductSuggestionStopRequestPopup';
 
 const ProductFilterDetailPage: React.FC<
   RouteComponentProps<{
@@ -18,6 +20,8 @@ const ProductFilterDetailPage: React.FC<
   const filterId = match.params.id;
   const { data: detail, isLoading: isLoading } = useProductFilterDetail(filterId);
   const [isOpenActionModal, setIsOpenActionModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenStopRequestModal, setIsOpenStopRequestModal] = useState(false);
 
   return (
     <IonPage>
@@ -101,15 +105,38 @@ const ProductFilterDetailPage: React.FC<
                 history.push(`/product-filters/${filterId}/update`);
                 break;
               case 'STOP_REQUEST':
-                // TODO. 요청 취소 처리
+                setIsOpenStopRequestModal(true);
                 break;
               case 'DELETE':
-                // TODO. 삭제 처리
+                setIsOpenDeleteModal(true);
                 break;
             }
           }}
         />
       )}
+      <ProductFilterDeleteRequestPopup
+        filterName={detail?.name}
+        isOpen={isOpenDeleteModal}
+        onDidDismiss={(isAgree) => {
+          setIsOpenDeleteModal(false);
+
+          if (!isAgree) return;
+
+          // TODO. 삭제 요청 API 호출
+          history.goBack();
+        }}
+      />
+      <ProductSuggestionStopRequestPopup
+        filterName={detail?.name}
+        isOpen={isOpenStopRequestModal}
+        onDidDismiss={(isAgree) => {
+          setIsOpenStopRequestModal(false);
+
+          if (!isAgree) return;
+
+          // TODO. 제안 중지 요청 API 호출
+        }}
+      />
     </IonPage>
   );
 };
