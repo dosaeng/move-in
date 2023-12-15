@@ -1,9 +1,13 @@
-import { IonContent, IonPage } from '@ionic/react';
+import { IonContent, IonPage, ScrollDetail } from '@ionic/react';
 import ProductFilterListView from '../components/ProductFilterListView';
 import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
 
-const ProductFilterListPage: React.FC = () => {
+interface Props {
+  onIonScroll?: (e: CustomEvent<ScrollDetail>) => void;
+}
+
+const ProductFilterListPage: React.FC<Props> = ({ onIonScroll }) => {
   const history = useHistory();
 
   return (
@@ -13,6 +17,8 @@ const ProductFilterListPage: React.FC = () => {
           '--padding-top': '24px',
           '--padding-bottom': '40px',
         })}
+        onIonScroll={onIonScroll}
+        scrollEvents
       >
         <ProductFilterListView
           onClick={(data) => {

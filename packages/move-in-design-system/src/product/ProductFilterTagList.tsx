@@ -16,7 +16,7 @@ export const ProductFilterTagList: React.FC<{ className?: string; tags: string[]
       )}
     >
       {tags.map((tag) => (
-        <ProductFilterTagListItem>{tag}</ProductFilterTagListItem>
+        <ProductFilterTagListItem key={tag}>{tag}</ProductFilterTagListItem>
       ))}
     </div>
   );

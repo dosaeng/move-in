@@ -1,13 +1,10 @@
 import { IonContent, IonHeader, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton } from '@ionic/react';
-import {
-  IconButton,
-  IconMenu2,
-  PageHeader
-} from '@move-in/move-in-design-system';
+import { IconButton, IconMenu2, PageHeader } from '@move-in/move-in-design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { Redirect, Route } from 'react-router-dom';
 import ProductFilterListPage from '../../product-filter/pages/ProductFilterListPage';
 import ProfileSection from '../../profile/components/ProfileSection';
+import { useState } from 'react';
 
 const tabStyle = cx(
   css({
@@ -27,11 +24,22 @@ const tabStyle = cx(
 );
 
 const HomePage: React.FC = () => {
+  const [scrollY, setScrollY] = useState(0);
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <PageHeader right={<IconButton shape="clear" size="s" theme="neutral" icon={<IconMenu2 />} />} />
-        <ProfileSection />
+        <div
+          className={cx(
+            css({
+              overflow: 'hidden',
+            })
+          )}
+          style={{ height: `${Math.max(0, 160 - scrollY)}px` }}
+        >
+          <ProfileSection />
+        </div>
         <IonTabBar>
           <IonTabButton className={tabStyle} tab="product-filters" href="/tabs/product-filters">
             <IonLabel>고객 탐색</IonLabel>
@@ -48,13 +56,25 @@ const HomePage: React.FC = () => {
         <IonRouterOutlet>
           <Redirect exact path="/tabs" to="/tabs/product-filters" />
           <Route exact path="/tabs/product-filters">
-            <ProductFilterListPage />
+            <ProductFilterListPage
+              onIonScroll={(e) => {
+                setScrollY(e.detail.currentY);
+              }}
+            />
           </Route>
           <Route exact path="/tabs/products">
-            <ProductFilterListPage />
+            <ProductFilterListPage
+              onIonScroll={(e) => {
+                setScrollY(e.detail.currentY);
+              }}
+            />
           </Route>
           <Route exact path="/tabs/consultants">
-            <ProductFilterListPage />
+            <ProductFilterListPage
+              onIonScroll={(e) => {
+                setScrollY(e.detail.currentY);
+              }}
+            />
           </Route>
         </IonRouterOutlet>
       </IonContent>
