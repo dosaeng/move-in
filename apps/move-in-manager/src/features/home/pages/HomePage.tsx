@@ -1,15 +1,9 @@
+import { IonContent, IonHeader, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton } from '@ionic/react';
 import {
-  IonContent,
-  IonHeader,
-  IonLabel,
-  IonPage,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-} from '@ionic/react';
-import { PageHeader } from '@move-in/move-in-design-system';
-import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+  IconButton,
+  IconMenu2,
+  PageHeader
+} from '@move-in/move-in-design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { Redirect, Route } from 'react-router-dom';
 import ProductFilterListPage from '../../product-filter/pages/ProductFilterListPage';
@@ -36,40 +30,33 @@ const HomePage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <PageHeader left={<PageHeaderBackButton />} />
+        <PageHeader right={<IconButton shape="clear" size="s" theme="neutral" icon={<IconMenu2 />} />} />
         <ProfileSection />
+        <IonTabBar>
+          <IonTabButton className={tabStyle} tab="product-filters" href="/product-filters">
+            <IonLabel>고객 탐색</IonLabel>
+          </IonTabButton>
+          <IonTabButton className={tabStyle} tab="products" href="/products">
+            <IonLabel>매물 관리</IonLabel>
+          </IonTabButton>
+          <IonTabButton className={tabStyle} tab="consultants" href="/consultants">
+            <IonLabel>상담 관리</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
       </IonHeader>
       <IonContent>
-        <IonTabs>
-          <IonTabBar
-            slot="top"
-            className={css({
-              height: '40px',
-            })}
-          >
-            <IonTabButton className={tabStyle} tab="product-filters" href="/product-filters">
-              <IonLabel>고객 탐색</IonLabel>
-            </IonTabButton>
-            <IonTabButton className={tabStyle} tab="products" href="/products">
-              <IonLabel>매물 관리</IonLabel>
-            </IonTabButton>
-            <IonTabButton className={tabStyle} tab="consultants" href="/consultants">
-              <IonLabel>상담 관리</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-          <IonRouterOutlet>
-            <Route exact path="/product-filters">
-              <ProductFilterListPage />
-            </Route>
-            <Route exact path="/products">
-              <ProductFilterListPage />
-            </Route>
-            <Route exact path="/consultants">
-              <ProductFilterListPage />
-            </Route>
-            <Redirect to="/product-filters" />
-          </IonRouterOutlet>
-        </IonTabs>
+        <IonRouterOutlet>
+          <Redirect exact path="/" to="/product-filters" />
+          <Route exact path="/product-filters">
+            <ProductFilterListPage />
+          </Route>
+          <Route exact path="/products">
+            <ProductFilterListPage />
+          </Route>
+          <Route exact path="/consultants">
+            <ProductFilterListPage />
+          </Route>
+        </IonRouterOutlet>
       </IonContent>
     </IonPage>
   );
