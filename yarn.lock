@@ -1892,6 +1892,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ionic/core@npm:7.6.1":
+  version: 7.6.1
+  resolution: "@ionic/core@npm:7.6.1"
+  dependencies:
+    "@stencil/core": "npm:^4.8.2"
+    ionicons: "npm:^7.2.1"
+    tslib: "npm:^2.1.0"
+  checksum: 3192fe20debe3369384f27daddd8011472b8edc6f71915083e7514983a0200c30ca9aa6546c9e71614b5481dac99f5410f0102a0eaf9a4819b2f14aa957c7067
+  languageName: node
+  linkType: hard
+
 "@ionic/react-router@npm:^7.5.7":
   version: 7.5.7
   resolution: "@ionic/react-router@npm:7.5.7"
@@ -1907,6 +1918,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ionic/react-router@npm:^7.6.1":
+  version: 7.6.1
+  resolution: "@ionic/react-router@npm:7.6.1"
+  dependencies:
+    "@ionic/react": "npm:7.6.1"
+    tslib: "npm:*"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-dom: ">=16.8.6"
+    react-router: ^5.0.1
+    react-router-dom: ^5.0.1
+  checksum: 0dfbc56ab807582e5557a5f5ee86ac3188fb0af839a8e906e37e6e3df3f04d325572d1470185b3ace88baac681632be7c646dde79844f35f405fcf05b2058813
+  languageName: node
+  linkType: hard
+
 "@ionic/react@npm:7.5.7, @ionic/react@npm:^7.5.7":
   version: 7.5.7
   resolution: "@ionic/react@npm:7.5.7"
@@ -1918,6 +1944,20 @@ __metadata:
     react: ">=16.8.6"
     react-dom: ">=16.8.6"
   checksum: 2268eba33877935e170cee0be2605450e09e306d5061a4afd1879ff6df8ed934b07978208e00d3deda3181b0c62d34eaae961f9364b4b946b6525b3a876f99d1
+  languageName: node
+  linkType: hard
+
+"@ionic/react@npm:7.6.1, @ionic/react@npm:^7.6.1":
+  version: 7.6.1
+  resolution: "@ionic/react@npm:7.6.1"
+  dependencies:
+    "@ionic/core": "npm:7.6.1"
+    ionicons: "npm:^7.0.0"
+    tslib: "npm:*"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-dom: ">=16.8.6"
+  checksum: 053a63187f1affc62cf11cd65a3c2412d41691f510793427c9be3989cf8579cc190ed883b4cafa35d1c17672406ced72f3c4d3a5702e65327fb7faf2af08a1e4
   languageName: node
   linkType: hard
 
@@ -2211,20 +2251,37 @@ __metadata:
   resolution: "@move-in/move-in-manager@workspace:apps/move-in-manager"
   dependencies:
     "@capacitor/android": "npm:^5.5.1"
+    "@capacitor/app": "npm:^5.0.6"
     "@capacitor/cli": "npm:^5.5.1"
     "@capacitor/core": "npm:^5.5.1"
     "@capacitor/ios": "npm:^5.5.1"
+    "@ionic/react": "npm:^7.6.1"
+    "@ionic/react-router": "npm:^7.6.1"
     "@move-in/move-in-design-system": "workspace:^"
+    "@pandacss/dev": "npm:^0.20.1"
+    "@storybook/addon-essentials": "npm:7.6.4"
+    "@storybook/addon-interactions": "npm:7.6.4"
+    "@storybook/addon-links": "npm:7.6.4"
+    "@storybook/addon-onboarding": "npm:1.0.10"
+    "@storybook/blocks": "npm:7.6.4"
+    "@storybook/react": "npm:7.6.4"
+    "@storybook/react-vite": "npm:7.6.4"
+    "@storybook/test": "npm:7.6.4"
     "@types/react": "npm:^18.2.37"
     "@types/react-dom": "npm:^18.2.15"
     "@typescript-eslint/eslint-plugin": "npm:^6.10.0"
     "@typescript-eslint/parser": "npm:^6.10.0"
     "@vitejs/plugin-react": "npm:^4.2.0"
+    date-fns: "npm:^2.30.0"
     eslint: "npm:^8.53.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.4"
+    eslint-plugin-storybook: "npm:^0.6.15"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-query: "npm:^3.39.3"
+    react-router-dom: "npm:^5.3.4"
+    storybook: "npm:7.6.4"
     typescript: "npm:^5.2.2"
     vite: "npm:^5.0.0"
   languageName: unknown
@@ -3261,6 +3318,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stencil/core@npm:^4.8.2":
+  version: 4.8.2
+  resolution: "@stencil/core@npm:4.8.2"
+  bin:
+    stencil: bin/stencil
+  checksum: cce11ba5f3a461155b9e11da97f9d0eaaa88a22642e3faa77fefd44147bfee17658c8de2a4e2300e41e2d4877d2b2af7b1ef4cb3d4c3f695dc6969e64d2bc04b
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-actions@npm:7.6.3":
   version: 7.6.3
   resolution: "@storybook/addon-actions@npm:7.6.3"
@@ -3536,6 +3602,19 @@ __metadata:
     "@storybook/global": "npm:^5.0.0"
     tiny-invariant: "npm:^1.3.1"
   checksum: e4dc046387a62c9b0e079b6ba899315fd681cf23648601afe641769b824f7ab03b452b95bf04ba3983e0ad3b05fdb18a2f6b906738cce63b2496223ec16e288f
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-onboarding@npm:1.0.10":
+  version: 1.0.10
+  resolution: "@storybook/addon-onboarding@npm:1.0.10"
+  dependencies:
+    "@storybook/telemetry": "npm:^7.1.0"
+    react-confetti: "npm:^6.1.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 4ee04976e9adcf73d9b3645b766e39ba19e34144c05348b63390719cdf77f79fe9e44da45af2cd61849940427c1c553563165d57511e54e1bf26fb3817ec53dc
   languageName: node
   linkType: hard
 
