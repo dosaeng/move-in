@@ -1,14 +1,28 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, Divider, PageHeader } from '@move-in/move-in-design-system';
 import { css } from '@move-in/styled-system/css';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ProductFilterListView from '../components/ProductFilterListView';
+import ProductFilterCreateNudgePopup from '../components/create/ProductFilterCreateNudgePopup';
 import useProductFilterListItem, { ProductFilterState } from '../hooks/useProductFilterList';
+import useProductFilterCreateNudgeState from '../hooks/useProductFilterCreateNudgeState';
 
 const ProductFilterListPage: React.FC = () => {
   const history = useHistory();
   const { data, isSuccess } = useProductFilterListItem();
+  const [isOpenNudgePopup, setIsOpenNudgePopup] = useState(false);
+  const { state: visibleCreateNudge, mutate: hideCreateNudge } = useProductFilterCreateNudgeState();
   const isEmpty = isSuccess && data?.length === 0;
+
+  useEffect(() => {
+    // 최초 진입시에만 노출
+    if (!visibleCreateNudge) return;
+
+    setTimeout(() => {
+      setIsOpenNudgePopup(true);
+    }, 1000);
+  }, [visibleCreateNudge]);
 
   return (
     <IonPage>
@@ -122,6 +136,17 @@ const ProductFilterListPage: React.FC = () => {
           />
         </CTAButtonBlock>
       </IonFooter>
+      <ProductFilterCreateNudgePopup
+        isOpen={isOpenNudgePopup}
+        onDidDismiss={(isAgree) => {
+          hideCreateNudge();
+          setIsOpenNudgePopup(false);
+
+          if (!isAgree) return;
+
+          history.push('/product-filters-create');
+        }}
+      />
     </IonPage>
   );
 };
