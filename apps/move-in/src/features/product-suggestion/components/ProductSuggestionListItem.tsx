@@ -1,5 +1,4 @@
-import { ProductDepositFormat, ProductMonthlyRentFormat } from '@/common/components/CurrencyFormat';
-import DateFormat from '@/common/components/DateFormat';
+import { ProductDepositFormat, ProductMonthlyRentFormat, DateFormat } from '@move-in/move-in-design-system';
 import { IonSkeletonText } from '@ionic/react';
 import { css } from '@move-in/styled-system/css';
 import { ProductSuggestionListItemModel } from '../hooks/useProductSuggestionList';

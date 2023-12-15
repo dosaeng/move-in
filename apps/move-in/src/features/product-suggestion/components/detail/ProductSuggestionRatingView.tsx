@@ -1,5 +1,4 @@
-import ProductFilterTagList from '@/features/product-filter/components/ProductFilterTagList';
-import { RatingInput } from '@move-in/move-in-design-system';
+import { ProductFilterTagList, RatingInput } from '@move-in/move-in-design-system';
 import { css } from '@move-in/styled-system/css';
 import { ProductSuggestionRatingModel } from '../../hooks/useProductSuggestionDetail';
 

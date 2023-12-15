@@ -103,9 +103,9 @@ const useProductSuggestionDetail = (id: string | number) => {
         // 매물 등록일
         registeredDate: new Date('2021-01-01'),
         // 매물 보증금
-        deposit: 10000,
+        deposit: 10000000,
         // 매물 월세
-        monthlyRent: 100,
+        monthlyRent: 1000000,
         // 매물 관리비
         maintenanceFee: 100,
         // 매물 월 고정비

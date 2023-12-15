@@ -1,4 +1,5 @@
-import { format as koreanCurrencyFormat } from '@/common/utils/koreanCurrencyFormat';
+import { format as koreanCurrencyFormat } from '../utils/koreanCurrencyFormat';
+import React from 'react';
 
 export const ProductDepositFormat: React.FC<{ value: number }> = ({ value }) => {
   return <>{koreanCurrencyFormat(value)}</>;

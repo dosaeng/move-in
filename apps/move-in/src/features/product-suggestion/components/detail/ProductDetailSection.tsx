@@ -1,8 +1,7 @@
+import { BoxLabel, DateFormat } from '@move-in/move-in-design-system';
 import { css, cx } from '@move-in/styled-system/css';
-import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';
 import { useMemo } from 'react';
-import BoxLabel from '@/common/components/BoxLabel';
-import DateFormat from '@/common/components/DateFormat';
+import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';
 
 interface Props {
   className?: string;

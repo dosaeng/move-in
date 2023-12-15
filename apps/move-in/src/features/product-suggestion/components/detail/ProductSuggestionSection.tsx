@@ -2,8 +2,7 @@ import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../
 import ProductSuggestionRatingGraph from './ProductSuggestionRatingGraph';
 import { css } from '@move-in/styled-system/css';
 import ProductSuggestionRatingView from './ProductSuggestionRatingView';
-import DateFormat from '@/common/components/DateFormat';
-import { ProductDepositFormat } from '@/common/components/CurrencyFormat';
+import { ProductDepositFormat, DateFormat } from '@move-in/move-in-design-system';
 
 interface Props {
   id: string | number;

@@ -1,7 +1,7 @@
 import { cx, css } from '@move-in/styled-system/css';
-import ProductFilterTagListItem from './ProductFilterTagListItem';
+import { ProductFilterTagListItem } from './ProductFilterTagListItem';
 
-const ProductFilterTagList: React.FC<{ className?: string; tags: string[] }> = ({ className, tags }) => {
+export const ProductFilterTagList: React.FC<{ className?: string; tags: string[] }> = ({ className, tags }) => {
   return (
     <div
       className={cx(
@@ -21,5 +21,3 @@ const ProductFilterTagList: React.FC<{ className?: string; tags: string[] }> = (
     </div>
   );
 };
-
-export default ProductFilterTagList;

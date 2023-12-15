@@ -1,6 +1,7 @@
 import { cx, css } from '@move-in/styled-system/css';
+import React from 'react';
 
-const BoxLabel: React.FC<
+export const BoxLabel: React.FC<
   React.PropsWithChildren<{
     className?: string;
   }>
@@ -24,5 +25,3 @@ const BoxLabel: React.FC<
     </div>
   );
 };
-
-export default BoxLabel;

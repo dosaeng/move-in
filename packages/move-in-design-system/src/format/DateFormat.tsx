@@ -1,11 +1,12 @@
 import { format as formatDate } from 'date-fns';
+import React from 'react';
 
 interface Props {
   date?: Date;
   format: string;
 }
 
-const DateFormat: React.FC<Props> = ({ date, format }) => {
+export const DateFormat: React.FC<Props> = ({ date, format }) => {
   try {
     if(date == null) {
       return <></>;
@@ -18,5 +19,3 @@ const DateFormat: React.FC<Props> = ({ date, format }) => {
     return <></>;
   }
 };
-
-export default DateFormat;

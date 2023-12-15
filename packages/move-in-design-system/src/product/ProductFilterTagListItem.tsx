@@ -1,6 +1,6 @@
 import { css } from '@move-in/styled-system/css';
 
-const ProductFilterTagListItem: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const ProductFilterTagListItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <div
       className={css({
@@ -18,5 +18,3 @@ const ProductFilterTagListItem: React.FC<React.PropsWithChildren> = ({ children 
     </div>
   );
 };
-
-export default ProductFilterTagListItem;
