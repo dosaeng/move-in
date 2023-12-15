@@ -42,11 +42,13 @@ const inputStyle = sva({
       display: 'inline',
       opacity: '1',
       transition: 'opacity .2s ease-out',
+      whiteSpace: 'nowrap',
     },
     helperText: {
       display: 'none',
       opacity: '0',
       transition: 'opacity .2s ease-out',
+      whiteSpace: 'nowrap',
     },
   },
   variants: {

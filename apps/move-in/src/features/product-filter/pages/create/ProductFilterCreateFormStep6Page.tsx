@@ -39,7 +39,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
         <TextField
           id="filter-name"
           type="text"
-          label="기억하기 쉽게 지어주세요 (ex - 강남 신혼집 가성비 구성)"
+          label="기억하기 쉽게 지어주세요"
           helperText="기억하기 쉽게 지어주세요 (ex - 강남 신혼집 가성비 구성)"
           placeholder="기억하기 쉽게 지어주세요 (ex - 강남 신혼집 가성비 구성)"
           onChange={(e) => {
