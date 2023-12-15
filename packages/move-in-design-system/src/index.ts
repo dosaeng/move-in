@@ -21,3 +21,5 @@ export { CurrencyInput } from './input/CurrencyInput';
 export type { CurrencyInputProps } from './input/CurrencyInput';
 export { SearchInput } from './input/SearchInput';
 export type { SearchInputProps } from './input/SearchInput';
+export { RatingInput } from './input/RatingInput';
+export type { RatingInputProps } from './input/RatingInput';
