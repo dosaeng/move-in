@@ -1,6 +1,8 @@
 import { css, cx } from '@move-in/styled-system/css';
 import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';
 import { useMemo } from 'react';
+import BoxLabel from '@/common/components/BoxLabel';
+import DateFormat from '@/common/components/DateFormat';
 
 interface Props {
   className?: string;
@@ -49,19 +51,7 @@ const ProductDetailHeader: React.FC<{ className?: string; data?: ProductSuggesti
           marginBottom: '8px',
         })}
       >
-        <div
-          className={css({
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderColor: 'brand.purple.03',
-            color: 'brand.purple.03',
-            paddingX: '8px',
-            paddingY: '4px',
-            textStyle: 'body-12-m',
-          })}
-        >
-          {data?.product.type}
-        </div>
+        <BoxLabel>{data?.product.type}</BoxLabel>
       </div>
       <div
         className={css({
@@ -188,8 +178,12 @@ const ProductDetailContent: React.FC<{ className?: string; data?: ProductSuggest
       <ProductDetailContentRow title="층수 및 주실 방향">
         {data?.product.floor}층 / {data?.product.totalFloor}층 / {data?.product.direction}
       </ProductDetailContentRow>
-      <ProductDetailContentRow title="사용 승인일">{data?.product.approvalDate}</ProductDetailContentRow>
-      <ProductDetailContentRow title="매물 등록일">{data?.product.registeredDate}</ProductDetailContentRow>
+      <ProductDetailContentRow title="사용 승인일">
+        <DateFormat date={data?.product.approvalDate} format="yyyy.MM.dd" />
+      </ProductDetailContentRow>
+      <ProductDetailContentRow title="매물 등록일">
+        <DateFormat date={data?.product.registeredDate} format="yyyy.MM.dd" />
+      </ProductDetailContentRow>
       <ProductDetailContentRow title="담당 중개인">{data?.agent.name}</ProductDetailContentRow>
     </div>
   );

@@ -1,5 +1,11 @@
 import { useQuery } from 'react-query';
 
+export interface ProductSuggestionRatingModel {
+  score: number;
+  selected: string[];
+  comment: string;
+}
+
 export interface ProductSuggestionDetailModel {
   id: number;
   filterId: number;
@@ -23,9 +29,9 @@ export interface ProductSuggestionDetailModel {
     // 매물 방향
     direction: string;
     // 매물 사용 승인일
-    approvalDate: string;
+    approvalDate: Date;
     // 매물 등록일
-    registeredDate: string;
+    registeredDate: Date;
     // 매물 보증금
     deposit: number;
     // 매물 월세
@@ -37,41 +43,21 @@ export interface ProductSuggestionDetailModel {
     // 비용 조정 가능 여부
     isCostAdjustable: boolean;
     // 입주 가능 최소 일자
-    minimumMoveInDate: string;
+    minimumMoveInDate: Date;
     // 입주 가능 최대 일자
-    maximumMoveInDate: string;
+    maximumMoveInDate: Date;
   };
   productSuggestion: {
     // 가족 조건
-    familyPreference: {
-      score: number;
-      selected: string[];
-      comment: string;
-    };
+    familyPreference: ProductSuggestionRatingModel;
     // 입주 조건
-    moveInPreference: {
-      score: number;
-      selected: string[];
-      comment: string;
-    };
+    moveInPreference: ProductSuggestionRatingModel;
     // 주거 비용 예산
-    costPreference: {
-      score: number;
-      selected: string[];
-      comment: string;
-    };
+    costPreference: ProductSuggestionRatingModel;
     // 원하는 집의 조건
-    productPreference: {
-      score: number;
-      selected: string[];
-      comment: string;
-    };
+    productPreference: ProductSuggestionRatingModel;
     // 라이프 스타일
-    lifestylePreference: {
-      score: number;
-      selected: string[];
-      comment: string;
-    };
+    lifestylePreference: ProductSuggestionRatingModel;
   };
   agent: {
     name: string;
@@ -113,9 +99,9 @@ const useProductSuggestionDetail = (id: string | number) => {
         // 매물 방향
         direction: '남향',
         // 매물 사용 승인일
-        approvalDate: '2021-01-01',
+        approvalDate: new Date('2021-01-01'),
         // 매물 등록일
-        registeredDate: '2021-01-01',
+        registeredDate: new Date('2021-01-01'),
         // 매물 보증금
         deposit: 10000,
         // 매물 월세
@@ -127,9 +113,9 @@ const useProductSuggestionDetail = (id: string | number) => {
         // 비용 조정 가능 여부
         isCostAdjustable: true,
         // 입주 가능 최소 일자
-        minimumMoveInDate: '2021-01-01',
+        minimumMoveInDate: new Date('2021-01-01'),
         // 입주 가능 최대 일자
-        maximumMoveInDate: '2021-01-01',
+        maximumMoveInDate: new Date('2021-01-01'),
       },
       productSuggestion: {
         // 가족 조건
