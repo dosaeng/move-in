@@ -24,7 +24,7 @@ const tabStyle = cx(
 );
 
 const HomePage: React.FC = () => {
-  const [scrollY, setScrollY] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   return (
     <IonPage>
@@ -33,10 +33,11 @@ const HomePage: React.FC = () => {
         <div
           className={cx(
             css({
+              transition: 'height 0.3s ease-in-out',
               overflow: 'hidden',
             })
           )}
-          style={{ height: `${Math.max(0, 160 - scrollY)}px` }}
+          style={{ height: isScrolled ? '0px' : '167px'}}
         >
           <ProfileSection />
         </div>
@@ -58,21 +59,21 @@ const HomePage: React.FC = () => {
           <Route exact path="/tabs/product-filters">
             <ProductFilterListPage
               onIonScroll={(e) => {
-                setScrollY(e.detail.currentY);
+                setIsScrolled(e.detail.currentY > 0);
               }}
             />
           </Route>
           <Route exact path="/tabs/products">
             <ProductFilterListPage
               onIonScroll={(e) => {
-                setScrollY(e.detail.currentY);
+                setIsScrolled(e.detail.currentY > 0);
               }}
             />
           </Route>
           <Route exact path="/tabs/consultants">
             <ProductFilterListPage
               onIonScroll={(e) => {
-                setScrollY(e.detail.currentY);
+                setIsScrolled(e.detail.currentY > 0);
               }}
             />
           </Route>
