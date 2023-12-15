@@ -8,6 +8,7 @@ export enum ProductConsultingState {
 export interface ProductConsultingListItemModel {
   id: number;
   state: ProductConsultingState;
+  suggestionId?: number;
   // 상품 아이디
   productId: number;
   // 상품 이름
@@ -40,6 +41,7 @@ const useProductConsultingList = () => {
       {
         id: 1,
         state: ProductConsultingState.WAITING,
+        suggestionId: 1,
         productId: 1,
         name: '테스트 상품 1',
         thumbnail: 'https://picsum.photos/200',
@@ -55,6 +57,7 @@ const useProductConsultingList = () => {
       {
         id: 2,
         state: ProductConsultingState.WAITING,
+        suggestionId: 2,
         productId: 2,
         name: '테스트 상품 2',
         thumbnail: 'https://picsum.photos/200',
@@ -70,6 +73,7 @@ const useProductConsultingList = () => {
       {
         id: 3,
         state: ProductConsultingState.DONE,
+        suggestionId: 3,
         productId: 3,
         name: '테스트 상품 3',
         thumbnail: 'https://picsum.photos/200',

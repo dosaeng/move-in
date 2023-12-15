@@ -50,7 +50,7 @@ const ProductSuggestionDetailPage: React.FC<
         <ProductSuggestionSection id={detailId} />
         <ProductAgentSection id={detailId} />
       </IonContent>
-      <IonFooter>
+      <IonFooter className="ion-no-border">
         <CTAButtonBlock>
           <Button
             className={css({

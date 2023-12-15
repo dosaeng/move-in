@@ -57,7 +57,12 @@ const ProductConsultingListPage: React.FC = () => {
           </div>
         ) : (
           <>
-            <ProductConsultingListView state={[ProductConsultingState.WAITING]} />
+            <ProductConsultingListView
+              state={[ProductConsultingState.WAITING]}
+              onClick={(item) => {
+                history.push(`/product-suggestions/${item.suggestionId}`);
+              }}
+            />
             {hasDoneConsulting && (
               <>
                 <Divider className={css({ marginY: '40px' })} />
