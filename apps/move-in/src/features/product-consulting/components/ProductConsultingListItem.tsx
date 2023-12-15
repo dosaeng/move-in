@@ -1,15 +1,15 @@
+import { IonSkeletonText } from '@ionic/react';
+import { ProductConsultingListItemModel } from '../hooks/useProductConsultingList';
+import { css } from '@move-in/styled-system/css';
 import { ProductDepositFormat, ProductMonthlyRentFormat } from '@/common/components/CurrencyFormat';
 import DateFormat from '@/common/components/DateFormat';
-import { IonSkeletonText } from '@ionic/react';
-import { css } from '@move-in/styled-system/css';
-import { ProductSuggestionListItemModel } from '../hooks/useProductSuggestionList';
 
 interface Props {
-  data: ProductSuggestionListItemModel;
+  data: ProductConsultingListItemModel;
   onClick?: () => void;
 }
 
-const ProductSuggestionListItem: React.FC<Props> = ({ data, onClick }) => {
+const ProductConsultingListItem: React.FC<Props> = ({ data, onClick }) => {
   return (
     <div
       className={css({
@@ -71,7 +71,7 @@ const ProductSuggestionListItem: React.FC<Props> = ({ data, onClick }) => {
             color: 'text.dark.01',
           })}
         >
-          <DateFormat date={data.suggestionDate} format="yyyy.MM.dd" />
+          <DateFormat date={data.consultingRequestDate} format="yyyy.MM.dd" />
         </div>
         <div
           className={css({
@@ -95,36 +95,48 @@ const ProductSuggestionListItem: React.FC<Props> = ({ data, onClick }) => {
   );
 };
 
-export const ProductSuggestionListItemSkeleton: React.FC = () => {
+export default ProductConsultingListItem;
+
+export const ProductConsultingListItemSkeleton: React.FC = () => {
   return (
     <div
       className={css({
         display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: '130px',
       })}
     >
       <div
         className={css({
           display: 'flex',
-          justifyContent: 'space-between',
-          gap: '20px',
+          flexDirection: 'column',
+          gap: '4px',
         })}
       >
-        <div
+        <IonSkeletonText
           className={css({
-            display: 'flex',
-            flexDirection: 'column',
+            width: '100px',
+            borderRadius: '8px',
           })}
-        >
-          <IonSkeletonText animated style={{ width: '200px', height: '16px', marginBottom: '4px' }} />
-          <IonSkeletonText animated style={{ width: '80%', height: '12px', marginBottom: '12px' }} />
-        </div>
-        <IonSkeletonText style={{ width: '88px', height: '88px' }} />
+          animated
+        />
+        <IonSkeletonText
+          className={css({
+            width: '200px',
+            height: '43px',
+            borderRadius: '8px',
+          })}
+          animated
+        />
       </div>
-      <div style={{ height: '20px' }} />
+      <IonSkeletonText
+        className={css({
+          width: '100px',
+          height: '88px',
+          borderRadius: '8px',
+        })}
+      />
     </div>
   );
 };
-
-export default ProductSuggestionListItem;

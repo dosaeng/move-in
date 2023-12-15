@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { subDays } from 'date-fns';
 import { ProductFilterState } from '../hooks/useProductFilterList';
-import ProductFilterListItem from './ProductFilterListItem';
+import ProductFilterListItem, { ProductFilterListItemSkeleton } from './ProductFilterListItem';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -11,6 +11,7 @@ const meta = {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
   },
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
       <div style={{ width: '375px', padding: '16px', border: '1px solid black', background: 'lightgrey' }}>
@@ -38,5 +39,11 @@ export const Default: Story = {
   },
   render: (args) => {
     return <ProductFilterListItem {...args} />;
+  },
+};
+
+export const Skeleton: StoryObj = {
+  render: (args) => {
+    return <ProductFilterListItemSkeleton {...args} />;
   },
 };

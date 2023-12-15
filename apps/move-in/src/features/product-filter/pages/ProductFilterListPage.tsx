@@ -1,12 +1,19 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, Divider, PageHeader } from '@move-in/move-in-design-system';
+import {
+  Button,
+  CTAButtonBlock,
+  Divider,
+  IconButton,
+  IconCalendarClock,
+  PageHeader
+} from '@move-in/move-in-design-system';
 import { css } from '@move-in/styled-system/css';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ProductFilterListView from '../components/ProductFilterListView';
 import ProductFilterCreateNudgePopup from '../components/create/ProductFilterCreateNudgePopup';
-import useProductFilterListItem, { ProductFilterState } from '../hooks/useProductFilterList';
 import useProductFilterCreateNudgeState from '../hooks/useProductFilterCreateNudgeState';
+import useProductFilterListItem, { ProductFilterState } from '../hooks/useProductFilterList';
 
 const ProductFilterListPage: React.FC = () => {
   const history = useHistory();
@@ -27,10 +34,20 @@ const ProductFilterListPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <PageHeader />
+        <PageHeader
+          right={
+            <IconButton
+              shape="clear"
+              theme="neutral"
+              icon={<IconCalendarClock />}
+              onClick={() => [history.push('/product-consultants')]}
+            />
+          }
+        />
       </IonHeader>
       <IonContent
         className={css({
+          '--padding-top': '24px',
           '--padding-bottom': '40px',
         })}
       >

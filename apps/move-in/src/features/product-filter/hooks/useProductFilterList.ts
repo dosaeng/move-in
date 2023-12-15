@@ -2,10 +2,10 @@ import { addDays, subDays } from 'date-fns';
 import { useQuery } from 'react-query';
 
 export enum ProductFilterState {
-  'DRAFT',
-  'PUBLISHED',
-  'REQUESTED',
-  'EXPIRED',
+  DRAFT = 'DRAFT',
+  PUBLISHED = 'PUBLISHED',
+  REQUESTED = 'REQUESTED',
+  EXPIRED = 'EXPIRED',
 }
 
 export interface ProductFilterListItemModel {
@@ -21,7 +21,7 @@ export interface ProductFilterListItemModel {
 const useProductFilterList = () => {
   return useQuery<ProductFilterListItemModel[]>(['product-filter-list'], async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    
+
     return [
       {
         id: 1,
