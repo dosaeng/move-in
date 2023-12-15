@@ -5,7 +5,7 @@ import {
   Divider,
   IconButton,
   IconCalendarClock,
-  PageHeader
+  PageHeader,
 } from '@move-in/move-in-design-system';
 import { css } from '@move-in/styled-system/css';
 import { useEffect, useState } from 'react';
@@ -13,14 +13,14 @@ import { useHistory } from 'react-router-dom';
 import ProductFilterListView from '../components/ProductFilterListView';
 import ProductFilterCreateNudgePopup from '../components/create/ProductFilterCreateNudgePopup';
 import useProductFilterCreateNudgeState from '../hooks/useProductFilterCreateNudgeState';
-import useProductFilterListItem, { ProductFilterState } from '../hooks/useProductFilterList';
+import { ProductFilterState } from '../hooks/useProductFilterList';
+import useProductFilterPageState from '../hooks/useProductFilterPageState';
 
 const ProductFilterListPage: React.FC = () => {
   const history = useHistory();
-  const { data, isSuccess } = useProductFilterListItem();
+  const { isEmpty, hasExpiredList } = useProductFilterPageState();
   const [isOpenNudgePopup, setIsOpenNudgePopup] = useState(false);
   const { state: visibleCreateNudge, mutate: hideCreateNudge } = useProductFilterCreateNudgeState();
-  const isEmpty = isSuccess && data?.length === 0;
 
   useEffect(() => {
     // 최초 진입시에만 노출
@@ -114,30 +114,34 @@ const ProductFilterListPage: React.FC = () => {
                   history.push(`/product-filters/${item.id}`);
                 }}
               />
-              <Divider size="m" />
-              <div
-                className={css({
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '24px',
-                })}
-              >
-                <div
-                  className={css({
-                    textStyle: 'body-18-m',
-                    color: 'text.dark.04',
-                    paddingX: '16px',
-                  })}
-                >
-                  제안이 마감 되었어요
-                </div>
-                <ProductFilterListView
-                  state={[ProductFilterState.EXPIRED]}
-                  onClick={(item) => {
-                    history.push(`/product-filters/${item.id}`);
-                  }}
-                />
-              </div>
+              {hasExpiredList && (
+                <>
+                  <Divider size="m" />
+                  <div
+                    className={css({
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '24px',
+                    })}
+                  >
+                    <div
+                      className={css({
+                        textStyle: 'body-18-m',
+                        color: 'text.dark.04',
+                        paddingX: '16px',
+                      })}
+                    >
+                      제안이 마감 되었어요
+                    </div>
+                    <ProductFilterListView
+                      state={[ProductFilterState.EXPIRED]}
+                      onClick={(item) => {
+                        history.push(`/product-filters/${item.id}`);
+                      }}
+                    />
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
