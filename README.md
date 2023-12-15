@@ -1,5 +1,7 @@
 # Move In
 - Move In 클라이언트 서비스를 위한 저장소 입니다.
+- 매니저 앱: https://move-in-manager-web.pages.dev
+- 일반 사용자 앱: https://move-in-web.pages.dev
 
 ## 구조
 ### apps 
