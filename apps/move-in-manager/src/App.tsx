@@ -11,7 +11,7 @@ function App() {
         <IonRouterOutlet>
           <Route path="/" component={HomePage} />
           <Route exact path="/product-filters/:id" component={ProductFilterDetailPage} />
-          <Route render={() => <Redirect to="/product-filters" />} />
+          <Route render={() => <Redirect to="/" />} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
