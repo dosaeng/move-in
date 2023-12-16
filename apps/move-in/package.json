@@ -21,6 +21,7 @@
     "@capacitor/keyboard": "^5.0.6",
     "@ionic/react": "^7.5.7",
     "@ionic/react-router": "^7.5.7",
+    "@move-in/core": "workspace:^",
     "@move-in/design-system": "workspace:^",
     "date-fns": "^2.30.0",
     "react": "^18.2.0",
@@ -31,7 +32,6 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^5.5.1",
-    "@move-in/core": "workspace:^",
     "@pandacss/dev": "^0.20.1",
     "@storybook/addon-essentials": "7.6.4",
     "@storybook/addon-interactions": "7.6.4",
