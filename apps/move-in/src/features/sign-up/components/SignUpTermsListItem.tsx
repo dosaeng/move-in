@@ -1,4 +1,4 @@
-import { CheckBox, IconButton, IconChevronRight } from '@move-in/move-in-design-system';
+import { CheckBox, IconButton, IconChevronRight } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 
 interface SignUpTermsListItemProps {

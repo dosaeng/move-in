@@ -1,7 +1,7 @@
 import { useKeyboard } from '@capacitor-community/keyboard-react';
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
-import { Button, PageHeader, TextField } from '@move-in/move-in-design-system';
-import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+import { Button, PageHeader, TextField } from '@move-in/design-system';
+import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

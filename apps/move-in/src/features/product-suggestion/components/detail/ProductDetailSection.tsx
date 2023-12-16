@@ -1,4 +1,4 @@
-import { BoxLabel, DateFormat } from '@move-in/move-in-design-system';
+import { BoxLabel, DateFormat } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { useMemo } from 'react';
 import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';

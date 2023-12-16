@@ -1,10 +1,10 @@
 import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { Divider, PageHeader } from '@move-in/move-in-design-system';
+import { Divider, PageHeader } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import ProductConsultingListView from '../components/ProductConsultingListView';
 import { ProductConsultingState } from '../hooks/useProductConsultingList';
 import useProductConsultingPageState from '../hooks/useProductConsultingPageState';
-import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { useHistory } from 'react-router-dom';
 
 const ProductConsultingListPage: React.FC = () => {

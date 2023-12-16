@@ -1,4 +1,4 @@
-import { CurrencyInput } from '@move-in/move-in-design-system';
+import { CurrencyInput } from '@move-in/design-system';
 import InputFieldContainer from '../base/InputFieldContainer';
 import InputFieldHeaderContainer from '../base/InputFieldHeaderContainer';
 

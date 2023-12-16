@@ -1,4 +1,4 @@
-import { Button, Modal } from '@move-in/move-in-design-system';
+import { Button, Modal } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import React from 'react';
 import SignUpTermsListItem from './SignUpTermsListItem';

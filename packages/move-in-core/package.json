@@ -1,0 +1,7 @@
+{
+  "name": "@move-in/core",
+  "packageManager": "yarn@4.0.2",
+  "dependencies": {
+    "react-query": "^3.39.3"
+  }
+}

@@ -6,7 +6,7 @@ import {
   IconButton,
   IconCalendarClock,
   PageHeader,
-} from '@move-in/move-in-design-system';
+} from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';

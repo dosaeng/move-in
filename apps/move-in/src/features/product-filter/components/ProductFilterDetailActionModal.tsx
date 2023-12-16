@@ -1,4 +1,4 @@
-import { Button, Modal } from '@move-in/move-in-design-system';
+import { Button, Modal } from '@move-in/design-system';
 import { ProductFilterDetailModel } from '../hooks/useProductFilterDetail';
 import { ProductFilterState } from '../hooks/useProductFilterList';
 import { css } from '@move-in/styled-system/css';

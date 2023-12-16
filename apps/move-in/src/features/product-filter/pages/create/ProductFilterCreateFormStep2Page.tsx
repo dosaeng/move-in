@@ -1,6 +1,6 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader } from '@move-in/move-in-design-system';
-import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+import { Button, CTAButtonBlock, PageHeader } from '@move-in/design-system';
+import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import DateInputField from '../../components/create/base/DateInputField';

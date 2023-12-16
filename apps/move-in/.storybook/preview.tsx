@@ -2,7 +2,7 @@ import { setupIonicReact } from '@ionic/react';
 import type { Preview } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import '@move-in/move-in-design-system/src/index.scss';
+import '@move-in/design-system/src/index.scss';
 import '../src/index.scss';
 import React from 'react';
 

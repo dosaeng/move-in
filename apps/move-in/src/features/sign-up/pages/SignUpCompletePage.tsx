@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
-import { IconCircleCheckFilled } from '@move-in/move-in-design-system';
+import { IconCircleCheckFilled } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';

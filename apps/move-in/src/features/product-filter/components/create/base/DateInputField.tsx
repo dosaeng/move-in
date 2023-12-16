@@ -1,4 +1,4 @@
-import { DateInput, DateInputProps } from '@move-in/move-in-design-system';
+import { DateInput, DateInputProps } from '@move-in/design-system';
 import InputFieldContainer from './InputFieldContainer';
 
 interface DateInputFieldProps extends DateInputProps {

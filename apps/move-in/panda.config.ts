@@ -1,5 +1,5 @@
 import { defineConfig } from "@pandacss/dev";
-import moveInPreset from '@move-in/move-in-design-system/src/panda-preset';
+import moveInPreset from '@move-in/design-system/src/panda-preset';
 
 export default defineConfig({
   // Whether to use css reset
@@ -9,7 +9,7 @@ export default defineConfig({
   // Where to look for your css declarations
   include: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    '../../node_modules/@move-in/move-in-design-system/src/**/*.{js,jsx,ts,tsx}',
+    '../../node_modules/@move-in/design-system/src/**/*.{js,jsx,ts,tsx}',
   ],
 
   // Files to exclude

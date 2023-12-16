@@ -1,8 +1,8 @@
 import ProductSuggestionRequestModal from '@/features/product-suggestion/components/ProductSuggestionRequestModal';
 import ProductSuggestionRequestNudgePopup from '@/features/product-suggestion/components/ProductSuggestionRequestNudgePopup';
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader, TextField } from '@move-in/move-in-design-system';
-import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+import { Button, CTAButtonBlock, PageHeader, TextField } from '@move-in/design-system';
+import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';

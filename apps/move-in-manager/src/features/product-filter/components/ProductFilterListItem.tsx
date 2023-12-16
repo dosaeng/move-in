@@ -1,5 +1,5 @@
 import { IonSkeletonText } from '@ionic/react';
-import { ProductFilterTagList } from '@move-in/move-in-design-system';
+import { ProductFilterTagList } from '@move-in/design-system';
 import { css, sva } from '@move-in/styled-system/css';
 import { differenceInCalendarDays } from 'date-fns';
 import { ProductFilterListItemModel, ProductSuggestionState } from '../hooks/useProductFilterList';

@@ -1,6 +1,6 @@
 import { useKeyboard } from '@capacitor-community/keyboard-react';
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
-import { Button, TextField } from '@move-in/move-in-design-system';
+import { Button, TextField } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';

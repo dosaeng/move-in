@@ -1,6 +1,6 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader } from '@move-in/move-in-design-system';
-import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+import { Button, CTAButtonBlock, PageHeader } from '@move-in/design-system';
+import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import ProductFilterDetailView from '../components/ProductFilterDetailView';
 import { css } from '@move-in/styled-system/css';

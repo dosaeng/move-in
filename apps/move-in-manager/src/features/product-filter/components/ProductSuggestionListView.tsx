@@ -1,4 +1,4 @@
-import { LineDivider } from '@move-in/move-in-design-system';
+import { LineDivider } from '@move-in/design-system';
 import useProductSuggestionList, { ProductSuggestionListItemModel } from '../hooks/useProductSuggestionList';
 import ProductSuggestionListItem from './ProductSuggestionListItem';
 import { css, cx } from '@move-in/styled-system/css';

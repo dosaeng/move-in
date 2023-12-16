@@ -1,5 +1,5 @@
 {
-  "name": "@move-in/move-in-design-system",
+  "name": "@move-in/design-system",
   "main": "./src/index.ts",
   "files": [
     "src",

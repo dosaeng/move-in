@@ -1,10 +1,10 @@
 import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { PageHeader } from '@move-in/move-in-design-system';
+import { PageHeader } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
 import ProductFilterListView from '../components/ProductFilterListView';
 import useProductFilterListItem, { ProductFilterState } from '../hooks/useProductFilterList';
-import { PageHeaderBackButton } from '@move-in/move-in-design-system/src/header/PageHeader';
+import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 
 const ProductFilterDraftListPage: React.FC = () => {
   const history = useHistory();

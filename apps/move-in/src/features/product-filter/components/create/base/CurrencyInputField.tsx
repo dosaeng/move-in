@@ -1,4 +1,4 @@
-import { CurrencyInput, CurrencyInputProps } from '@move-in/move-in-design-system';
+import { CurrencyInput, CurrencyInputProps } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 
 interface CurrencyInputFieldProps extends CurrencyInputProps {

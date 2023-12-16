@@ -4,7 +4,7 @@ import { setupIonicReact } from '@ionic/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App.tsx';
 
-import '@move-in/move-in-design-system/src/index.scss';
+import '@move-in/design-system/src/index.scss';
 import './index.scss';
 
 setupIonicReact({

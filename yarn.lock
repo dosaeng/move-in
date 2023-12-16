@@ -2222,9 +2222,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@move-in/move-in-design-system@workspace:^, @move-in/move-in-design-system@workspace:packages/move-in-design-system":
+"@move-in/core@workspace:^, @move-in/core@workspace:packages/move-in-core":
   version: 0.0.0-use.local
-  resolution: "@move-in/move-in-design-system@workspace:packages/move-in-design-system"
+  resolution: "@move-in/core@workspace:packages/move-in-core"
+  dependencies:
+    react-query: "npm:^3.39.3"
+  languageName: unknown
+  linkType: soft
+
+"@move-in/design-system@workspace:^, @move-in/design-system@workspace:packages/move-in-design-system":
+  version: 0.0.0-use.local
+  resolution: "@move-in/design-system@workspace:packages/move-in-design-system"
   dependencies:
     "@ionic/react": "npm:^7.5.7"
     "@pandacss/dev": "npm:^0.20.1"
@@ -2257,7 +2265,8 @@ __metadata:
     "@capacitor/ios": "npm:^5.5.1"
     "@ionic/react": "npm:^7.6.1"
     "@ionic/react-router": "npm:^7.6.1"
-    "@move-in/move-in-design-system": "workspace:^"
+    "@move-in/core": "workspace:^"
+    "@move-in/design-system": "workspace:^"
     "@pandacss/dev": "npm:^0.20.1"
     "@storybook/addon-essentials": "npm:7.6.4"
     "@storybook/addon-interactions": "npm:7.6.4"
@@ -2300,7 +2309,8 @@ __metadata:
     "@capacitor/keyboard": "npm:^5.0.6"
     "@ionic/react": "npm:^7.5.7"
     "@ionic/react-router": "npm:^7.5.7"
-    "@move-in/move-in-design-system": "workspace:^"
+    "@move-in/core": "workspace:^"
+    "@move-in/design-system": "workspace:^"
     "@pandacss/dev": "npm:^0.20.1"
     "@storybook/addon-essentials": "npm:7.6.4"
     "@storybook/addon-interactions": "npm:7.6.4"

@@ -3,7 +3,7 @@ import useProductFilterDetail from '../hooks/useProductFilterDetail';
 import { cx, css } from '@move-in/styled-system/css';
 import ProductSuggestionListView from './ProductSuggestionListView';
 import useProductFilterDetailViewState from '../hooks/useProductFilterDetailViewState';
-import { Divider, ProductFilterTagList } from '@move-in/move-in-design-system';
+import { Divider, ProductFilterTagList } from '@move-in/design-system';
 
 interface Props {
   className?: string;

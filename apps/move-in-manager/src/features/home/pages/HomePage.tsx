@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton } from '@ionic/react';
-import { IconButton, IconMenu2, PageHeader } from '@move-in/move-in-design-system';
+import { IconButton, IconMenu2, PageHeader } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { Redirect, Route } from 'react-router-dom';
 import ProductFilterListPage from '../../product-filter/pages/ProductFilterListPage';

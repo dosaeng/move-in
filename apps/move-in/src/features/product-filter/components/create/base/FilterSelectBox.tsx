@@ -1,6 +1,6 @@
 import { css, cx } from '@move-in/styled-system/css';
 import FilterSelectBoxLabel from './FilterSelectBoxLabel';
-import { SelectBox, SelectBoxProps } from '@move-in/move-in-design-system';
+import { SelectBox, SelectBoxProps } from '@move-in/design-system';
 import { Key } from 'react';
 
 interface Props<K, V> extends SelectBoxProps<K, V> {

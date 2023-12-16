@@ -1,4 +1,4 @@
-import { SelectBox } from '@move-in/move-in-design-system';
+import { SelectBox } from '@move-in/design-system';
 import { useQuery } from 'react-query';
 import InputFieldHeaderContainer from '../base/InputFieldHeaderContainer';
 

@@ -3,7 +3,7 @@ import {
   ProductMonthlyRentFormat,
   DateFormat,
   IconChevronRight,
-} from '@move-in/move-in-design-system';
+} from '@move-in/design-system';
 import { ProductSuggestionListItemModel } from '../hooks/useProductSuggestionList';
 import { css } from '@move-in/styled-system/css';
 

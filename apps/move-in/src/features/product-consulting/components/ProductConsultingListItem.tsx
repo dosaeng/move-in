@@ -1,7 +1,7 @@
 import { IonSkeletonText } from '@ionic/react';
 import { ProductConsultingListItemModel } from '../hooks/useProductConsultingList';
 import { css } from '@move-in/styled-system/css';
-import { ProductDepositFormat, ProductMonthlyRentFormat, DateFormat } from '@move-in/move-in-design-system';
+import { ProductDepositFormat, ProductMonthlyRentFormat, DateFormat } from '@move-in/design-system';
 
 interface Props {
   data: ProductConsultingListItemModel;

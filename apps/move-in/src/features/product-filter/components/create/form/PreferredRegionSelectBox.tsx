@@ -6,7 +6,7 @@ import {
   SelectBoxOption,
   SelectBoxOptionRow,
   SelectBoxTrigger,
-} from '@move-in/move-in-design-system';
+} from '@move-in/design-system';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { css } from '@move-in/styled-system/css';

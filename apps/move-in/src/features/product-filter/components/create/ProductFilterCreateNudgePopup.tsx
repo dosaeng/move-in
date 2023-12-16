@@ -1,4 +1,4 @@
-import { Button, Popup } from '@move-in/move-in-design-system';
+import { Button, Popup } from '@move-in/design-system';
 
 interface Props {
   isOpen?: boolean;

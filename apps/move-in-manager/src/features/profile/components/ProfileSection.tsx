@@ -1,4 +1,4 @@
-import { AgentScoreBar, BoxLabel, ProfileImage } from '@move-in/move-in-design-system';
+import { AgentScoreBar, BoxLabel, ProfileImage } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import useProfile from '../hooks/useProfile';
 

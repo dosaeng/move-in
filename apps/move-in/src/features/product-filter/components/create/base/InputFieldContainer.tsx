@@ -1,4 +1,4 @@
-import { IconCheck } from '@move-in/move-in-design-system';
+import { IconCheck } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { PropsWithChildren } from 'react';
 
