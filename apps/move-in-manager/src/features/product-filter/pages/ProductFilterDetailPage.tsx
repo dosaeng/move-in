@@ -37,7 +37,9 @@ const ProductFilterDetailPage: React.FC<RouteComponentProps<{ id: string }>> = (
               width: '100%',
               maxWidth: '100%',
             })}
-            onClick={() => {}}
+            onClick={() => {
+              history.push(`/product-suggestions/products?filterId=${id}`);
+            }}
             label="다른 매물도 제안하기"
           />
         </CTAButtonBlock>
