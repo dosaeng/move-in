@@ -74,7 +74,7 @@ const ProductSuggestionDetailPage: React.FC<
 
           // TODO. 상담 요청 API 호출
 
-          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`);
+          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`, 500);
           history.goBack();
         }}
       />
@@ -86,7 +86,7 @@ const ProductSuggestionDetailPage: React.FC<
           if (!isAgree) return;
 
           // TODO. 상담 요청 API 호출
-          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`);
+          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`, 500);
           history.goBack();
         }}
       />

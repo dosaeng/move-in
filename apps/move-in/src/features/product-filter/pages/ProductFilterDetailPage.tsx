@@ -125,7 +125,7 @@ const ProductFilterDetailPage: React.FC<
           if (!isAgree) return;
 
           // TODO. 삭제 요청 API 호출
-          present(`‘${detail?.name}’가 삭제되었습니다.`);
+          present(`‘${detail?.name}’가 삭제되었습니다.`, 500);
           history.goBack();
         }}
       />
@@ -137,7 +137,7 @@ const ProductFilterDetailPage: React.FC<
 
           if (!isAgree) return;
 
-          present(`‘${detail?.name}’에 대한 제안이 중지되었습니다.`);
+          present(`‘${detail?.name}’에 대한 제안이 중지되었습니다.`, 500);
           // TODO. 제안 중지 요청 API 호출
         }}
       />

@@ -69,7 +69,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsModalOpen(false);
 
           if (isAgree) {
-            present(`‘${filterName}’로 제안 요청을 했어요.`);
+            present(`‘${filterName}’로 제안 요청을 했어요.`, 500);
             // TODO. 제안 요청 보내기
 
             onNext && onNext();
@@ -85,10 +85,10 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsNudgeOpen(false);
 
           if (isAgree) {
-            present(`‘${filterName}’로 제안 요청을 했어요.`);
+            present(`‘${filterName}’로 제안 요청을 했어요.`, 500);
             // TODO. 제안 요청 보내기
           } else {
-            present(`‘${filterName}’가 생성되었습니다.`);
+            present(`‘${filterName}’가 생성되었습니다.`, 500);
           }
 
           onNext && onNext();
