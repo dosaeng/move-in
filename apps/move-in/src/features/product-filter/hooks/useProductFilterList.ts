@@ -12,7 +12,7 @@ export interface ProductFilterListItemModel {
   id: number;
   name: string;
   dueDate?: Date;
-  filterList: string[];
+  filterList: { key: number, value: string }[];
   state: ProductFilterState;
   suggestionCount?: number;
   hasNewSuggestion?: boolean;
@@ -63,7 +63,17 @@ const useProductFilterList = () => {
         filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
         state: ProductFilterState.DRAFT,
       },
-    ];
+    ].map((item) => {
+      return {
+        ...item,
+        filterList: item.filterList.map((filterItem, index) => {
+          return {
+            key: index,
+            value: filterItem,
+          };
+        })
+      }
+    });
   });
 };
 

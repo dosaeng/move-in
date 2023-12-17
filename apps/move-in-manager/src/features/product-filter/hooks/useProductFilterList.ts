@@ -13,7 +13,7 @@ export interface ProductFilterListItemModel {
   id: number;
   name: string;
   dueDate?: Date;
-  filterList: string[];
+  filterList: { key: number, value: string }[];
   suggestionState: ProductSuggestionState;
 }
 
@@ -50,7 +50,17 @@ const useProductFilterList = () => {
         filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
         suggestionState: ProductSuggestionState.NONE,
       },
-    ]
+    ].map((item) => {
+      return {
+        ...item,
+        filterList: item.filterList.map((filterItem, index) => {
+          return {
+            key: index,
+            value: filterItem,
+          };
+        })
+      }
+    });
   });
 }
 

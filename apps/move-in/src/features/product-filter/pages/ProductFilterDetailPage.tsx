@@ -1,6 +1,6 @@
 import ProductSuggestionListView from '@/features/product-suggestion/components/ProductSuggestionListView';
 import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { IconButton, IconDotsVertical, PageHeader, ProductFilterTagList } from '@move-in/design-system';
+import { IconButton, IconDotsVertical, PageHeader, ChipButtonList } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
@@ -76,11 +76,12 @@ const ProductFilterDetailPage: React.FC<
             marginBottom: '32px',
           })}
         >
-          <ProductFilterTagList
+          <ChipButtonList
             className={css({
               minHeight: '33px',
             })}
-            tags={detail?.filterList ?? []}
+            options={detail?.filterList}
+            readOnly
           />
         </div>
         <ProductSuggestionListView

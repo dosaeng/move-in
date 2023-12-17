@@ -1,5 +1,5 @@
 import { IonSkeletonText } from '@ionic/react';
-import { ProductFilterTagList } from '@move-in/design-system';
+import { ChipButtonList } from '@move-in/design-system';
 import { css, sva } from '@move-in/styled-system/css';
 import { differenceInCalendarDays } from 'date-fns';
 import { ProductFilterListItemModel, ProductSuggestionState } from '../hooks/useProductFilterList';
@@ -111,7 +111,7 @@ const ProductFilterListItem: React.FC<Props> = ({ data, onClick }) => {
           <ProductFilterListItemLabel data={data} />
         </div>
       </div>
-      <ProductFilterTagList tags={data.filterList.slice(0, 4)} />
+      <ChipButtonList options={data.filterList.slice(0, 4)} readOnly/>
     </div>
   );
 };

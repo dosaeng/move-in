@@ -1,4 +1,4 @@
-import { ProductFilterTagList, RatingInput } from '@move-in/design-system';
+import { ChipButtonList, RatingInput } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { ProductSuggestionRatingModel } from '../../hooks/useProductSuggestionDetail';
 
@@ -42,7 +42,7 @@ const ProductSuggestionRatingView = ({ title, additionalContent, data, hideComme
           </div>
           <RatingInput value={data?.score} readOnly />
         </div>
-        <ProductFilterTagList tags={data?.selected ?? []} />
+        <ChipButtonList options={data?.selected} readOnly />
       </div>
       <div
         className={css({

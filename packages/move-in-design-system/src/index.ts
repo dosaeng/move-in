@@ -26,8 +26,8 @@ export type { RatingInputProps } from './input/RatingInput';
 export { BoxLabel } from './profile/BoxLabel';
 export { ProfileImage } from './profile/ProfileImage';
 export { AgentScoreBar } from './profile/AgentScoreBar';
-export { ProductFilterTagList } from './product/ProductFilterTagList'
-export { ProductFilterTagListItem } from './product/ProductFilterTagListItem'
+export { ChipButtonList } from './chip/ChipButtonList'
+export { ChipButton } from './chip/ChipButton'
 
 export { DateFormat } from './format/DateFormat'
 export { ProductDepositFormat, ProductMonthlyRentFormat } from './format/CurrencyFormat'

@@ -3,7 +3,7 @@ import useProductFilterDetail from '../hooks/useProductFilterDetail';
 import { cx, css } from '@move-in/styled-system/css';
 import ProductSuggestionListView from './ProductSuggestionListView';
 import useProductFilterDetailViewState from '../hooks/useProductFilterDetailViewState';
-import { Divider, ProductFilterTagList } from '@move-in/design-system';
+import { Divider, ChipButtonList } from '@move-in/design-system';
 
 interface Props {
   className?: string;
@@ -80,40 +80,40 @@ const ProductFilterDetailView: React.FC<Props> = ({ className, filterId }) => {
         })}
       >
         <ProductFilterSubView title="함께 하는 가족">
-          <ProductFilterTagList tags={data?.familyPreference ?? []} />
+          <ChipButtonList options={data?.familyPreference ?? []} readOnly />
         </ProductFilterSubView>
         <ProductFilterSubView title="희망 입주 시기">
-          <ProductFilterTagList tags={data?.moveInPreference ?? []} />
+          <ChipButtonList options={data?.moveInPreference ?? []} readOnly />
         </ProductFilterSubView>
         <ProductFilterSubView title="주거 비용 예산">
-          <ProductFilterTagList tags={data?.costPreference ?? []} />
+          <ChipButtonList options={data?.costPreference ?? []} readOnly />
         </ProductFilterSubView>
         <ProductFilterSubView title="원하는 집의 조건">
           <ProductFilterSubTagView title="위치">
-            <ProductFilterTagList tags={data?.productPreference.position ?? []} />
+            <ChipButtonList options={data?.productPreference.position ?? []} readOnly />
           </ProductFilterSubTagView>
           <ProductFilterSubTagView title="매물 구성">
-            <ProductFilterTagList tags={data?.productPreference.type ?? []} />
+            <ChipButtonList options={data?.productPreference.type ?? []} readOnly />
           </ProductFilterSubTagView>
         </ProductFilterSubView>
         <ProductFilterSubView title="라이프 스타일">
           <ProductFilterSubTagView title="교통권">
-            <ProductFilterTagList tags={data?.lifestylePreference.traffic ?? []} />
+            <ChipButtonList options={data?.lifestylePreference.traffic ?? []} readOnly />
           </ProductFilterSubTagView>
           <ProductFilterSubTagView title="희망 구성 옵션">
-            <ProductFilterTagList tags={data?.lifestylePreference.livingOption ?? []} />
+            <ChipButtonList options={data?.lifestylePreference.livingOption ?? []} readOnly />
           </ProductFilterSubTagView>
           <ProductFilterSubTagView title="공동 생활">
-            <ProductFilterTagList tags={data?.lifestylePreference.communityLife ?? []} />
+            <ChipButtonList options={data?.lifestylePreference.communityLife ?? []} readOnly />
           </ProductFilterSubTagView>
           <ProductFilterSubTagView title="생활권">
-            <ProductFilterTagList tags={data?.lifestylePreference.livingInfra ?? []} />
+            <ChipButtonList options={data?.lifestylePreference.livingInfra ?? []} readOnly />
           </ProductFilterSubTagView>
           <ProductFilterSubTagView title="학군">
-            <ProductFilterTagList tags={data?.lifestylePreference.educationLife ?? []} />
+            <ChipButtonList options={data?.lifestylePreference.educationLife ?? []} readOnly />
           </ProductFilterSubTagView>
           <ProductFilterSubTagView title="배달권">
-            <ProductFilterTagList tags={data?.lifestylePreference.deliveryLife ?? []} />
+            <ChipButtonList options={data?.lifestylePreference.deliveryLife} readOnly />
           </ProductFilterSubTagView>
         </ProductFilterSubView>
       </div>

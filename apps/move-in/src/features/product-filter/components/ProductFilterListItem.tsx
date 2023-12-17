@@ -2,7 +2,7 @@ import { IonSkeletonText } from '@ionic/react';
 import { css, sva } from '@move-in/styled-system/css';
 import { differenceInCalendarDays } from 'date-fns';
 import { ProductFilterListItemModel, ProductFilterState } from '../hooks/useProductFilterList';
-import { ProductFilterTagList } from '@move-in/design-system';
+import { ChipButtonList } from '@move-in/design-system';
 
 const styles = sva({
   slots: ['root', 'title', 'subtitle', 'label'],
@@ -131,7 +131,7 @@ const ProductFilterListItem: React.FC<Props> = ({ data, onClick }) => {
           <ProductFilterListItemLabel data={data} />
         </div>
       </div>
-      <ProductFilterTagList tags={data.filterList.slice(0, 4)} />
+      <ChipButtonList options={data.filterList.slice(0, 4)} readOnly />
     </div>
   );
 };
