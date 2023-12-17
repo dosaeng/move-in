@@ -1,9 +1,8 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader } from '@move-in/design-system';
+import { Button, CTAButtonBlock, PageHeader, StepIndicator } from '@move-in/design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
-import StepIndicator from '../../components/create/base/StepIndicator';
 import CostPreferenceTypeSelectBox from '../../components/create/form/CostPreferenceTypeSelectBox';
 import DepositCurrencyInput from '../../components/create/form/DepositCurrencyInput';
 import MonthlyRentCurrencyInput from '../../components/create/form/MonthlyRentCurrencyInput';

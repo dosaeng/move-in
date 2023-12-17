@@ -1,9 +1,8 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader } from '@move-in/design-system';
+import { Button, CTAButtonBlock, PageHeader, StepIndicator } from '@move-in/design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
-import StepIndicator from '../../components/create/base/StepIndicator';
 import ExtraOptionSelectBox from '../../components/create/form/ExtraOptionSelectBox';
 import TrafficLifeSelectBox from '../../components/create/form/TrafficLifeSelectBox';
 
