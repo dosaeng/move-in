@@ -31,7 +31,14 @@ export const Default: Story = {
       id: 1,
       name: '신사 영끌 신혼집 1',
       dueDate: subDays(new Date(), 1),
-      filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
+      filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'].map(
+        (value, index) => {
+          return {
+            key: index,
+            value,
+          };
+        }
+      ),
       state: ProductFilterState.EXPIRED,
       suggestionCount: 0,
       hasNewSuggestion: false,

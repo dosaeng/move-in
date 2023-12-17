@@ -1,6 +1,5 @@
-import { ChipButtonList, RatingInput } from '@move-in/design-system';
+import { ChipButtonList, ProductSuggestionRatingModel, RatingInput } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
-import { ProductSuggestionRatingModel } from '../../hooks/useProductSuggestionDetail';
 
 interface Props {
   title: string;
