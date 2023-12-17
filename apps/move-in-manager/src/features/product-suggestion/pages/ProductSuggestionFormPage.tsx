@@ -33,7 +33,7 @@ const ProductSuggestionFormPage: React.FC = () => {
           right={
             <PageHeaderCloseButton
               onClick={() => {
-                history.push(`/product-suggestions/products?filterId=${filterId}`);
+                window.location.href = `/product-suggestions/products?filterId=${filterId}`;
               }}
             />
           }
@@ -93,7 +93,7 @@ const ProductSuggestionFormPage: React.FC = () => {
               filterId={filterId}
               productId={productId}
               onNext={() => {
-                history.push(`/tabs/product-filters`);
+                window.location.href = `/tabs/product-filters`;
               }}
             />
           </Route>
