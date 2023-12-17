@@ -4,6 +4,7 @@ import { Key } from 'react';
 
 interface Props<K, V> extends SelectBoxProps<K, V> {
   className?: string;
+  modalClassName?: string;
   labelPrefix: string;
   label: string;
 }

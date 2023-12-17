@@ -97,66 +97,81 @@ const TrafficLifeSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }
           .join(', ')}
       </SelectBoxTrigger>
       <Modal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
-        <SelectBoxModalContent title="교통권이 어땠으면 하시나요?">
+        <SelectBoxModalContent
+          className={css({
+            overflow: 'hidden',
+          })}
+          title="교통권이 어땠으면 하시나요?"
+        >
           <div
             className={css({
               display: 'flex',
               flexDirection: 'column',
-              gap: '32px',
+              overflowY: 'hidden',
             })}
           >
-            <TrafficLifeSelectOptionView
-              title="버스 정류장까지"
-              options={options?.busStop}
-              selectedKey={internalValue?.busStop}
-              onChange={(value) => {
-                setInternalValue((prevValue) => {
-                  return {
-                    ...prevValue,
-                    busStop: value.key,
-                  };
-                });
-              }}
-            />
-            <TrafficLifeSelectOptionView
-              title="지하철역까지"
-              options={options?.trainStation}
-              selectedKey={internalValue?.trainStation}
-              onChange={(value) => {
-                setInternalValue((prevValue) => {
-                  return {
-                    ...prevValue,
-                    trainStation: value.key,
-                  };
-                });
-              }}
-            />
-            <TrafficLifeSelectOptionView
-              title="버스 터미널 및 기차역까지 대중교통으로"
-              options={options?.terminal}
-              selectedKey={internalValue?.terminal}
-              onChange={(value) => {
-                setInternalValue((prevValue) => {
-                  return {
-                    ...prevValue,
-                    terminal: value.key,
-                  };
-                });
-              }}
-            />
-            <TrafficLifeSelectOptionView
-              title="차량 주차 공간이 필요해요"
-              options={options?.parking}
-              selectedKey={internalValue?.parking}
-              onChange={(value) => {
-                setInternalValue((prevValue) => {
-                  return {
-                    ...prevValue,
-                    parking: value.key,
-                  };
-                });
-              }}
-            />
+            <div
+              className={css({
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '32px',
+                overflowY: 'auto',
+                paddingBottom: '16px',
+              })}
+            >
+              <TrafficLifeSelectOptionView
+                title="버스 정류장까지"
+                options={options?.busStop}
+                selectedKey={internalValue?.busStop}
+                onChange={(value) => {
+                  setInternalValue((prevValue) => {
+                    return {
+                      ...prevValue,
+                      busStop: value.key,
+                    };
+                  });
+                }}
+              />
+              <TrafficLifeSelectOptionView
+                title="지하철역까지"
+                options={options?.trainStation}
+                selectedKey={internalValue?.trainStation}
+                onChange={(value) => {
+                  setInternalValue((prevValue) => {
+                    return {
+                      ...prevValue,
+                      trainStation: value.key,
+                    };
+                  });
+                }}
+              />
+              <TrafficLifeSelectOptionView
+                title="버스 터미널 및 기차역까지 대중교통으로"
+                options={options?.terminal}
+                selectedKey={internalValue?.terminal}
+                onChange={(value) => {
+                  setInternalValue((prevValue) => {
+                    return {
+                      ...prevValue,
+                      terminal: value.key,
+                    };
+                  });
+                }}
+              />
+              <TrafficLifeSelectOptionView
+                title="차량 주차 공간이 필요해요"
+                options={options?.parking}
+                selectedKey={internalValue?.parking}
+                onChange={(value) => {
+                  setInternalValue((prevValue) => {
+                    return {
+                      ...prevValue,
+                      parking: value.key,
+                    };
+                  });
+                }}
+              />
+            </div>
             <Button
               label="완료"
               onClick={() => {

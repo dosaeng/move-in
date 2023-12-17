@@ -9,7 +9,7 @@ export const ModalView: React.FC<React.PropsWithChildren> = ({ children }) => {
         display: 'flex',
         minWidth: '320px',
         minHeight: '156px',
-        maxHeight: 'calc(100vh - 80px)',
+        height: 'fit-content',
         flexDirection: 'column',
         borderRadius: '24px',
         backgroundColor: 'fill.light.01',
@@ -82,7 +82,18 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
         '--box-shadow': 'none',
       }}
     >
-      <div style={{ paddingBottom: '20px' }}>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          height: 'fit-content',
+          maxHeight: 'dvh',
+          paddingTop: '30px',
+          paddingBottom: '20px',
+          paddingLeft: '20px',
+          paddingRight: '20px',
+        })}
+      >
         <ModalView>{children}</ModalView>
       </div>
     </IonModal>

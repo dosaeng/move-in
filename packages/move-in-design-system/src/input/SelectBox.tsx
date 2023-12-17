@@ -6,6 +6,8 @@ import { IconChevronRight } from '../icons/icons';
 export type SelectBoxOption<K, V> = { key: K; value: V };
 
 export interface SelectBoxProps<K, V> {
+  className?: string;
+  modalClassName?: string;
   value?: SelectBoxOption<K, V>;
   defaultValue?: SelectBoxOption<K, V>;
   options: SelectBoxOption<K, V>[];
@@ -18,6 +20,8 @@ export interface SelectBoxProps<K, V> {
 }
 
 export const SelectBox = <K extends Key, V>({
+  className,
+  modalClassName,
   value,
   defaultValue,
   options,
@@ -37,7 +41,7 @@ export const SelectBox = <K extends Key, V>({
   });
 
   return (
-    <>
+    <div className={className}>
       <SelectBoxTrigger
         hasValue={currentOption != null}
         disabled={disabled}
@@ -47,13 +51,16 @@ export const SelectBox = <K extends Key, V>({
         {(renderValue && renderValue(currentOption)) ?? (currentOption?.value ?? '').toString()}
       </SelectBoxTrigger>
       <Modal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
-        <SelectBoxModalContent title={modalTitle}>
+        <SelectBoxModalContent className={modalClassName} title={modalTitle}>
           <div
-            className={css({
-              display: 'grid',
-              flexDirection: 'column',
-              gap: '12px',
-            })}
+            className={cx(
+              css({
+                display: 'grid',
+                flexDirection: 'column',
+                gap: '12px',
+              }),
+              'modal-content-grid'
+            )}
             style={{
               gridTemplateColumns: `repeat(${modalColumnsCount ?? 1}, 1fr)`,
             }}
@@ -76,7 +83,7 @@ export const SelectBox = <K extends Key, V>({
           </div>
         </SelectBoxModalContent>
       </Modal>
-    </>
+    </div>
   );
 };
 
@@ -206,6 +213,7 @@ export const SelectBoxOptionRow: React.FC<
             textStyle: 'body-14-m',
             color: 'text.dark.03',
             cursor: 'pointer',
+            whiteSpace: 'nowrap',
             _hover: {
               opacity: 0.8,
             },

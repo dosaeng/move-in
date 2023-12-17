@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import FilterSelectBox from '../base/FilterSelectBox';
+import { css } from '@move-in/styled-system/css';
 
 interface Props {
   defaultValue?: number;
@@ -27,6 +28,13 @@ const ProductMinimumSizeSelectBox: React.FC<Props> = ({ defaultValue, onChange }
   return (
     <FilterSelectBox
       key={isLoading ? 'loading' : 'loaded'}
+      modalClassName={css({
+        overflow: 'hidden',
+        '& .modal-content-grid': {
+          overflowY: 'auto',
+          paddingBottom: '16px',
+        },
+      })}
       labelPrefix="01-C"
       label="집이 얼마나 컸으면 하나요?"
       modalTitle={
