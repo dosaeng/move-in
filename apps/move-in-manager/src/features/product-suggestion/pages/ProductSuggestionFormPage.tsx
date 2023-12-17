@@ -4,12 +4,12 @@ import { PageHeader } from '@move-in/design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import useProductSuggestionPageState from '../hooks/useProductSuggestionPageState';
+import ProductSuggestionFormConfirmPage from './form/ProductSuggestionFormConfirmPage';
 import ProductSuggestionFormStep1Page from './form/ProductSuggestionFormStep1Page';
 import ProductSuggestionFormStep2Page from './form/ProductSuggestionFormStep2Page';
 import ProductSuggestionFormStep3Page from './form/ProductSuggestionFormStep3Page';
 import ProductSuggestionFormStep4Page from './form/ProductSuggestionFormStep4Page';
 import ProductSuggestionFormStep5Page from './form/ProductSuggestionFormStep5Page';
-import ProductSuggestionFormConfirmPage from './form/ProductSuggestionFormConfirmPage';
 
 const ProductSuggestionFormPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -92,8 +92,8 @@ const ProductSuggestionFormPage: React.FC = () => {
             <ProductSuggestionFormConfirmPage
               filterId={filterId}
               productId={productId}
-              onNext={() => {
-                window.location.href = `/tabs/product-filters`;
+              onNext={async () => {
+                window.location.href = '/tabs/product-filters';
               }}
             />
           </Route>

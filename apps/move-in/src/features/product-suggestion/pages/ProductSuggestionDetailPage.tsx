@@ -1,5 +1,5 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, Divider, PageHeader } from '@move-in/design-system';
+import { Button, CTAButtonBlock, Divider, PageHeader, useToast } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
@@ -19,6 +19,7 @@ const ProductSuggestionDetailPage: React.FC<
   const detailId = match.params.id;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNudgeOpen, setIsNudgeOpen] = useState(false);
+  const { present } = useToast();
 
   return (
     <IonPage>
@@ -72,6 +73,8 @@ const ProductSuggestionDetailPage: React.FC<
           }
 
           // TODO. 상담 요청 API 호출
+
+          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`);
           history.goBack();
         }}
       />
@@ -83,6 +86,7 @@ const ProductSuggestionDetailPage: React.FC<
           if (!isAgree) return;
 
           // TODO. 상담 요청 API 호출
+          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`);
           history.goBack();
         }}
       />

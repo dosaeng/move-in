@@ -1,7 +1,7 @@
 import ProductSuggestionRequestModal from '@/features/product-suggestion/components/ProductSuggestionRequestModal';
 import ProductSuggestionRequestNudgePopup from '@/features/product-suggestion/components/ProductSuggestionRequestNudgePopup';
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader, TextField } from '@move-in/design-system';
+import { Button, CTAButtonBlock, PageHeader, TextField, useToast } from '@move-in/design-system';
 import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
@@ -16,6 +16,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
   const hasFilterName = filterName.length > 0;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNudgeOpen, setIsNudgeOpen] = useState(false);
+  const { present } = useToast();
 
   return (
     <IonPage>
@@ -68,6 +69,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsModalOpen(false);
 
           if (isAgree) {
+            present(`‘${filterName}’로 제안 요청을 했어요.`);
             // TODO. 제안 요청 보내기
 
             onNext && onNext();
@@ -83,7 +85,10 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsNudgeOpen(false);
 
           if (isAgree) {
+            present(`‘${filterName}’로 제안 요청을 했어요.`);
             // TODO. 제안 요청 보내기
+          } else {
+            present(`‘${filterName}’가 생성되었습니다.`);
           }
 
           onNext && onNext();

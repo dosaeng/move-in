@@ -1,6 +1,6 @@
 import ProductSuggestionListView from '@/features/product-suggestion/components/ProductSuggestionListView';
 import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { IconButton, IconDotsVertical, PageHeader, ChipButtonList } from '@move-in/design-system';
+import { IconButton, IconDotsVertical, PageHeader, ChipButtonList, useToast } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
@@ -22,6 +22,7 @@ const ProductFilterDetailPage: React.FC<
   const [isOpenActionModal, setIsOpenActionModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenStopRequestModal, setIsOpenStopRequestModal] = useState(false);
+  const { present } = useToast();
 
   return (
     <IonPage>
@@ -124,6 +125,7 @@ const ProductFilterDetailPage: React.FC<
           if (!isAgree) return;
 
           // TODO. 삭제 요청 API 호출
+          present(`‘${detail?.name}’가 삭제되었습니다.`);
           history.goBack();
         }}
       />
@@ -135,6 +137,7 @@ const ProductFilterDetailPage: React.FC<
 
           if (!isAgree) return;
 
+          present(`‘${detail?.name}’에 대한 제안이 중지되었습니다.`);
           // TODO. 제안 중지 요청 API 호출
         }}
       />

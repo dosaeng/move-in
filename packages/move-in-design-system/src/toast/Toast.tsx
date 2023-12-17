@@ -16,7 +16,10 @@ export const toastStyle = css({
   '--box-shadow': '3px 3px 10px 0 rgba(0, 0, 0, 0.2)',
   '--color': token('colors.text.light.01'),
   '&::part(message)': {
-    textStyle: 'body-14-m'
+    textStyle: 'body-14-m',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
