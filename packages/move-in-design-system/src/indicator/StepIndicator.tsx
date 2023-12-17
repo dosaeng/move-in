@@ -1,18 +1,20 @@
 import { css, cx } from '@move-in/styled-system/css';
+import React from 'react';
 
 interface Props {
   className?: string;
-  prefix: string;
-  label: string;
+  step: number;
+  maxStep: number;
 }
 
-const FilterSelectBoxLabel: React.FC<Props> = ({ className, prefix, label }) => {
+export const StepIndicator: React.FC<Props> = ({ className, step, maxStep }) => {
   return (
     <div
       className={cx(
         css({
+          textStyle: 'body-14-r',
+          color: 'text.light.04',
           display: 'flex',
-          gap: '8px',
         }),
         className
       )}
@@ -21,20 +23,12 @@ const FilterSelectBoxLabel: React.FC<Props> = ({ className, prefix, label }) => 
         className={css({
           textStyle: 'body-14-sb',
           color: 'brand.purple.03',
+          paddingRight: '4px',
         })}
       >
-        {prefix}
+        Step {step.toString().padStart(2, '0')}
       </span>
-      <span
-        className={css({
-          textStyle: 'body-14-m',
-          color: 'text.dark.03',
-        })}
-      >
-        {label}
-      </span>
+      {`/ ${maxStep.toString().padStart(2, '0')}`}
     </div>
   );
 };
-
-export default FilterSelectBoxLabel;

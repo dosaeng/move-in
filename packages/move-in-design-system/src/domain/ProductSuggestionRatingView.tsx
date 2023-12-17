@@ -1,6 +1,12 @@
 import { ChipButtonList, RatingInput } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
-import { ProductSuggestionRatingModel } from '../../hooks/useProductSuggestionDetail';
+import React from 'react';
+
+export interface ProductSuggestionRatingModel {
+  score: number;
+  selected: { key: number; value: string }[];
+  comment: string;
+}
 
 interface Props {
   title: string;
@@ -9,7 +15,7 @@ interface Props {
   hideComment?: boolean;
 }
 
-const ProductSuggestionRatingView = ({ title, additionalContent, data, hideComment }: Props) => {
+export const ProductSuggestionRatingView = ({ title, additionalContent, data, hideComment }: Props) => {
   return (
     <div
       className={css({
@@ -80,5 +86,3 @@ const ProductSuggestionRatingView = ({ title, additionalContent, data, hideComme
     </div>
   );
 };
-
-export default ProductSuggestionRatingView;

@@ -8,11 +8,11 @@ import {
   SelectBoxOption,
   SelectBoxOptionRow,
   SelectBoxTrigger,
+  FormInputLabel,
 } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import FilterSelectBoxLabel from '../base/FilterSelectBoxLabel';
 
 interface ExtraOptionSelectBoxValue {
   livingOption?: number[];
@@ -42,7 +42,7 @@ const ExtraOptionSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }
         gap: '8px',
       })}
     >
-      <FilterSelectBoxLabel prefix="05-B" label="내게 중요한 희망 사항을 골라주세요." />
+      <FormInputLabel prefix="05-B" label="내게 중요한 희망 사항을 골라주세요." />
       <SelectBoxTrigger
         hasValue={currentValue != null}
         placeholder="눌러서 선택해주세요"

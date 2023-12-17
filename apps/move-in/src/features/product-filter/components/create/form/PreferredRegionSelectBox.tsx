@@ -6,11 +6,11 @@ import {
   SelectBoxOption,
   SelectBoxOptionRow,
   SelectBoxTrigger,
+  FormInputLabel,
 } from '@move-in/design-system';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { css } from '@move-in/styled-system/css';
-import FilterSelectBoxLabel from '../base/FilterSelectBoxLabel';
 
 interface PreferredRegionSelectBoxValue {
   region?: number;
@@ -42,7 +42,7 @@ const PreferredRegionSelectBox: React.FC<Props> = ({ value, defaultValue, onChan
           gap: '8px',
         })}
       >
-        <FilterSelectBoxLabel prefix="04-A" label="어느 지역을 선호하시나요?" />
+        <FormInputLabel prefix="04-A" label="어느 지역을 선호하시나요?" />
         <SelectBoxTrigger
           hasValue={currentValue != null}
           placeholder="눌러서 선택해주세요"

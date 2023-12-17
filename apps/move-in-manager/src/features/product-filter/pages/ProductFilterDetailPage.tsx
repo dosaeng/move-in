@@ -16,7 +16,7 @@ const ProductFilterDetailPage: React.FC<RouteComponentProps<{ id: string }>> = (
           left={
             <PageHeaderBackButton
               onClick={() => {
-                history.goBack();
+                history.push(`/tabs/product-filters`);
               }}
             />
           }

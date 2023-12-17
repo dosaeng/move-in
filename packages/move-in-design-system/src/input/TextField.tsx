@@ -19,7 +19,8 @@ const inputStyle = sva({
       outline: 'none',
       borderRadius: '0px',
       width: '100%',
-      height: '50px',
+      height: '46px',
+      textStyle: 'body-18-m',
       _placeholder: {
         color: 'transparent',
       },

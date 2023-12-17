@@ -1,10 +1,5 @@
+import { ProductSuggestionRatingModel } from '@move-in/design-system';
 import { useQuery } from 'react-query';
-
-export interface ProductSuggestionRatingModel {
-  score: number;
-  selected: { key: number; value: string }[];
-  comment: string;
-}
 
 export interface ProductSuggestionDetailModel {
   id: number;

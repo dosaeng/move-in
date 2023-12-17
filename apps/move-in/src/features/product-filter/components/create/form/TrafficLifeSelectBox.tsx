@@ -5,11 +5,11 @@ import {
   SelectBoxOption,
   SelectBoxOptionRow,
   SelectBoxTrigger,
+  FormInputLabel,
 } from '@move-in/design-system';
 import { PropsWithChildren, useState } from 'react';
 import { useQuery } from 'react-query';
 import { css } from '@move-in/styled-system/css';
-import FilterSelectBoxLabel from '../base/FilterSelectBoxLabel';
 
 interface TrafficLifeSelectBoxValue {
   busStop?: number;
@@ -81,7 +81,7 @@ const TrafficLifeSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }
         gap: '8px',
       })}
     >
-      <FilterSelectBoxLabel prefix="05-A" label="교통권이 어땠으면 하시나요?" />
+      <FormInputLabel prefix="05-A" label="교통권이 어땠으면 하시나요?" />
       <SelectBoxTrigger
         hasValue={currentValue != null}
         placeholder="눌러서 선택해주세요"

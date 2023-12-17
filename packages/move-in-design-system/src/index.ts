@@ -31,3 +31,13 @@ export { ChipButton } from './chip/ChipButton'
 
 export { DateFormat } from './format/DateFormat'
 export { ProductDepositFormat, ProductMonthlyRentFormat } from './format/CurrencyFormat'
+
+export { FormInputLabel } from './form/FormInputLabel';
+export { StepIndicator } from './indicator/StepIndicator';
+export { TextArea } from './input/TextArea';
+
+export { ProductSuggestionRatingGraph } from './domain/ProductSuggestionRatingGraph'
+export { ProductSuggestionRatingView } from './domain/ProductSuggestionRatingView'
+export { ProductCostView } from './domain/ProductCostView'
+export { ProductMoveInView } from './domain/ProductMoveInView'
+export type { ProductSuggestionRatingModel } from './domain/ProductSuggestionRatingView'

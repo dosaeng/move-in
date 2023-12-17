@@ -21,7 +21,7 @@ const ProductSuggestionPage: React.FC = () => {
           left={
             <PageHeaderBackButton
               onClick={() => {
-                history.goBack();
+                history.push(`/product-filters/${filterId}`);
               }}
             />
           }
@@ -39,7 +39,7 @@ const ProductSuggestionPage: React.FC = () => {
         </h2>
         <ProductListView
           onClick={(item) => {
-            history.push(`/product-suggestions/form?filterId=${item.id}`);
+            history.push(`/product-suggestions/form?filterId=${filterId}&productId=${item.id}`);
           }}
         />
       </IonContent>

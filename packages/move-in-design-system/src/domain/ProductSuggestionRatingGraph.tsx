@@ -1,5 +1,6 @@
 import { css } from '@move-in/styled-system/css';
 import { token } from '@move-in/styled-system/tokens';
+import React from 'react';
 
 interface ViewBox {
   width: number;
@@ -22,7 +23,7 @@ interface Props {
   };
 }
 
-const ProductSuggestionRatingGraph = ({ className, ratings }: Props) => {
+export const ProductSuggestionRatingGraph = ({ className, ratings }: Props) => {
   const viewBox = { width: 360, height: 345 };
   const pointPadding = { start: 40, step: 30 };
   const pointAngles = [90, 20, -55, -125, 160];
@@ -89,8 +90,6 @@ const ProductSuggestionRatingGraph = ({ className, ratings }: Props) => {
     </svg>
   );
 };
-
-export default ProductSuggestionRatingGraph;
 
 const Line: React.FC<{
   viewBox: ViewBox;

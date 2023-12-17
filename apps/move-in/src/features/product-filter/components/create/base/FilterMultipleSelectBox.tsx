@@ -1,6 +1,5 @@
 import { css, cx } from '@move-in/styled-system/css';
-import FilterSelectBoxLabel from './FilterSelectBoxLabel';
-import { MultipleSelectBox, MultipleSelectBoxProps } from '@move-in/design-system';
+import { FormInputLabel, MultipleSelectBox, MultipleSelectBoxProps } from '@move-in/design-system';
 import { Key } from 'react';
 
 interface Props<K, V> extends MultipleSelectBoxProps<K, V> {
@@ -21,7 +20,7 @@ const FilterMultipleSelectBox = <K extends Key, V>({ className, labelPrefix, lab
         className
       )}
     >
-      <FilterSelectBoxLabel prefix={labelPrefix} label={label} />
+      <FormInputLabel prefix={labelPrefix} label={label} />
       <MultipleSelectBox {...props} />
     </div>
   );

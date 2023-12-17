@@ -1,19 +1,19 @@
 import { css, cx } from '@move-in/styled-system/css';
+import React from 'react';
 
 interface Props {
   className?: string;
-  step: number;
-  maxStep: number;
+  prefix: string;
+  label: string;
 }
 
-const StepIndicator: React.FC<Props> = ({ className, step, maxStep }) => {
+export const FormInputLabel: React.FC<Props> = ({ className, prefix, label }) => {
   return (
     <div
       className={cx(
         css({
-          textStyle: 'body-14-r',
-          color: 'text.light.04',
           display: 'flex',
+          gap: '8px',
         }),
         className
       )}
@@ -22,14 +22,18 @@ const StepIndicator: React.FC<Props> = ({ className, step, maxStep }) => {
         className={css({
           textStyle: 'body-14-sb',
           color: 'brand.purple.03',
-          paddingRight: '4px',
         })}
       >
-        Step {step.toString().padStart(2, '0')}
+        {prefix}
       </span>
-      {`/ ${maxStep.toString().padStart(2, '0')}`}
+      <span
+        className={css({
+          textStyle: 'body-14-m',
+          color: 'text.dark.03',
+        })}
+      >
+        {label}
+      </span>
     </div>
   );
 };
-
-export default StepIndicator;

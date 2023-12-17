@@ -14,7 +14,7 @@ function App() {
           <Route path="/tabs" component={HomePage} />
           <Route exact path="/product-filters/:id" component={ProductFilterDetailPage} />
           <Route exact path="/product-suggestions/products" component={ProductSuggestionPage} />
-          <Route exact path="/product-suggestions/form" component={ProductSuggestionFormPage} />
+          <Route path="/product-suggestions/form" component={ProductSuggestionFormPage} />
           <Route exact path="/" render={() => <Redirect to="/tabs" />} />
         </IonRouterOutlet>
       </IonReactRouter>

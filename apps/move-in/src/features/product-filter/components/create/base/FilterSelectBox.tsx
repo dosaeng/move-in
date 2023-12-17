@@ -1,6 +1,5 @@
 import { css, cx } from '@move-in/styled-system/css';
-import FilterSelectBoxLabel from './FilterSelectBoxLabel';
-import { SelectBox, SelectBoxProps } from '@move-in/design-system';
+import { SelectBox, SelectBoxProps, FormInputLabel } from '@move-in/design-system';
 import { Key } from 'react';
 
 interface Props<K, V> extends SelectBoxProps<K, V> {
@@ -21,7 +20,7 @@ const FilterSelectBox = <K extends Key, V>({ className, labelPrefix, label, ...p
         className
       )}
     >
-      <FilterSelectBoxLabel prefix={labelPrefix} label={label} />
+      <FormInputLabel prefix={labelPrefix} label={label} />
       <SelectBox {...props} />
     </div>
   );

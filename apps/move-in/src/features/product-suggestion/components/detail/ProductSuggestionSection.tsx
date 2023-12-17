@@ -1,8 +1,11 @@
 import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';
-import ProductSuggestionRatingGraph from './ProductSuggestionRatingGraph';
 import { css } from '@move-in/styled-system/css';
-import ProductSuggestionRatingView from './ProductSuggestionRatingView';
-import { ProductDepositFormat, DateFormat } from '@move-in/design-system';
+import {
+  ProductDepositFormat,
+  DateFormat,
+  ProductSuggestionRatingGraph,
+  ProductSuggestionRatingView,
+} from '@move-in/design-system';
 
 interface Props {
   id: string | number;

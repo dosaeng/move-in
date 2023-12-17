@@ -1,22 +1,26 @@
 import { IonSkeletonText } from '@ionic/react';
 import { DateFormat, ProductDepositFormat, ProductMonthlyRentFormat } from '@move-in/design-system';
-import { css } from '@move-in/styled-system/css';
+import { cx, css } from '@move-in/styled-system/css';
 import React from 'react';
 import { ProductListItemModel } from '../hooks/useProductList';
 
 interface Props {
+  className?: string;
   data: ProductListItemModel;
   onClick?: () => void;
 }
 
-const ProductListItem: React.FC<Props> = ({ data, onClick }) => {
+const ProductListItem: React.FC<Props> = ({ className, data, onClick }) => {
   return (
     <div
-      className={css({
-        display: 'flex',
-        gap: '20px',
-        cursor: 'pointer',
-      })}
+      className={cx(
+        css({
+          display: 'flex',
+          gap: '20px',
+          cursor: 'pointer',
+        }),
+        className
+      )}
       onClick={onClick}
     >
       <div
