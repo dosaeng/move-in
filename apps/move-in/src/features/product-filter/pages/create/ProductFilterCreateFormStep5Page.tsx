@@ -5,12 +5,16 @@ import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import ExtraOptionSelectBox from '../../components/create/form/ExtraOptionSelectBox';
 import TrafficLifeSelectBox from '../../components/create/form/TrafficLifeSelectBox';
+import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
 
 const ProductFilterCreateFormStep5Page: React.FC<{
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
+  const { data, setData } = useProductFilterCreateFormState();
+  const isValid = data?.trafficOptions != null && data?.extraOptions != null;
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -30,8 +34,24 @@ const ProductFilterCreateFormStep5Page: React.FC<{
             gap: '32px',
           })}
         >
-          <TrafficLifeSelectBox />
-          <ExtraOptionSelectBox />
+          <TrafficLifeSelectBox
+            defaultValue={data?.trafficOptions}
+            onChange={(value) => {
+              setData({
+                ...data,
+                trafficOptions: value,
+              });
+            }}
+          />
+          <ExtraOptionSelectBox
+            defaultValue={data?.extraOptions}
+            onChange={(value) => {
+              setData({
+                ...data,
+                extraOptions: value,
+              });
+            }}
+          />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">
@@ -41,6 +61,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label={'입력을 모두 마쳤어요'}
           />

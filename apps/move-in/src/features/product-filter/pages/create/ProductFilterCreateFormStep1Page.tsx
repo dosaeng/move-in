@@ -7,12 +7,20 @@ import FamilyTypeSelectBox from '../../components/create/form/FamilyTypeSelectBo
 import MinimumRoomCountSelectBox from '../../components/create/form/MinimumRoomCountSelectBox';
 import PetPresenceSelectBox from '../../components/create/form/PetPresenceSelectBox';
 import ProductMinimumSizeSelectBox from '../../components/create/form/ProductMinimumSizeSelectBox';
+import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
 
 const ProductFilterCreateFormStep1Page: React.FC<{
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
+  const { data, setData } = useProductFilterCreateFormState();
+  const isValid =
+    data?.familyTypeId != null &&
+    data?.petPresenceId != null &&
+    data?.productMinimumSizeId != null &&
+    data?.minimumRoomCountId != null;
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -32,10 +40,42 @@ const ProductFilterCreateFormStep1Page: React.FC<{
             gap: '32px',
           })}
         >
-          <FamilyTypeSelectBox />
-          <PetPresenceSelectBox />
-          <ProductMinimumSizeSelectBox />
-          <MinimumRoomCountSelectBox />
+          <FamilyTypeSelectBox
+            defaultValue={data?.familyTypeId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                familyTypeId: value,
+              });
+            }}
+          />
+          <PetPresenceSelectBox
+            defaultValue={data?.petPresenceId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                petPresenceId: value,
+              });
+            }}
+          />
+          <ProductMinimumSizeSelectBox
+            defaultValue={data?.productMinimumSizeId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                productMinimumSizeId: value,
+              });
+            }}
+          />
+          <MinimumRoomCountSelectBox
+            defaultValue={data?.minimumRoomCountId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                minimumRoomCountId: value,
+              });
+            }}
+          />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">
@@ -45,6 +85,7 @@ const ProductFilterCreateFormStep1Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label={'다음'}
           />

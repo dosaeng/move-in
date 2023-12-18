@@ -4,12 +4,16 @@ import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-sys
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import DateInputField from '../../components/create/base/DateInputField';
+import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
 
 const ProductFilterCreateFormStep2Page: React.FC<{
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
+  const { data, setData } = useProductFilterCreateFormState();
+  const isValid = data?.minimumMoveInDate != null && data?.maximumMoveInDate != null;
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -32,8 +36,28 @@ const ProductFilterCreateFormStep2Page: React.FC<{
             gap: '32px',
           })}
         >
-          <DateInputField id="start-date" suffix="이후" />
-          <DateInputField id="end-date" suffix="까지" />
+          <DateInputField
+            id="start-date"
+            suffix="이후"
+            defaultValue={data?.minimumMoveInDate}
+            onChange={(value) => {
+              setData({
+                ...data,
+                minimumMoveInDate: value,
+              });
+            }}
+          />
+          <DateInputField
+            id="end-date"
+            suffix="까지"
+            defaultValue={data?.maximumMoveInDate}
+            onChange={(value) => {
+              setData({
+                ...data,
+                maximumMoveInDate: value,
+              });
+            }}
+          />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">
@@ -43,6 +67,7 @@ const ProductFilterCreateFormStep2Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label={'다음'}
           />

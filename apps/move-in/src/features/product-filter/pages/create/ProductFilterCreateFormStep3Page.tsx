@@ -6,12 +6,20 @@ import ProductFilterCreateFormHeader from '../../components/create/ProductFilter
 import CostPreferenceTypeSelectBox from '../../components/create/form/CostPreferenceTypeSelectBox';
 import DepositCurrencyInput from '../../components/create/form/DepositCurrencyInput';
 import MonthlyRentCurrencyInput from '../../components/create/form/MonthlyRentCurrencyInput';
+import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
 
 const ProductFilterCreateFormStep3Page: React.FC<{
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
+  const { data, setData } = useProductFilterCreateFormState();
+  const isValid =
+    data?.deposit != null &&
+    data?.minimumMonthlyCost != null &&
+    data?.maximumMonthlyCost != null &&
+    data?.costPreferenceId != null;
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -34,9 +42,37 @@ const ProductFilterCreateFormStep3Page: React.FC<{
             gap: '32px',
           })}
         >
-          <DepositCurrencyInput />
-          <MonthlyRentCurrencyInput />
-          <CostPreferenceTypeSelectBox />
+          <DepositCurrencyInput
+            defaultValue={data?.deposit}
+            onChange={(value) => {
+              setData({
+                ...data,
+                deposit: value,
+              });
+            }}
+          />
+          <MonthlyRentCurrencyInput
+            defaultValue={{
+              minimum: data?.minimumMonthlyCost,
+              maximum: data?.maximumMonthlyCost,
+            }}
+            onChange={(value) => {
+              setData({
+                ...data,
+                minimumMonthlyCost: value?.minimum,
+                maximumMonthlyCost: value?.maximum,
+              });
+            }}
+          />
+          <CostPreferenceTypeSelectBox
+            defaultValue={data?.costPreferenceId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                costPreferenceId: value,
+              });
+            }}
+          />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">
@@ -46,6 +82,7 @@ const ProductFilterCreateFormStep3Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label={'다음'}
           />

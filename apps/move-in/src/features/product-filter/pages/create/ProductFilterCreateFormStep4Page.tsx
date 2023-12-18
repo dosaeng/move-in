@@ -7,12 +7,20 @@ import ItemHouseConditionSelectBox from '../../components/create/form/ItemHouseC
 import ItemHouseTypeSelectBox from '../../components/create/form/ItemHouseTypeSelectBox';
 import ItemWishListSelectBox from '../../components/create/form/ItemWishListSelectBox';
 import PreferredRegionSelectBox from '../../components/create/form/PreferredRegionSelectBox';
+import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
 
 const ProductFilterCreateFormStep4Page: React.FC<{
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
+  const { data, setData } = useProductFilterCreateFormState();
+  const isValid =
+    data?.preferredRegion != null &&
+    data?.houseTypeId != null &&
+    data?.houseConditionId != null &&
+    data?.wishListId != null;
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -35,10 +43,42 @@ const ProductFilterCreateFormStep4Page: React.FC<{
             gap: '32px',
           })}
         >
-          <PreferredRegionSelectBox />
-          <ItemHouseTypeSelectBox />
-          <ItemHouseConditionSelectBox />
-          <ItemWishListSelectBox />
+          <PreferredRegionSelectBox
+            defaultValue={data?.preferredRegion}
+            onChange={(value) => {
+              setData({
+                ...data,
+                preferredRegion: value,
+              });
+            }}
+          />
+          <ItemHouseTypeSelectBox
+            defaultValue={data?.houseTypeId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                houseTypeId: value,
+              });
+            }}
+          />
+          <ItemHouseConditionSelectBox
+            defaultValue={data?.houseConditionId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                houseConditionId: value,
+              });
+            }}
+          />
+          <ItemWishListSelectBox
+            defaultValue={data?.wishListId}
+            onChange={(value) => {
+              setData({
+                ...data,
+                wishListId: value,
+              });
+            }}
+          />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">
@@ -48,6 +88,7 @@ const ProductFilterCreateFormStep4Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label={'다음'}
           />

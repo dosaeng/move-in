@@ -6,17 +6,45 @@ import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-sys
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
+import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
+import useCreateProductFilter from '../../hooks/useCreateProductFilter';
+import useRequestProductConsulting from '../../hooks/useRequestProductConsulting';
 
 const ProductFilterCreateFormStep5Page: React.FC<{
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
-  const [filterName, setFilterName] = useState('');
-  const hasFilterName = filterName.length > 0;
+  const { data, setData } = useProductFilterCreateFormState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNudgeOpen, setIsNudgeOpen] = useState(false);
+  const [filterId, setFilterId] = useState<number | undefined>();
   const { present } = useToast();
+  const { mutate: createFilter, isLoading: isLoadingCreateFilter } = useCreateProductFilter({
+    onSuccess: ({ id }) => {
+      setFilterId(id);
+
+      if (id == null) return;
+
+      setIsModalOpen(true);
+    },
+    onError: () => {
+      present('필터 생성에 실패했습니다.', 500);
+    },
+  });
+  const { mutate: requestConsulting, isLoading: isLoadingRequestConsulting } = useRequestProductConsulting({
+    onSuccess: () => {
+      present(`‘${visibleFilterName}’로 제안 요청을 했어요.`, 500);
+      onNext && onNext();
+    },
+    onError: () => {
+      present('제안 요청에 실패했습니다.', 500);
+    },
+  });
+  const filterName = data?.name ?? '';
+  const defaultFilterName = data?.defaultName ?? '';
+  const hasFilterName = filterName.length > 0;
+  const visibleFilterName = hasFilterName ? filterName : defaultFilterName;
 
   return (
     <IonPage>
@@ -40,11 +68,15 @@ const ProductFilterCreateFormStep5Page: React.FC<{
         <TextField
           id="filter-name"
           type="text"
+          defaultValue={filterName}
           label="기억하기 쉽게 지어주세요"
           helperText="기억하기 쉽게 지어주세요 (ex - 강남 신혼집 가성비 구성)"
           placeholder="기억하기 쉽게 지어주세요 (ex - 강남 신혼집 가성비 구성)"
           onChange={(e) => {
-            setFilterName(e.target.value);
+            setData({
+              ...data,
+              name: e.target.value,
+            });
           }}
         />
       </IonContent>
@@ -55,28 +87,27 @@ const ProductFilterCreateFormStep5Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
+            disabled={isLoadingCreateFilter || isLoadingRequestConsulting}
             label={hasFilterName ? '완료했어요' : '넘어갈께요'}
             onClick={() => {
-              setIsModalOpen(true);
+              createFilter(data!);
             }}
           />
         </CTAButtonBlock>
       </IonFooter>
       <ProductSuggestionRequestModal
-        filterName={filterName}
+        filterName={visibleFilterName}
         isOpen={isModalOpen}
         onDidDismiss={(isAgree) => {
           setIsModalOpen(false);
 
           if (isAgree) {
-            present(`‘${filterName}’로 제안 요청을 했어요.`, 500);
-            // TODO. 제안 요청 보내기
+            requestConsulting(filterId!);
 
-            onNext && onNext();
             return;
-          } else {
-            setIsNudgeOpen(true);
           }
+
+          setIsNudgeOpen(true);
         }}
       />
       <ProductSuggestionRequestNudgePopup
@@ -85,12 +116,11 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsNudgeOpen(false);
 
           if (isAgree) {
-            present(`‘${filterName}’로 제안 요청을 했어요.`, 500);
-            // TODO. 제안 요청 보내기
-          } else {
-            present(`‘${filterName}’가 생성되었습니다.`, 500);
+            requestConsulting(filterId!);
+            return;
           }
 
+          present(`‘${visibleFilterName}’가 생성되었습니다.`, 500);
           onNext && onNext();
         }}
       />
