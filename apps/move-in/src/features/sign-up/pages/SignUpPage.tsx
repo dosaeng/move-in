@@ -2,7 +2,7 @@ import LoadingPage from '@/common/component/LoadingPage';
 import useAuthState, { AuthState } from '@/common/hooks/useAuthState';
 import { IonPage, IonRouterOutlet } from '@ionic/react';
 import { Redirect, Route } from 'react-router-dom';
-import { SignUpContextProvider } from '../hooks/useSignUpFormState';
+import { SignUpFormContextProvider } from '../hooks/useSignUpFormState';
 import SignUpAccountInfoFormPage from './SignUpAccountInfoFormPage';
 import SignUpCompletePage from './SignUpCompletePage';
 import SignUpUserInfoFormPage from './SignUpUserInfoFormPage';
@@ -19,7 +19,7 @@ const SignUpPage: React.FC = () => {
   }
 
   return (
-    <SignUpContextProvider>
+    <SignUpFormContextProvider>
       <IonPage>
         <IonRouterOutlet>
           <Redirect exact path="/sign-up" to="/sign-up/account-info" />
@@ -34,7 +34,7 @@ const SignUpPage: React.FC = () => {
           </Route>
         </IonRouterOutlet>
       </IonPage>
-    </SignUpContextProvider>
+    </SignUpFormContextProvider>
   );
 };
 

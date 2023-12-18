@@ -11,7 +11,7 @@ export const useSignUpFormState = () => {
   return useContext(SignUpContext);
 };
 
-export const SignUpContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const SignUpFormContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [value, setValue] = useState<SignUpRequestModel | undefined>();
 
   return <SignUpContext.Provider value={{ data: value, setData: setValue }}>{children}</SignUpContext.Provider>;
