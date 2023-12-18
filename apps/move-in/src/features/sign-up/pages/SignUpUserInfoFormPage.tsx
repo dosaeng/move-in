@@ -1,12 +1,13 @@
-import { useKeyboard } from '@capacitor-community/keyboard-react';
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
-import { Button, PageHeader, TextField } from '@move-in/design-system';
+import { Button, PageHeader, TextField, useToast } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import SignUpTermsModal from '../components/SignUpTermsModal';
+import { useSignUpFormState } from '../hooks/useSignUpFormState';
+import useSignUp from '../hooks/useSignUp';
 
 const SignUpUserInfoFormPage: React.FC = () => {
   const history = useHistory();
@@ -19,9 +20,17 @@ const SignUpUserInfoFormPage: React.FC = () => {
     birthday: string;
     phone_number: string;
   }>();
-  const { isOpen: isOpenKeyboard } = useKeyboard();
+  const { present } = useToast();
   const [isOpenTermsModal, setIsOpenTermsModal] = useState(false);
-  const visibleSubmitButton = isOpenKeyboard || isValid;
+  const { data, setData } = useSignUpFormState();
+  const { isLoading: isLoadingSignUp, mutate: requestSignUp } = useSignUp({
+    onSuccess: () => {
+      history.push('/sign-up/complete');
+    },
+    onError: () => {
+      present('회원가입에 실패했습니다.', 500);
+    },
+  });
 
   return (
     <IonPage>
@@ -50,7 +59,10 @@ const SignUpUserInfoFormPage: React.FC = () => {
         </h1>
 
         <form
-          onSubmit={handleSubmit(() => {
+          onSubmit={handleSubmit((values) => {
+            if (isLoadingSignUp) return;
+
+            setData({ ...data, ...values });
             setIsOpenTermsModal(true);
           })}
         >
@@ -67,47 +79,53 @@ const SignUpUserInfoFormPage: React.FC = () => {
               type="text"
               label="한글 이름"
               helperText="한글 이름을 입력해주세요"
-              {...register('name', { required: true })}
+              disabled={isLoadingSignUp}
+              {...register('name', { required: true, pattern: /^[가-힣]+$/ })}
             />
             <TextField
               id="birthday"
               type="number"
               label="생년월일 및 성별"
-              helperText="생년월일 및 성별을 입력해주세요"
-              {...register('birthday', { required: true })}
+              helperText="생년월일 및 성별을 입력해주세요 (예: 9302221)"
+              maxLength={7}
+              disabled={isLoadingSignUp}
+              {...register('birthday', { required: true, minLength: 7, maxLength: 7 })}
             />
             <TextField
-              id="phone_number"
+              id="phoneNumber"
               type="phone"
               label="전화번호"
-              helperText="전화번호를 입력해 주세요"
-              {...register('phone_number', { required: true })}
+              helperText="전화번호를 입력해 주세요 (숫자만)"
+              maxLength={11}
+              disabled={isLoadingSignUp}
+              {...register('phone_number', { required: true, minLength: 10, maxLength: 11 })}
             />
           </div>
-          {visibleSubmitButton && (
-            <Button
-              type="submit"
-              className={css({
-                position: 'absolute',
-                left: '0',
-                right: '0',
-                bottom: '0',
-                width: '100%',
-                maxWidth: '100%',
-                borderRadius: '0',
-              })}
-              label={'다음'}
-            />
-          )}
+          <Button
+            type="submit"
+            disabled={!isValid || isLoadingSignUp}
+            className={css({
+              position: 'absolute',
+              left: '0',
+              right: '0',
+              bottom: '0',
+              width: '100%',
+              maxWidth: '100%',
+              borderRadius: '0',
+            })}
+            label={'다음'}
+          />
         </form>
         <SignUpTermsModal
           isOpen={isOpenTermsModal}
-          onDidDismiss={(isAgree) => {
-            if (isAgree) {
-              history.push('/sign-up/complete');
+          onDidDismiss={async (isAgree) => {
+            setIsOpenTermsModal(false);
+
+            if (!isAgree) {
+              return;
             }
 
-            setIsOpenTermsModal(false);
+            requestSignUp(data!);
           }}
         />
       </IonContent>

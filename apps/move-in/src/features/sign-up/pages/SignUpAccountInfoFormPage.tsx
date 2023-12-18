@@ -1,23 +1,23 @@
-import { useKeyboard } from '@capacitor-community/keyboard-react';
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
 import { Button, TextField } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { useSignUpFormState } from '../hooks/useSignUpFormState';
 
 const SignUpAccountInfoFormPage: React.FC = () => {
   const history = useHistory();
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    getValues,
+    formState: { isValid, errors },
   } = useForm<{
     email: string;
     password: string;
     re_password: string;
   }>();
-  const { isOpen } = useKeyboard();
-  const visibleSubmitButton = isOpen || isValid;
+  const { data, setData } = useSignUpFormState();
 
   return (
     <IonPage>
@@ -36,8 +36,8 @@ const SignUpAccountInfoFormPage: React.FC = () => {
         </h1>
 
         <form
-          onSubmit={handleSubmit(() => {
-            // TODO. 데이터 저장
+          onSubmit={handleSubmit((values) => {
+            setData({ ...data, ...values });
 
             history.push('/sign-up/user-info');
           })}
@@ -61,32 +61,37 @@ const SignUpAccountInfoFormPage: React.FC = () => {
               id="password"
               type="password"
               label="무브인 비밀번호"
-              helperText="사용하실 비밀번호를 입력해주세요"
-              {...register('password', { required: true })}
+              helperText="사용하실 비밀번호를 입력해주세요 (8자 이상)"
+              {...register('password', { required: true, minLength: 8 })}
             />
             <TextField
               id="re_password"
               type="password"
               label="무브인 비밀번호 재확인"
-              helperText="비밀번호를 재입력해 주세요"
-              {...register('re_password', { required: true })}
+              helperText={errors.re_password?.message ?? '비밀번호를 재입력해 주세요'}
+              {...register('re_password', {
+                required: true,
+                minLength: 8,
+                validate: (value) => {
+                  return value === getValues('password') || '비밀번호가 일치하지 않습니다.';
+                },
+              })}
             />
           </div>
-          {visibleSubmitButton && (
-            <Button
-              type="submit"
-              className={css({
-                position: 'absolute',
-                left: '0',
-                right: '0',
-                bottom: '0',
-                width: '100%',
-                maxWidth: '100%',
-                borderRadius: '0',
-              })}
-              label={'다음'}
-            />
-          )}
+          <Button
+            type="submit"
+            disabled={!isValid}
+            className={css({
+              position: 'absolute',
+              left: '0',
+              right: '0',
+              bottom: '0',
+              width: '100%',
+              maxWidth: '100%',
+              borderRadius: '0',
+            })}
+            label={'다음'}
+          />
         </form>
       </IonContent>
     </IonPage>

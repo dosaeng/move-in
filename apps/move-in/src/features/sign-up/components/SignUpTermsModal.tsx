@@ -9,6 +9,21 @@ interface SignUpTermsModalProps {
 }
 
 const SignUpTermsModal: React.FC<SignUpTermsModalProps> = ({ isOpen, onDidDismiss }) => {
+  const [agreeTerms, setAgreeTerms] = React.useState<string[]>([]);
+  const isEmpty = agreeTerms.length === 0;
+  const isValid =
+    isEmpty || (agreeTerms.includes('terms1') && agreeTerms.includes('terms2') && agreeTerms.includes('terms3'));
+
+  const onClickItem = (id: string) => {
+    return (checked: boolean) => {
+      if (checked) {
+        setAgreeTerms([...agreeTerms, id]);
+      } else {
+        setAgreeTerms(agreeTerms.filter((term) => term !== id));
+      }
+    };
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -45,13 +60,18 @@ const SignUpTermsModal: React.FC<SignUpTermsModalProps> = ({ isOpen, onDidDismis
             gap: '15px',
           })}
         >
-          <SignUpTermsListItem id="terms1" label="(필수) 무브인 서비스 이용약관" />
-          <SignUpTermsListItem id="terms2" label="(필수) 개인정보 처리방침 동의" />
-          <SignUpTermsListItem id="terms3" label="(필수) 만 14세 이상 입니다" />
-          <SignUpTermsListItem id="terms4" label="(선택) 광고성 정보 수신 및 마케팅 활용" />
+          <SignUpTermsListItem id="terms1" label="(필수) 무브인 서비스 이용약관" onChange={onClickItem('terms1')} />
+          <SignUpTermsListItem id="terms2" label="(필수) 개인정보 처리방침 동의" onChange={onClickItem('terms2')} />
+          <SignUpTermsListItem id="terms3" label="(필수) 만 14세 이상 입니다" onChange={onClickItem('terms3')} />
+          <SignUpTermsListItem
+            id="terms4"
+            label="(선택) 광고성 정보 수신 및 마케팅 활용"
+            onChange={onClickItem('terms4')}
+          />
         </fieldset>
         <Button
-          label="모두 동의하고 완료하기"
+          label={isEmpty ? '모두 동의하고 완료하기' : '동의하고 완료하기'}
+          disabled={!isValid}
           onClick={() => {
             onDidDismiss && onDidDismiss(true);
           }}
