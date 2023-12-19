@@ -1,5 +1,5 @@
+import { css, cx } from '@move-in/styled-system/css';
 import useProductFilterList, { ProductFilterListItemModel, ProductFilterState } from '../hooks/useProductFilterList';
-import { cx, css } from '@move-in/styled-system/css';
 import ProductFilterListItem, { ProductFilterListItemSkeleton } from './ProductFilterListItem';
 
 interface Props {
@@ -10,12 +10,7 @@ interface Props {
 }
 
 const ProductFilterListView: React.FC<Props> = ({ className, state, onClick }) => {
-  const { data, isLoading } = useProductFilterList();
-  const filteredData = data?.filter((item) => {
-    if (!state) return true;
-
-    return state.includes(item.state);
-  });
+  const { data, isLoading } = useProductFilterList({ state });
 
   return (
     <div
@@ -36,7 +31,7 @@ const ProductFilterListView: React.FC<Props> = ({ className, state, onClick }) =
         </>
       ) : (
         <>
-          {filteredData?.map((item) => (
+          {data?.map((item) => (
             <ProductFilterListItem key={item.id} data={item} onClick={() => onClick && onClick(item)} />
           ))}
         </>

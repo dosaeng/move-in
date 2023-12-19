@@ -1,14 +1,19 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonRefresher, IonRefresherContent } from '@ionic/react';
 import { PageHeader } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
 import ProductFilterListView from '../components/ProductFilterListView';
-import useProductFilterListItem, { ProductFilterState } from '../hooks/useProductFilterList';
+import useProductFilterList, {
+  ProductFilterState,
+} from '../hooks/useProductFilterList';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
+import EmptyView from '@/common/component/EmptyView';
 
 const ProductFilterDraftListPage: React.FC = () => {
   const history = useHistory();
-  const { data, isSuccess } = useProductFilterListItem();
+  const { data, refetch, isSuccess } = useProductFilterList({
+    state: [ProductFilterState.DRAFT],
+  });
   const isEmpty = isSuccess && data?.length === 0;
 
   return (
@@ -30,6 +35,16 @@ const ProductFilterDraftListPage: React.FC = () => {
           '--padding-bottom': '40px',
         })}
       >
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={async (event) => {
+            refetch().finally(() => {
+              event.detail.complete();
+            });
+          }}
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <h2
           className={css({
             display: 'flex',
@@ -49,19 +64,7 @@ const ProductFilterDraftListPage: React.FC = () => {
           })}
         >
           {isEmpty ? (
-            <div
-              className={css({
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                textStyle: 'body-14-r',
-                color: 'text.dark.01',
-                height: '500px',
-              })}
-            >
-              아직 작성한 내역이 없어요
-            </div>
+            <EmptyView> 아직 작성한 내역이 없어요</EmptyView>
           ) : (
             <ProductFilterListView
               state={[ProductFilterState.DRAFT]}

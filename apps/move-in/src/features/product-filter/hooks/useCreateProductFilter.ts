@@ -1,5 +1,6 @@
 import { defineMock } from "@/common/utils/defineMock";
 import { UseMutationOptions, useMutation, useQueryClient } from "react-query";
+import { getProductFilterList } from "./useProductFilterList";
 
 export interface ProductFilterCreateRequestModel {
   name?: string;
@@ -52,7 +53,7 @@ const useCreateProductFilter = (options?: Omit<UseMutationOptions<{ id: number }
       throw new Error("Failed to create product filter");
     }
 
-    queryClient.refetchQueries('product-filter-list');
+    queryClient.refetchQueries([getProductFilterList]);
 
     return response.json();
   }, options);

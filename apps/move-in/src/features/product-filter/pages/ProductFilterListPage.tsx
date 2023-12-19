@@ -1,4 +1,11 @@
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
+import {
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+} from '@ionic/react';
 import {
   Button,
   CTAButtonBlock,
@@ -15,12 +22,15 @@ import ProductFilterCreateNudgePopup from '../components/create/ProductFilterCre
 import useProductFilterCreateNudgeState from '../hooks/useProductFilterCreateNudgeState';
 import { ProductFilterState } from '../hooks/useProductFilterList';
 import useProductFilterPageState from '../hooks/useProductFilterPageState';
+import EmptyView from '@/common/component/EmptyView';
 
 const ProductFilterListPage: React.FC = () => {
   const history = useHistory();
-  const { isEmpty, hasExpiredList } = useProductFilterPageState();
+  const { isEmpty, hasExpiredList, draftCount, refetch } =
+    useProductFilterPageState();
   const [isOpenNudgePopup, setIsOpenNudgePopup] = useState(false);
-  const { state: visibleCreateNudge, mutate: hideCreateNudge } = useProductFilterCreateNudgeState();
+  const { state: visibleCreateNudge, mutate: hideCreateNudge } =
+    useProductFilterCreateNudgeState();
 
   useEffect(() => {
     // 최초 진입시에만 노출
@@ -51,6 +61,16 @@ const ProductFilterListPage: React.FC = () => {
           '--padding-bottom': '40px',
         })}
       >
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={async (event) => {
+            refetch().finally(() => {
+              event.detail.complete();
+            });
+          }}
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <h2
           className={css({
             display: 'flex',
@@ -77,7 +97,7 @@ const ProductFilterListPage: React.FC = () => {
             shape="outline"
             theme="neutral"
             size="s"
-            label="임시저장(2)"
+            label={`임시저장(${draftCount})`}
             onClick={() => {
               history.push('/product-filters-draft');
             }}
@@ -91,25 +111,14 @@ const ProductFilterListPage: React.FC = () => {
           })}
         >
           {isEmpty ? (
-            <>
-              <div
-                className={css({
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textStyle: 'body-14-r',
-                  color: 'text.dark.01',
-                  height: '500px',
-                })}
-              >
-                아직 요청을 하지 않았어요
-              </div>
-            </>
+            <EmptyView>아직 요청을 하지 않았어요</EmptyView>
           ) : (
             <>
               <ProductFilterListView
-                state={[ProductFilterState.PUBLISHED, ProductFilterState.REQUESTED]}
+                state={[
+                  ProductFilterState.PUBLISHED,
+                  ProductFilterState.REQUESTED,
+                ]}
                 onClick={(item) => {
                   history.push(`/product-filters/${item.id}`);
                 }}

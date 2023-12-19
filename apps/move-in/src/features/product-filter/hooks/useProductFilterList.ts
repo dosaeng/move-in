@@ -1,4 +1,7 @@
-import { addDays, subDays } from 'date-fns';
+import { defineMock } from '@/common/utils/defineMock';
+import { koreanCurrencyFormat } from '@move-in/core';
+import { addDays, isAfter, subDays } from 'date-fns';
+import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 
 export enum ProductFilterState {
@@ -6,6 +9,24 @@ export enum ProductFilterState {
   PUBLISHED = 'PUBLISHED',
   REQUESTED = 'REQUESTED',
   EXPIRED = 'EXPIRED',
+}
+
+export interface ProductFilterListItemDTO {
+  id: number;
+  name: string;
+  // 제안 가능 여부
+  canSuggestion?: boolean;
+  // 제안 만료 날짜
+  suggestionDueDate?: string;
+  familyType: string;
+  maximumDeposit: number;
+  maximumMonthlyCost: number;
+  minimumMonthlyCost: number;
+  costPreferenceType: string;
+  preferredRegion: string;
+  preferredVillage: string;
+  itemHouseType: string;
+  recommendationCount: number,
 }
 
 export interface ProductFilterListItemModel {
@@ -18,63 +39,113 @@ export interface ProductFilterListItemModel {
   hasNewSuggestion?: boolean;
 }
 
-const useProductFilterList = () => {
-  return useQuery<ProductFilterListItemModel[]>(['product-filter-list'], async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+export const getProductFilterList = "/app-user-api/filter-card";
 
-    return [
-      {
-        id: 1,
-        name: '신사 영끌 신혼집 1',
-        dueDate: subDays(new Date(), 1),
-        filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
-        state: ProductFilterState.EXPIRED,
-        suggestionCount: 0,
-        hasNewSuggestion: false,
-      },
-      {
-        id: 2,
-        name: '신사 영끌 신혼집 2',
-        dueDate: addDays(new Date(), 3),
-        filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
-        state: ProductFilterState.REQUESTED,
-        suggestionCount: 12,
-        hasNewSuggestion: false,
-      },
-      {
-        id: 3,
-        name: '신사 영끌 신혼집 3',
-        dueDate: addDays(new Date(), 10),
-        filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
-        state: ProductFilterState.REQUESTED,
-        suggestionCount: 1,
-        hasNewSuggestion: true,
-      },
-      {
-        id: 4,
-        name: '신사 영끌 신혼집 4',
-        dueDate: addDays(new Date(), 10),
-        filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
-        state: ProductFilterState.PUBLISHED,
-      },
-      {
-        id: 5,
-        name: '신사 영끌 신혼집 5',
-        filterList: ['경기도 고양시 마두동', '오피스텔 · 아파트', '싱글라이프', '1억 4천 · 월 90-120'],
-        state: ProductFilterState.DRAFT,
-      },
-    ].map((item) => {
+const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) => {
+  const result = useQuery<ProductFilterListItemModel[]>([getProductFilterList], async () => {
+    const response = await fetch(getProductFilterList, {
+      method: 'GET',
+    })
+
+    const data: ProductFilterListItemDTO[] = await response.json();
+
+    return data.map((item) => {
+      const suggestionDueDate = item.suggestionDueDate != null ? new Date(item.suggestionDueDate) : undefined;
+      let state;
+
+      if (suggestionDueDate != null) {
+        const isLive = isAfter(suggestionDueDate, new Date()) && item.canSuggestion === true;
+        state = isLive ? ProductFilterState.REQUESTED : ProductFilterState.EXPIRED;
+      } else {
+        state = ProductFilterState.PUBLISHED;
+      }
+
       return {
-        ...item,
-        filterList: item.filterList.map((filterItem, index) => {
+        id: item.id,
+        name: item.name,
+        dueDate: item.suggestionDueDate != null ? new Date(item.suggestionDueDate) : undefined,
+        filterList: [
+          item.familyType,
+          item.itemHouseType,
+          `${koreanCurrencyFormat(item.maximumDeposit)} · 월 ${item.maximumMonthlyCost / 10000}-${item.minimumMonthlyCost / 10000}`
+        ].map((filterItem, index) => {
           return {
             key: index,
             value: filterItem,
           };
-        })
-      }
+        }),
+        state,
+        suggestionCount: item.recommendationCount,
+        hasNewSuggestion: false,
+      };
     });
   });
+
+  return {
+    ...result, data: useMemo(() => {
+      if (state == null) return result.data;
+
+      return result.data?.filter((item) => state.includes(item.state));
+    }, [result.data, state]),
+  }
 };
 
 export default useProductFilterList;
+
+defineMock((mock) => {
+  mock.get(getProductFilterList, async (_, request) => {
+    console.debug("Mocked get filter request", request);
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    return new Response(JSON.stringify([{
+      id: 1,
+      name: '신사 영끌 신혼집 1',
+      // 제안 가능 여부
+      canSuggestion: false,
+      // 제안 만료 날짜
+      suggestionDueDate: subDays(new Date(), 3),
+      familyType: '싱글 라이프',
+      maximumDeposit: 100000000,
+      maximumMonthlyCost: 1000000,
+      minimumMonthlyCost: 900000,
+      costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
+      preferredRegion: '서울 / 경기 / 인천',
+      preferredVillage: '서울특별시 강남구 역삼동',
+      itemHouseType: '오피스텔',
+      recommendationCount: 30,
+    }, {
+      id: 2,
+      name: '신사 영끌 신혼집 2',
+      // 제안 가능 여부
+      canSuggestion: true,
+      // 제안 만료 날짜
+      suggestionDueDate: addDays(new Date(), 3),
+      familyType: '싱글 라이프',
+      maximumDeposit: 100000000,
+      maximumMonthlyCost: 1000000,
+      minimumMonthlyCost: 900000,
+      costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
+      preferredRegion: '서울 / 경기 / 인천',
+      preferredVillage: '서울특별시 강남구 역삼동',
+      itemHouseType: '오피스텔',
+      recommendationCount: 10,
+    }, {
+      id: 3,
+      name: '신사 영끌 신혼집 3',
+      // 제안 가능 여부
+      canSuggestion: false,
+      familyType: '싱글 라이프',
+      maximumDeposit: 100000000,
+      maximumMonthlyCost: 1000000,
+      minimumMonthlyCost: 900000,
+      costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
+      preferredRegion: '서울 / 경기 / 인천',
+      preferredVillage: '서울특별시 강남구 역삼동',
+      itemHouseType: '오피스텔',
+      recommendationCount: 0,
+    }] as ProductFilterListItemDTO[]), {
+      status: 200,
+    })
+  })
+})

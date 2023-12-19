@@ -1,11 +1,13 @@
-import useProductFilterList from './useProductFilterList';
+import useProductFilterList, { ProductFilterState } from './useProductFilterList';
 
 const useProductFilterPageState = () => {
-  const { data, isLoading } = useProductFilterList();
+  const { data, refetch, isLoading } = useProductFilterList();
 
   return {
     isEmpty: !isLoading && !data?.length,
-    hasExpiredList: data?.some((item) => item.state === 'EXPIRED'),
+    hasExpiredList: data?.some((item) => item.state === ProductFilterState.EXPIRED),
+    draftCount: data?.filter((item) => item.state === ProductFilterState.DRAFT).length ?? 0,
+    refetch,
   };
 };
 
