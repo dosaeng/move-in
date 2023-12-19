@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.kreit.move_in',
+  appId: 'com.kreit.move-in',
   appName: 'MoveIn',
   webDir: 'dist',
   server: {
