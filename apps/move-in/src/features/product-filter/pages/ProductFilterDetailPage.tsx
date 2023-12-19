@@ -1,5 +1,12 @@
 import ProductSuggestionListView from '@/features/product-suggestion/components/ProductSuggestionListView';
-import { IonContent, IonHeader, IonPage, IonSkeletonText } from '@ionic/react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonSkeletonText,
+} from '@ionic/react';
 import {
   ChipButtonList,
   IconButton,
@@ -11,13 +18,14 @@ import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHead
 import { css } from '@move-in/styled-system/css';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 
-import useProductFilterDetail from '../hooks/useProductFilterDetail';
-import { useState } from 'react';
-import ProductFilterDetailActionModal from '../components/ProductFilterDetailActionModal';
-import ProductFilterDeleteRequestPopup from '../components/ProductFilterDeleteRequestPopup';
 import ProductSuggestionStopRequestPopup from '@/features/product-suggestion/components/ProductSuggestionStopRequestPopup';
-import useRequestStopProductConsulting from '../hooks/useRequestStopProductConsulting';
+import useProductSuggestionList from '@/features/product-suggestion/hooks/useProductSuggestionList';
+import { useState } from 'react';
+import ProductFilterDeleteRequestPopup from '../components/ProductFilterDeleteRequestPopup';
+import ProductFilterDetailActionModal from '../components/ProductFilterDetailActionModal';
 import useDeleteProductFilter from '../hooks/useDeleteProductFilter';
+import useProductFilterDetail from '../hooks/useProductFilterDetail';
+import useRequestStopProductConsulting from '../hooks/useRequestStopProductConsulting';
 
 const ProductFilterDetailPage: React.FC<
   RouteComponentProps<{
@@ -28,6 +36,7 @@ const ProductFilterDetailPage: React.FC<
   const filterId = match.params.id;
   const { data: detail, isLoading: isLoadingDetail } =
     useProductFilterDetail(filterId);
+  const { refetch: refetchSuggestionList } = useProductSuggestionList(filterId);
   const { mutate: requestStopConsulting, isLoading: isLoadingStop } =
     useRequestStopProductConsulting({
       onSuccess: () => {
@@ -72,6 +81,16 @@ const ProductFilterDetailPage: React.FC<
           '--padding-bottom': '40px',
         })}
       >
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={async (event) => {
+            refetchSuggestionList().finally(() => {
+              event.detail.complete();
+            });
+          }}
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <h2
           className={css({
             display: 'flex',
