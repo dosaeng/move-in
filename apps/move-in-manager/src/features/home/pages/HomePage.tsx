@@ -1,4 +1,12 @@
-import { IonContent, IonHeader, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton } from '@ionic/react';
+import {
+  IonContent,
+  IonHeader,
+  IonLabel,
+  IonPage,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+} from '@ionic/react';
 import { IconButton, IconMenu2, PageHeader } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { Redirect, Route } from 'react-router-dom';
@@ -29,7 +37,16 @@ const HomePage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <PageHeader right={<IconButton shape="clear" size="s" theme="neutral" icon={<IconMenu2 />} />} />
+        <PageHeader
+          right={
+            <IconButton
+              shape="clear"
+              size="s"
+              theme="neutral"
+              icon={<IconMenu2 />}
+            />
+          }
+        />
         <div
           className={cx(
             css({
@@ -37,18 +54,30 @@ const HomePage: React.FC = () => {
               overflow: 'hidden',
             })
           )}
-          style={{ height: isScrolled ? '0px' : '167px'}}
+          style={{ height: isScrolled ? '0px' : '167px' }}
         >
           <ProfileSection />
         </div>
         <IonTabBar>
-          <IonTabButton className={tabStyle} tab="product-filters" href="/tabs/product-filters">
+          <IonTabButton
+            className={tabStyle}
+            tab="product-filters"
+            href="/tabs/product-filters"
+          >
             <IonLabel>고객 탐색</IonLabel>
           </IonTabButton>
-          <IonTabButton className={tabStyle} tab="products" href="/tabs/products">
+          <IonTabButton
+            className={tabStyle}
+            tab="products"
+            href="/tabs/products"
+          >
             <IonLabel>매물 관리</IonLabel>
           </IonTabButton>
-          <IonTabButton className={tabStyle} tab="consultants" href="/tabs/consultants">
+          <IonTabButton
+            className={tabStyle}
+            tab="consultants"
+            href="/tabs/consultants"
+          >
             <IonLabel>상담 관리</IonLabel>
           </IonTabButton>
         </IonTabBar>
@@ -63,20 +92,8 @@ const HomePage: React.FC = () => {
               }}
             />
           </Route>
-          <Route exact path="/tabs/products">
-            <ProductFilterListPage
-              onIonScroll={(e) => {
-                setIsScrolled(e.detail.currentY > 0);
-              }}
-            />
-          </Route>
-          <Route exact path="/tabs/consultants">
-            <ProductFilterListPage
-              onIonScroll={(e) => {
-                setIsScrolled(e.detail.currentY > 0);
-              }}
-            />
-          </Route>
+          <Redirect exact path="/tabs/products" to="/tabs/product-filters" />
+          <Redirect exact path="/tabs/consultants" to="/tabs/product-filters" />
         </IonRouterOutlet>
       </IonContent>
     </IonPage>
