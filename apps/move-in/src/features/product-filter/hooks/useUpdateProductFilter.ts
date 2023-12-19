@@ -3,6 +3,8 @@ import { UseMutationOptions, useMutation, useQueryClient } from "react-query";
 import { getProductFilterList } from "./useProductFilterList";
 import { getProductFilterDetail } from "./useProductFilterDetail";
 
+// TODO. 요청 본문 DTO 생성하기
+
 export interface ProductFilterUpdateRequestModel {
   id: number;
   name?: string;

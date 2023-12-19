@@ -5,7 +5,7 @@ import { defineMock } from '@/common/utils/defineMock';
 import { koreanCurrencyFormat } from '@move-in/core';
 
 
-export interface ProductFilterDetailDTO {
+interface ProductFilterDetailDTO {
   id: number;
   name: string;
   // 제안 가능 여부

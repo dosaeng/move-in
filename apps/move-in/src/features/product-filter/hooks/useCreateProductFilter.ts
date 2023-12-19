@@ -2,6 +2,8 @@ import { defineMock } from "@/common/utils/defineMock";
 import { UseMutationOptions, useMutation, useQueryClient } from "react-query";
 import { getProductFilterList } from "./useProductFilterList";
 
+// TODO. 요청 본문 DTO 생성하기
+
 export interface ProductFilterCreateRequestModel {
   name?: string;
   defaultName?: string;

@@ -11,7 +11,7 @@ export enum ProductFilterState {
   EXPIRED = 'EXPIRED',
 }
 
-export interface ProductFilterListItemDTO {
+interface ProductFilterListItemDTO {
   id: number;
   name: string;
   // 제안 가능 여부
