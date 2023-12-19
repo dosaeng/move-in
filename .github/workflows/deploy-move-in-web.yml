@@ -1,6 +1,10 @@
 name: Deploying MoveIn to the web
 on:
   workflow_dispatch:
+    enableMockApi:
+      description: 'enable mock api'
+      type: boolean
+      required: false
 
 jobs:
   publish:
@@ -32,6 +36,8 @@ jobs:
       - run: corepack yarn
       - run: corepack yarn codegen
       - run: corepack yarn user:build
+        env: 
+          VITE_ENABLE_MOCK_API: ${{ inputs.enableMockApi }}
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
