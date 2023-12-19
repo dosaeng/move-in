@@ -1,4 +1,8 @@
-import { ProductDepositFormat, ProductMonthlyRentFormat, DateFormat } from '@move-in/design-system';
+import {
+  ProductDepositFormat,
+  ProductMonthlyRentFormat,
+  DateFormat,
+} from '@move-in/design-system';
 import { IonSkeletonText } from '@ionic/react';
 import { css } from '@move-in/styled-system/css';
 import { ProductSuggestionListItemModel } from '../hooks/useProductSuggestionList';
@@ -31,13 +35,23 @@ const ProductSuggestionListItem: React.FC<Props> = ({ data, onClick }) => {
             flexDirection: 'column',
           })}
         >
-          <div className={css({ textStyle: 'body-16-m', color: 'text.dark.04', marginBottom: '4px' })}>
+          <div
+            className={css({
+              textStyle: 'body-16-m',
+              color: 'text.dark.04',
+              marginBottom: '4px',
+            })}
+          >
             <ProductDepositFormat value={data.deposit} />
             <span>{` ∙ `}</span>
             <ProductMonthlyRentFormat value={data.monthlyRent} />
           </div>
           <div
-            className={css({ textStyle: 'body-12-r', color: 'text.dark.01', marginBottom: '12px' })}
+            className={css({
+              textStyle: 'body-12-r',
+              color: 'text.dark.01',
+              marginBottom: '12px',
+            })}
           >{`${data.address} ∙ ${data.name}`}</div>
           <div
             className={css({
@@ -116,10 +130,28 @@ export const ProductSuggestionListItemSkeleton: React.FC = () => {
             flexDirection: 'column',
           })}
         >
-          <IonSkeletonText animated style={{ width: '200px', height: '16px', marginBottom: '4px' }} />
-          <IonSkeletonText animated style={{ width: '80%', height: '12px', marginBottom: '12px' }} />
+          <IonSkeletonText
+            animated
+            style={{
+              width: '200px',
+              height: '16px',
+              marginBottom: '4px',
+              borderRadius: '4px',
+            }}
+          />
+          <IonSkeletonText
+            animated
+            style={{
+              width: '80%',
+              height: '12px',
+              marginBottom: '12px',
+              borderRadius: '4px',
+            }}
+          />
         </div>
-        <IonSkeletonText style={{ width: '88px', height: '88px' }} />
+        <IonSkeletonText
+          style={{ width: '88px', height: '88px', borderRadius: '8px' }}
+        />
       </div>
       <div style={{ height: '20px' }} />
     </div>

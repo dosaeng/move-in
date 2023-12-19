@@ -1,15 +1,23 @@
 import ProductSuggestionListView from '@/features/product-suggestion/components/ProductSuggestionListView';
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { IconButton, IconDotsVertical, PageHeader, ChipButtonList, useToast } from '@move-in/design-system';
+import { IonContent, IonHeader, IonPage, IonSkeletonText } from '@ionic/react';
+import {
+  ChipButtonList,
+  IconButton,
+  IconDotsVertical,
+  PageHeader,
+  useToast,
+} from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
-import { useState } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
-import ProductFilterDetailActionModal from '../components/ProductFilterDetailActionModal';
 
-import ProductSuggestionStopRequestPopup from '@/features/product-suggestion/components/ProductSuggestionStopRequestPopup';
-import ProductFilterDeleteRequestPopup from '../components/ProductFilterDeleteRequestPopup';
 import useProductFilterDetail from '../hooks/useProductFilterDetail';
+import { useState } from 'react';
+import ProductFilterDetailActionModal from '../components/ProductFilterDetailActionModal';
+import ProductFilterDeleteRequestPopup from '../components/ProductFilterDeleteRequestPopup';
+import ProductSuggestionStopRequestPopup from '@/features/product-suggestion/components/ProductSuggestionStopRequestPopup';
+import useRequestStopProductConsulting from '../hooks/useRequestStopProductConsulting';
+import useDeleteProductFilter from '../hooks/useDeleteProductFilter';
 
 const ProductFilterDetailPage: React.FC<
   RouteComponentProps<{
@@ -18,11 +26,32 @@ const ProductFilterDetailPage: React.FC<
 > = ({ match }) => {
   const history = useHistory();
   const filterId = match.params.id;
-  const { data: detail, isLoading: isLoading } = useProductFilterDetail(filterId);
+  const { data: detail, isLoading: isLoadingDetail } =
+    useProductFilterDetail(filterId);
+  const { mutate: requestStopConsulting, isLoading: isLoadingStop } =
+    useRequestStopProductConsulting({
+      onSuccess: () => {
+        present(`‘${detail?.name}’에 대한 제안이 중지되었습니다.`, 500);
+      },
+      onError: () => {
+        present(`제안 중지 요청에 실패하였습니다.`, 500);
+      },
+    });
+  const { mutate: deleteFilter, isLoading: isLoadingDelete } =
+    useDeleteProductFilter({
+      onSuccess: () => {
+        present(`‘${detail?.name}’가 삭제되었습니다.`, 500);
+        history.goBack();
+      },
+      onError: () => {
+        present(`삭제 요청에 실패하였습니다.`, 500);
+      },
+    });
   const [isOpenActionModal, setIsOpenActionModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenStopRequestModal, setIsOpenStopRequestModal] = useState(false);
   const { present } = useToast();
+  const isLoading = isLoadingDetail || isLoadingStop || isLoadingDelete;
 
   return (
     <IonPage>
@@ -42,7 +71,6 @@ const ProductFilterDetailPage: React.FC<
           '--padding-top': '24px',
           '--padding-bottom': '40px',
         })}
-        fullscreen
       >
         <h2
           className={css({
@@ -53,7 +81,19 @@ const ProductFilterDetailPage: React.FC<
             marginBottom: '24px',
           })}
         >
-          <span>강남 영끌 신혼집 {match.params.id}</span>
+          {isLoading ? (
+            <IonSkeletonText
+              style={{
+                width: '50%',
+                maxWidth: '150px',
+                height: '26px',
+                borderRadius: '4px',
+              }}
+              animated
+            />
+          ) : (
+            <span>{detail?.name}</span>
+          )}
           <IconButton
             shape="clear"
             theme="neutral"
@@ -124,9 +164,7 @@ const ProductFilterDetailPage: React.FC<
 
           if (!isAgree) return;
 
-          // TODO. 삭제 요청 API 호출
-          present(`‘${detail?.name}’가 삭제되었습니다.`, 500);
-          history.goBack();
+          deleteFilter(filterId);
         }}
       />
       <ProductSuggestionStopRequestPopup
@@ -137,8 +175,7 @@ const ProductFilterDetailPage: React.FC<
 
           if (!isAgree) return;
 
-          present(`‘${detail?.name}’에 대한 제안이 중지되었습니다.`, 500);
-          // TODO. 제안 중지 요청 API 호출
+          requestStopConsulting(filterId);
         }}
       />
     </IonPage>

@@ -1,5 +1,10 @@
 import { IonPage, IonRouterOutlet } from '@ionic/react';
-import { Redirect, Route, RouteComponentProps, useHistory } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  RouteComponentProps,
+  useHistory,
+} from 'react-router-dom';
 import ProductFilterCreateFormStep1Page from './create/ProductFilterCreateFormStep1Page';
 import ProductFilterCreateFormStep2Page from './create/ProductFilterCreateFormStep2Page';
 import ProductFilterCreateFormStep3Page from './create/ProductFilterCreateFormStep3Page';
@@ -25,7 +30,11 @@ const ProductFilterUpdatePage: React.FC<
   return (
     <IonPage>
       <IonRouterOutlet>
-        <Redirect exact path="/product-filters/:id/update" to="/product-filters/:id/update/step1" />
+        <Redirect
+          exact
+          path="/product-filters/:id/update"
+          to={`/product-filters/${id}/update/step1`}
+        />
         <Route exact path="/product-filters/:id/update/step1">
           <ProductFilterCreateFormStep1Page
             onBack={onBack}
