@@ -26,7 +26,7 @@ export default useDeleteProductFilter;
 
 
 defineMock((mock) => {
-  mock.delete((url) => url.includes(deleteProductFilterEndpoint), async (_, request) => {
+  mock.delete((url) => url.includes(deleteProductFilterEndpoint) && url.includes("?filterId="), async (_, request) => {
     console.debug("Mocked product filter delete request", request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));

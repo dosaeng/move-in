@@ -28,7 +28,7 @@ export default useRequestStopProductConsulting;
 
 
 defineMock((mock) => {
-  mock.delete((url) => url.includes(requestStopProductConsultingEndpoint), async (_, request) => {
+  mock.delete((url) => url.includes(requestStopProductConsultingEndpoint) && url.includes("?filterId="), async (_, request) => {
     console.debug("Mocked product consulting stop request", request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));
