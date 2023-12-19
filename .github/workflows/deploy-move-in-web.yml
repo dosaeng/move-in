@@ -1,10 +1,11 @@
 name: Deploying MoveIn to the web
 on:
   workflow_dispatch:
-    enableMockApi:
-      description: 'enable mock api'
-      type: boolean
-      required: false
+    inputs:
+      enableMockApi:
+        description: 'enable mock api'
+        type: boolean
+        required: false
 
 jobs:
   publish:
