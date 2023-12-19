@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonRefresher, IonRefresherContent } from '@ionic/react';
 import { Divider, PageHeader } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import ProductConsultingListView from '../components/ProductConsultingListView';
@@ -6,10 +6,12 @@ import { ProductConsultingState } from '../hooks/useProductConsultingList';
 import useProductConsultingPageState from '../hooks/useProductConsultingPageState';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { useHistory } from 'react-router-dom';
+import EmptyView from '@/common/component/EmptyView';
 
 const ProductConsultingListPage: React.FC = () => {
   const history = useHistory();
-  const { isEmpty, hasDoneConsulting, hasWaitingConsulting } = useProductConsultingPageState();
+  const { isEmpty, hasDoneConsulting, hasWaitingConsulting, refetch } =
+    useProductConsultingPageState();
 
   return (
     <IonPage>
@@ -30,6 +32,16 @@ const ProductConsultingListPage: React.FC = () => {
           '--padding-bottom': '40px',
         })}
       >
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={async (event) => {
+            refetch().finally(() => {
+              event.detail.complete();
+            });
+          }}
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <h2
           className={css({
             display: 'flex',
@@ -42,19 +54,7 @@ const ProductConsultingListPage: React.FC = () => {
           {hasWaitingConsulting ? '곧 상담이 진행될 예정이에요' : '상담 내역'}
         </h2>
         {isEmpty ? (
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textStyle: 'body-14-r',
-              color: 'text.dark.01',
-              height: '500px',
-            })}
-          >
-            아직 상담 요청 내역이 없어요
-          </div>
+          <EmptyView>아직 상담 요청 내역이 없어요</EmptyView>
         ) : (
           <>
             <ProductConsultingListView
@@ -82,7 +82,9 @@ const ProductConsultingListPage: React.FC = () => {
                   >
                     완료된 상담 내역
                   </div>
-                  <ProductConsultingListView state={[ProductConsultingState.DONE]} />
+                  <ProductConsultingListView
+                    state={[ProductConsultingState.DONE]}
+                  />
                 </div>
               </>
             )}
