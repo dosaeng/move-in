@@ -6,6 +6,10 @@ on:
         description: 'enable mock api'
         type: boolean
         required: false
+      apiUrl:
+        description: 'api url'
+        type: string
+        required: false
 
 jobs:
   publish:
@@ -39,6 +43,7 @@ jobs:
       - run: corepack yarn user:build
         env: 
           VITE_ENABLE_MOCK_API: ${{ inputs.enableMockApi }}
+          VITE_API_URL: ${{ inputs.apiUrl }}
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1

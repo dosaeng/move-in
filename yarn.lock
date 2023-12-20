@@ -2396,6 +2396,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.4"
     eslint-plugin-storybook: "npm:^0.6.15"
+    fetch-mock: "npm:^9.11.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-query: "npm:^3.39.3"
