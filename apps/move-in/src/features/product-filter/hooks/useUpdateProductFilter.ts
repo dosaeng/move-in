@@ -1,10 +1,30 @@
+import useCodeList from "@/common/hooks/useCodeList";
 import { defineMock } from "@/common/utils/defineMock";
+import { httpClient } from "@/common/utils/httpClient";
+import { format } from "date-fns";
 import { UseMutationOptions, useMutation, useQueryClient } from "react-query";
-import { getProductFilterList } from "./useProductFilterList";
 import { getProductFilterDetail } from "./useProductFilterDetail";
+import { getProductFilterList } from "./useProductFilterList";
 
-// TODO. 요청 본문 DTO 생성하기
-
+export interface ProductFilterUpdateRequestDTO {
+  name?: string;
+  family_type?: string;
+  pet_presence?: boolean;
+  minimum_size?: string;
+  minimum_room_count?: number;
+  minimum_move_in_date?: string; // YYYY-MM-DD
+  maximum_move_in_date?: string; // YYYY-MM-DD
+  maximum_deposit?: number;
+  maximum_monthly_cost?: number;
+  minimum_monthly_cost?: number;
+  cost_preference_type?: string;
+  preferred_region?: string;
+  preferred_village?: string;
+  favorite_place1?: string[];
+  item_house_type?: string[];
+  item_house_condition?: string[];
+  item_wish_list?: string[];
+}
 export interface ProductFilterUpdateRequestModel {
   id: number;
   name?: string;
@@ -44,23 +64,35 @@ export interface ProductFilterUpdateRequestModel {
 
 const updateProductFilterEndpoint = (id: string | number) => `/app-user-api/filter-card/${id}`
 
-const useUpdateProductFilter = (options?: Omit<UseMutationOptions<{ id: number }, unknown, ProductFilterUpdateRequestModel, unknown>, "mutationFn">) => {
+const useUpdateProductFilter = (options?: Omit<UseMutationOptions<void, unknown, ProductFilterUpdateRequestModel, unknown>, "mutationFn">) => {
   const queryClient = useQueryClient();
+  const { data: codeTable } = useCodeList();
 
   return useMutation(async (request: ProductFilterUpdateRequestModel) => {
-    const response = await fetch(updateProductFilterEndpoint(request.id), {
-      method: 'PUT',
-      body: JSON.stringify({ ...request, name: request.defaultName })
+    await httpClient.put<ProductFilterUpdateRequestDTO>(updateProductFilterEndpoint(request.id), {
+      body: {
+        name: request.name,
+        family_type: codeTable?.familyType.find((item) => item.key == request.familyTypeId)?.value,
+        pet_presence: request.petPresenceId == 1,
+        minimum_size: codeTable?.productMinimumSize.find((item) => item.key == request.productMinimumSizeId)?.value,
+        minimum_room_count: request.minimumRoomCountId,
+        minimum_move_in_date: request.minimumMoveInDate != null ? format(request.minimumMoveInDate, 'yyyy-MM-dd') : undefined,
+        maximum_move_in_date: request.maximumMoveInDate != null ? format(request.maximumMoveInDate, 'yyyy-MM-dd') : undefined,
+        maximum_deposit: request.deposit,
+        maximum_monthly_cost: request.maximumMonthlyCost,
+        minimum_monthly_cost: request.minimumMonthlyCost,
+        cost_preference_type: codeTable?.costPreference.find((item) => item.key == request.costPreferenceId)?.value,
+        preferred_region: codeTable?.preferredRegion.find((item) => item.key == request.preferredRegion?.region)?.value,
+        preferred_village: request.preferredRegion?.address,
+        favorite_place1: request.preferredRegion?.place,
+        item_house_type: request.houseTypeId?.map((item) => codeTable?.itemHouseType.find((houseType) => houseType.key == item)?.value).filter((item) => item != null) as string[],
+        item_house_condition: request.houseConditionId?.map((item) => codeTable?.itemHouseCondition.find((houseCondition) => houseCondition.key == item)?.value).filter((item) => item != null) as string[],
+        item_wish_list: request.wishListId?.map((item) => codeTable?.itemWithList.find((wishList) => wishList.key == item)?.value).filter((item) => item != null) as string[],
+      }
     })
-
-    if (!response.ok) {
-      throw new Error("Failed to update product filter");
-    }
 
     queryClient.refetchQueries([getProductFilterList]);
     queryClient.refetchQueries([getProductFilterDetail(request.id)]);
-
-    return response.json();
   }, options);
 }
 

@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import useCodeList from '@/common/hooks/useCodeList';
 import FilterMultipleSelectBox from '../base/FilterMultipleSelectBox';
 
 interface Props {
@@ -7,16 +7,8 @@ interface Props {
 }
 
 const ItemWishListSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['itemWishListSelectOptions'], () => {
-    return [
-      { key: 1, value: '베란다가 있으면 좋겠어요' },
-      { key: 2, value: '복층이었으면 좋겠어요' },
-      { key: 3, value: '낭만있는 옥탑이 있으면 좋겠어요' },
-      { key: 4, value: '전용 마당이 있었으면 좋겠어요' },
-      { key: 5, value: '반지하나 1층은 피하고 싶어요' },
-      { key: 6, value: '엘레베이터가 있으면 좋겠어요' },
-    ];
-  });
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.itemWithList;
 
   return (
     <FilterMultipleSelectBox

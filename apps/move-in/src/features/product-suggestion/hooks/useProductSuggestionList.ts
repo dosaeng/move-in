@@ -1,32 +1,33 @@
 import { defineMock } from '@/common/utils/defineMock';
+import { httpClient } from '@/common/utils/httpClient';
 import { addDays, subDays } from 'date-fns';
 import { useQuery } from 'react-query';
 
-
 interface ProductSuggestionListItemDTO {
+
   id: number;
   // 상품 아이디
-  productId: number;
+  item_id: number;
   // 상품 이름
   name: string;
   // 상품 썸네일 주소
-  thumbnail: string;
+  photo_in_base64_string: string;
   // 보증금
   deposit: number;
   // 월세
-  monthlyRent: number;
+  monthly_rent: number;
   // 주소
   address: string;
   // 최소 입주 가능일
-  minimumMoveInDate: string;
+  minimum_move_in_date: string;
   // 제안일
-  suggestionDate: string;
+  suggestion_date: string;
   // 제안자 아이디
-  agentId: number;
+  agent_id: number;
   // 제안자 이름
-  agentName: string;
+  agent_name: string;
   // 제안자 평점
-  agentRating: number;
+  agent_rating: number;
 }
 
 export interface ProductSuggestionListItemModel {
@@ -55,23 +56,26 @@ export interface ProductSuggestionListItemModel {
   agentRating: number;
 }
 
-// TODO. API 주소 업데이트 하기
-const getProductSuggestionListEndpoint = '/app-user-api/suggestions';
+const getProductSuggestionListEndpoint = (filterId: string | number) => `/app-user-api/filter-card/${filterId}/recommendation`;
 
 const useProductSuggestionList = (filterId: string | number) => {
   return useQuery<ProductSuggestionListItemModel[]>([getProductSuggestionListEndpoint, filterId], async () => {
-    const response = await fetch(
-      `${getProductSuggestionListEndpoint}?filterId=${filterId}`, {
-      method: 'GET',
-    })
+    const response = await httpClient.get<ProductSuggestionListItemDTO[]>(getProductSuggestionListEndpoint(filterId));
 
-    const data: ProductSuggestionListItemDTO[] = await response.json();
-
-    return data.map((item) => {
+    return response.map((item) => {
       return {
-        ...item,
-        minimumMoveInDate: new Date(item.minimumMoveInDate),
-        suggestionDate: new Date(item.suggestionDate),
+        id: item.id,
+        productId: item.item_id,
+        name: item.name,
+        thumbnail: item.photo_in_base64_string,
+        deposit: item.deposit,
+        monthlyRent: item.monthly_rent,
+        address: item.address,
+        minimumMoveInDate: new Date(item.minimum_move_in_date),
+        suggestionDate: new Date(item.suggestion_date),
+        agentId: item.agent_id,
+        agentName: item.agent_name,
+        agentRating: item.agent_rating,
       }
     });
   });
@@ -80,7 +84,7 @@ const useProductSuggestionList = (filterId: string | number) => {
 export default useProductSuggestionList;
 
 defineMock((mock) => {
-  mock.get((url) => url.includes(getProductSuggestionListEndpoint) && url.includes("?filterId="), async (_, request) => {
+  mock.get(new RegExp(`^${getProductSuggestionListEndpoint('[0-9]+')}$`), async (_, request) => {
     console.debug('Mocked consulting list request', request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));
@@ -89,45 +93,45 @@ defineMock((mock) => {
       JSON.stringify([
         {
           id: 1,
-          productId: 1,
+          item_id: 1,
           name: '신사 영끌 신혼집 1',
-          thumbnail: 'https://placehold.co/300x300',
+          photo_in_base64_string: 'https://placehold.co/300x300',
           deposit: 590000000,
-          monthlyRent: 100000,
+          monthly_rent: 100000,
           address: '경기도 고양시 마두동',
-          minimumMoveInDate: subDays(new Date(), 1).toISOString(),
-          suggestionDate: subDays(new Date(), 1).toISOString(),
-          agentId: 1,
-          agentName: '김영끌',
-          agentRating: 4.5,
+          minimum_move_in_date: subDays(new Date(), 1).toISOString(),
+          suggestion_date: subDays(new Date(), 1).toISOString(),
+          agent_id: 1,
+          agent_name: '김영끌',
+          agent_rating: 4.5,
         },
         {
           id: 2,
-          productId: 2,
+          item_id: 2,
           name: '신사 영끌 신혼집 2',
-          thumbnail: 'https://placehold.co/300x300',
-          deposit: 1000000,
-          monthlyRent: 500000,
+          photo_in_base64_string: 'https://placehold.co/300x300',
+          deposit: 590000000,
+          monthly_rent: 100000,
           address: '경기도 고양시 마두동',
-          minimumMoveInDate: addDays(new Date(), 3).toISOString(),
-          suggestionDate: addDays(new Date(), 3).toISOString(),
-          agentId: 1,
-          agentName: '김영끌',
-          agentRating: 4.5,
+          minimum_move_in_date: subDays(new Date(), 1).toISOString(),
+          suggestion_date: addDays(new Date(), 1).toISOString(),
+          agent_id: 1,
+          agent_name: '김영끌',
+          agent_rating: 4.5,
         },
         {
           id: 3,
-          productId: 3,
+          item_id: 3,
           name: '신사 영끌 신혼집 3',
-          thumbnail: 'https://placehold.co/300x300',
-          deposit: 100000,
-          monthlyRent: 10000000,
+          photo_in_base64_string: 'https://placehold.co/300x300',
+          deposit: 590000000,
+          monthly_rent: 100000,
           address: '경기도 고양시 마두동',
-          minimumMoveInDate: addDays(new Date(), 10).toISOString(),
-          suggestionDate: addDays(new Date(), 10).toISOString(),
-          agentId: 1,
-          agentName: '김영끌',
-          agentRating: 4.5,
+          minimum_move_in_date: subDays(new Date(), 1).toISOString(),
+          suggestion_date: addDays(new Date(), 10).toISOString(),
+          agent_id: 1,
+          agent_name: '김영끌',
+          agent_rating: 4.5,
         },
       ] as ProductSuggestionListItemDTO[]),
       {

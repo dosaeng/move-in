@@ -4,11 +4,12 @@ import useProductSuggestionDetail from '../../hooks/useProductSuggestionDetail';
 
 interface Props {
   id: string | number;
+  filterId: string | number;
   className?: string;
 }
 
-const ProductAgentSection: React.FC<Props> = ({ className, id }) => {
-  const { data } = useProductSuggestionDetail(id);
+const ProductAgentSection: React.FC<Props> = ({ className, id, filterId }) => {
+  const { data } = useProductSuggestionDetail(filterId, id);
 
   return (
     <div
@@ -30,7 +31,10 @@ const ProductAgentSection: React.FC<Props> = ({ className, id }) => {
           alignItems: 'center',
         })}
       >
-        <ProfileImage src={data?.agent.profileImage} alt={`${data?.agent.name}-profile`} />
+        <ProfileImage
+          src={data?.agent.profileImage}
+          alt={`${data?.agent.name}-profile`}
+        />
         <BoxLabel
           className={css({
             marginBottom: '12px',
@@ -47,7 +51,10 @@ const ProductAgentSection: React.FC<Props> = ({ className, id }) => {
         >
           {data?.agent.name}
         </div>
-        <AgentScoreBar reviewCount={data?.agent.reviewCount} reviewScore={data?.agent.reviewScore} />
+        <AgentScoreBar
+          reviewCount={data?.agent.reviewCount}
+          reviewScore={data?.agent.reviewScore}
+        />
       </div>
     </div>
   );

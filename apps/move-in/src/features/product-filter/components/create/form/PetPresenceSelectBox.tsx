@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import useCodeList from '@/common/hooks/useCodeList';
 import FilterSelectBox from '../base/FilterSelectBox';
 
 interface Props {
@@ -7,12 +7,8 @@ interface Props {
 }
 
 const PetPresenceSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['petPresenceSelectOptions'], () => {
-    return [
-      { key: 1, value: '반려동물과 함께 살 거에요' },
-      { key: 2, value: '반려동물과 함께 하지 않아요' },
-    ];
-  });
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.petPresence;
 
   return (
     <FilterSelectBox

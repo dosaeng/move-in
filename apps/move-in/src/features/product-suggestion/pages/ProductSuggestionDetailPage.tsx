@@ -1,22 +1,30 @@
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, Divider, PageHeader, useToast } from '@move-in/design-system';
-import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
-import { css } from '@move-in/styled-system/css';
-import { RouteComponentProps, useHistory } from 'react-router-dom';
-import ProductDetailSection from '../components/detail/ProductDetailSection';
-import ProductSuggestionSection from '../components/detail/ProductSuggestionSection';
-import ProductAgentSection from '../components/detail/ProductAgentSection';
 import ProductConsultingRequestModal from '@/features/product-consulting/components/ProductConsultingRequestModal';
 import ProductConsultingRequestNudgePopup from '@/features/product-consulting/components/ProductConsultingRequestNudgePopup';
+import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
+import {
+  Button,
+  CTAButtonBlock,
+  Divider,
+  PageHeader,
+  useToast,
+} from '@move-in/design-system';
+import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
+import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
+import ProductAgentSection from '../components/detail/ProductAgentSection';
+import ProductDetailSection from '../components/detail/ProductDetailSection';
+import ProductSuggestionSection from '../components/detail/ProductSuggestionSection';
 
 const ProductSuggestionDetailPage: React.FC<
   RouteComponentProps<{
     id: string;
+    filterId: string;
   }>
 > = ({ match }) => {
   const history = useHistory();
   const detailId = match.params.id;
+  const filterId = match.params.filterId;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNudgeOpen, setIsNudgeOpen] = useState(false);
   const { present } = useToast();
@@ -41,15 +49,15 @@ const ProductSuggestionDetailPage: React.FC<
           '--padding-bottom': '40px',
         })}
       >
-        <ProductDetailSection id={detailId} />
+        <ProductDetailSection id={detailId} filterId={filterId} />
         <Divider
           className={css({
             marginY: '48px',
           })}
           size="m"
         />
-        <ProductSuggestionSection id={detailId} />
-        <ProductAgentSection id={detailId} />
+        <ProductSuggestionSection id={detailId} filterId={filterId} />
+        <ProductAgentSection id={detailId} filterId={filterId} />
       </IonContent>
       <IonFooter className="ion-no-border">
         <CTAButtonBlock>

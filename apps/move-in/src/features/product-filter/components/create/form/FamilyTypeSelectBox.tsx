@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import useCodeList from '@/common/hooks/useCodeList';
 import FilterSelectBox from '../base/FilterSelectBox';
 
 interface Props {
@@ -7,16 +7,8 @@ interface Props {
 }
 
 const FamilyTypeSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['familyTypeSelectBoxOptions'], () => {
-    return [
-      { key: 1, value: '싱글 라이프' },
-      { key: 2, value: '신혼 부부' },
-      { key: 3, value: '아기가 있는 집' },
-      { key: 4, value: '취학 자녀가 있는 집' },
-      { key: 5, value: '부모님과 함께 사는 집' },
-      { key: 6, value: '기타' },
-    ];
-  });
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.familyType;
 
   return (
     <FilterSelectBox

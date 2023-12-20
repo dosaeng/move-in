@@ -1,8 +1,9 @@
+import { defineMock } from '@/common/utils/defineMock';
+import { httpClient } from '@/common/utils/httpClient';
+import { koreanCurrencyFormat } from '@move-in/core';
 import { addDays, format, isAfter, subDays } from 'date-fns';
 import { useQuery } from 'react-query';
 import { ProductFilterState } from './useProductFilterList';
-import { defineMock } from '@/common/utils/defineMock';
-import { koreanCurrencyFormat } from '@move-in/core';
 
 
 interface ProductFilterDetailDTO {
@@ -24,12 +25,10 @@ interface ProductFilterDetailDTO {
   costPreferenceType: string;
   preferredRegion: string;
   preferredVillage: string;
-  favoritePlace1?: string;
-  favoritePlace2?: string;
-  favoritePlace3?: string;
-  itemHouseType?: string;
-  itemHouseCondition?: string;
-  itemWishList?: string;
+  favoritePlace1?: string[];
+  itemHouseType?: string[];
+  itemHouseCondition?: string[];
+  itemWishList?: string[];
 }
 
 export interface ProductFilterDetailModel {
@@ -45,11 +44,7 @@ const useProductFilterDetail = (id: string | number) => {
   const requestPath = getProductFilterDetail(id);
 
   return useQuery<ProductFilterDetailModel>([requestPath], async () => {
-    const response = await fetch(requestPath, {
-      method: 'GET',
-    })
-
-    const data: ProductFilterDetailDTO = await response.json();
+    const data = await httpClient.get<ProductFilterDetailDTO>(requestPath)
 
     const suggestionDueDate = data.suggestionDueDate != null ? new Date(data.suggestionDueDate) : undefined;
     let state;
@@ -76,10 +71,8 @@ const useProductFilterDetail = (id: string | number) => {
         data.preferredRegion,
         data.preferredVillage,
         data.favoritePlace1,
-        data.favoritePlace2,
-        data.favoritePlace3,
         data.itemWishList
-      ].filter((item) => (item ?? '').length > 0).map((filterItem, index) => {
+      ].flat().filter((item) => (item ?? '').length > 0).map((filterItem, index) => {
         return {
           key: index,
           value: filterItem!,
@@ -116,10 +109,10 @@ defineMock((mock) => {
       costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
       preferredRegion: '서울 / 경기 / 인천',
       preferredVillage: '서울특별시 강남구 역삼동',
-      favoritePlace1: '서울대학교',
-      itemHouseType: '오피스텔',
-      itemHouseCondition: '신축 첫 입주',
-      itemWishList: '베란다가 있으면 좋겠어요',
+      favoritePlace1: ['서울대학교'],
+      itemHouseType: ['오피스텔'],
+      itemHouseCondition: ['신축 첫 입주'],
+      itemWishList: ['베란다가 있으면 좋겠어요'],
     };
 
     if (id === 1) {

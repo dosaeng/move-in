@@ -1,16 +1,17 @@
+import useCodeList from '@/common/hooks/useCodeList';
 import {
   Button,
+  FormInputLabel,
   Modal,
   SearchInput,
   SelectBoxModalContent,
   SelectBoxOption,
   SelectBoxOptionRow,
   SelectBoxTrigger,
-  FormInputLabel,
 } from '@move-in/design-system';
+import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { css } from '@move-in/styled-system/css';
 
 interface PreferredRegionSelectBoxValue {
   region?: number;
@@ -24,14 +25,22 @@ interface Props {
   onChange?: (value?: PreferredRegionSelectBoxValue) => void;
 }
 
-const PreferredRegionSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }) => {
-  const { data: options } = useRegionList();
-  const [internalValue, setInternalValue] = useState<PreferredRegionSelectBoxValue | undefined>(defaultValue);
+const PreferredRegionSelectBox: React.FC<Props> = ({
+  value,
+  defaultValue,
+  onChange,
+}) => {
+  const { data: codeTable } = useCodeList();
+  const [internalValue, setInternalValue] = useState<
+    PreferredRegionSelectBoxValue | undefined
+  >(defaultValue);
   const [isRegionModalOpen, setIsRegionModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isPlaceModalOpen, setIsPlaceModalOpen] = useState(false);
   const currentValue = value != null ? value : internalValue;
-  const regionOption = options?.find((option) => option.key === currentValue?.region);
+  const regionOption = codeTable?.preferredRegion?.find(
+    (option) => option.key === currentValue?.region
+  );
 
   return (
     <div>
@@ -48,12 +57,19 @@ const PreferredRegionSelectBox: React.FC<Props> = ({ value, defaultValue, onChan
           placeholder="눌러서 선택해주세요"
           onClick={() => setIsRegionModalOpen(true)}
         >
-          {[regionOption?.value, currentValue?.address, currentValue?.place?.join(', ')]
+          {[
+            regionOption?.value,
+            currentValue?.address,
+            currentValue?.place?.join(', '),
+          ]
             .filter((value) => value != null && value !== '')
             .join(', ')}
         </SelectBoxTrigger>
       </div>
-      <Modal isOpen={isRegionModalOpen} onDidDismiss={() => setIsRegionModalOpen(false)}>
+      <Modal
+        isOpen={isRegionModalOpen}
+        onDidDismiss={() => setIsRegionModalOpen(false)}
+      >
         <RegionSelectView
           selectedKey={internalValue?.region}
           onChange={(value) => {
@@ -69,7 +85,10 @@ const PreferredRegionSelectBox: React.FC<Props> = ({ value, defaultValue, onChan
           }}
         />
       </Modal>
-      <Modal isOpen={isAddressModalOpen} onDidDismiss={() => setIsAddressModalOpen(false)}>
+      <Modal
+        isOpen={isAddressModalOpen}
+        onDidDismiss={() => setIsAddressModalOpen(false)}
+      >
         <AddressSearchView
           onChange={(value) => {
             setInternalValue((prevValue) => {
@@ -83,7 +102,10 @@ const PreferredRegionSelectBox: React.FC<Props> = ({ value, defaultValue, onChan
           }}
         />
       </Modal>
-      <Modal isOpen={isPlaceModalOpen} onDidDismiss={() => setIsPlaceModalOpen(false)}>
+      <Modal
+        isOpen={isPlaceModalOpen}
+        onDidDismiss={() => setIsPlaceModalOpen(false)}
+      >
         <PlaceSearchView
           value={currentValue?.place}
           onChange={(value) => {
@@ -104,27 +126,18 @@ const PreferredRegionSelectBox: React.FC<Props> = ({ value, defaultValue, onChan
 
 export default PreferredRegionSelectBox;
 
-const useRegionList = () => {
-  return useQuery(['preferredRegionSelectOptions'], () => {
-    return [
-      { key: 1, value: '서울 / 경기 / 인천' },
-      { key: 2, value: '충청 / 대전 / 세종' },
-      { key: 3, value: '경상 / 부산 / 대구' },
-      { key: 4, value: '전라 / 광주' },
-      { key: 5, value: '강원' },
-      { key: 6, value: '제주' },
-    ];
-  });
-};
-
 const RegionSelectView: React.FC<{
   selectedKey?: number;
   onChange: (value: SelectBoxOption<number, string>) => void;
 }> = ({ selectedKey, onChange }) => {
-  const { data: options, isLoading } = useRegionList();
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.preferredRegion;
 
   return (
-    <SelectBoxModalContent key={isLoading ? 'loading' : 'loaded'} title="어느 지역을 선호하시나요?">
+    <SelectBoxModalContent
+      key={isLoading ? 'loading' : 'loaded'}
+      title="어느 지역을 선호하시나요?"
+    >
       <div
         className={css({
           display: 'grid',
@@ -160,12 +173,22 @@ const RegionSelectView: React.FC<{
 const AddressSearchView: React.FC<{
   onChange: (value: string) => void;
 }> = ({ onChange }) => {
-  const { data: addressList, isLoading: isLoadingAddress } = useQuery(['preferredRegionAddressSearch'], () => {
-    return ['서울특별시 강남구 역삼동', '서울특별시 강남구 논현동', '서울특별시 강남구 대치동'];
-  });
+  const { data: addressList, isLoading: isLoadingAddress } = useQuery(
+    ['preferredRegionAddressSearch'],
+    () => {
+      return [
+        '서울특별시 강남구 역삼동',
+        '서울특별시 강남구 논현동',
+        '서울특별시 강남구 대치동',
+      ];
+    }
+  );
 
   return (
-    <SelectBoxModalContent key={isLoadingAddress ? 'loading' : 'loaded'} title="살고 싶은 동네를 입력해 주세요.">
+    <SelectBoxModalContent
+      key={isLoadingAddress ? 'loading' : 'loaded'}
+      title="살고 싶은 동네를 입력해 주세요."
+    >
       <SearchInput placeholder="관심 동네를 검색해주세요 (ex-도담동)" />
       <div
         className={css({
@@ -195,9 +218,18 @@ const PlaceSearchView: React.FC<{
   value?: string[];
   onChange: (value: string[]) => void;
 }> = ({ value, onChange }) => {
-  const { data: placeList, isLoading: isLoadingPlace } = useQuery(['preferredRegionPlaceSearch'], () => {
-    return ['서울대학교', '서울대학교 의과대학', '서울대학교 치과대학', '서울대학교 약학대학', '서울대학교 사범대학'];
-  });
+  const { data: placeList, isLoading: isLoadingPlace } = useQuery(
+    ['preferredRegionPlaceSearch'],
+    () => {
+      return [
+        '서울대학교',
+        '서울대학교 의과대학',
+        '서울대학교 치과대학',
+        '서울대학교 약학대학',
+        '서울대학교 사범대학',
+      ];
+    }
+  );
   const [selectedList, setSelectedList] = useState<string[]>(value ?? []);
   const hasValue = selectedList.length > 0;
 

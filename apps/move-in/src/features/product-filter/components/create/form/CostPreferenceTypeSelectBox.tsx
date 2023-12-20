@@ -1,5 +1,5 @@
+import useCodeList from '@/common/hooks/useCodeList';
 import { SelectBox } from '@move-in/design-system';
-import { useQuery } from 'react-query';
 import InputFieldHeaderContainer from '../base/InputFieldHeaderContainer';
 
 interface Props {
@@ -7,16 +7,18 @@ interface Props {
   onChange?: (value: number) => void;
 }
 
-const CostPreferenceTypeSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['costPreferenceTypeSelectOptions'], () => {
-    return [
-      { key: 1, value: '낮은 보증, 높은 월 고정 비용이 좋아요' },
-      { key: 2, value: '높은 보증, 낮은 월 고정 비용이 좋아요' },
-    ];
-  });
+const CostPreferenceTypeSelectBox: React.FC<Props> = ({
+  defaultValue,
+  onChange,
+}) => {
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.costPreference;
 
   return (
-    <InputFieldHeaderContainer title="주거 비용 구성" subtitle="아래 두 방향 중 한가지를 골라주세요">
+    <InputFieldHeaderContainer
+      title="주거 비용 구성"
+      subtitle="아래 두 방향 중 한가지를 골라주세요"
+    >
       <SelectBox
         key={isLoading ? 'loading' : 'loaded'}
         modalTitle={

@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import useCodeList from '@/common/hooks/useCodeList';
 import FilterMultipleSelectBox from '../base/FilterMultipleSelectBox';
 
 interface Props {
@@ -6,17 +6,12 @@ interface Props {
   onChange?: (value: number[]) => void;
 }
 
-const ItemHouseTypeSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['itemHouseTypeSelectOptions'], () => {
-    return [
-      { key: 1, value: '아파트' },
-      { key: 2, value: '오피스텔' },
-      { key: 3, value: '다세대 빌라' },
-      { key: 4, value: '원룸 ・투룸' },
-      { key: 5, value: '단독 주택' },
-      { key: 6, value: '기타' },
-    ];
-  });
+const ItemHouseTypeSelectBox: React.FC<Props> = ({
+  defaultValue,
+  onChange,
+}) => {
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.itemHouseType;
 
   return (
     <FilterMultipleSelectBox
@@ -31,7 +26,9 @@ const ItemHouseTypeSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => 
         </>
       }
       placeholder="눌러서 선택해주세요"
-      defaultValue={options?.filter((option) => defaultValue?.includes(option.key))}
+      defaultValue={options?.filter(
+        (option) => defaultValue?.includes(option.key)
+      )}
       options={options ?? []}
       disabled={isLoading}
       onChange={(value) => {

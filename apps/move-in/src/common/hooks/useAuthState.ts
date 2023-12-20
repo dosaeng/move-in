@@ -6,9 +6,24 @@ export enum AuthState {
 }
 
 const useAuthState = () => {
-  return useQuery("authState", async () => {
+  const { data, isLoading, refetch } = useQuery("authState", async () => {
     return localStorage.getItem("accessToken") ? AuthState.authorized : AuthState.unauthorized;
   });
+
+  return {
+    data,
+    isLoading,
+    login(accessToken: string) {
+      localStorage.setItem("accessToken", accessToken);
+
+      refetch();
+    },
+    logout() {
+      localStorage.removeItem("accessToken");
+
+      refetch();
+    }
+  }
 }
 
 export default useAuthState;

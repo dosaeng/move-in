@@ -1,4 +1,5 @@
 import { defineMock } from '@/common/utils/defineMock';
+import { httpClient } from '@/common/utils/httpClient';
 import { useQuery } from 'react-query';
 
 export enum ProductConsultingState {
@@ -10,6 +11,7 @@ export enum ProductConsultingState {
 interface ProductConsultingListItemDTO {
   id: number;
   state: string;
+  filterId?: number;
   suggestionId?: number;
   // 상품 아이디
   productId: number;
@@ -38,6 +40,7 @@ interface ProductConsultingListItemDTO {
 export interface ProductConsultingListItemModel {
   id: number;
   state: ProductConsultingState;
+  filterId?: number;
   suggestionId?: number;
   // 상품 아이디
   productId: number;
@@ -70,11 +73,9 @@ const useProductConsultingList = () => {
   return useQuery<ProductConsultingListItemModel[]>(
     [getProductConsultingList],
     async () => {
-      const response = await fetch(getProductConsultingList, {
-        method: 'GET',
-      });
-
-      const data: ProductConsultingListItemDTO[] = await response.json();
+      const data = await httpClient.get<ProductConsultingListItemDTO[]>(
+        getProductConsultingList
+      );
 
       return data.map((item) => {
         return {
@@ -101,6 +102,7 @@ defineMock((mock) => {
         {
           id: 1,
           state: 'WAITING',
+          filterId: 1,
           suggestionId: 1,
           productId: 1,
           name: '테스트 상품 1',
@@ -117,6 +119,7 @@ defineMock((mock) => {
         {
           id: 2,
           state: 'WAITING',
+          filterId: 1,
           suggestionId: 2,
           productId: 2,
           name: '테스트 상품 2',
@@ -133,6 +136,7 @@ defineMock((mock) => {
         {
           id: 3,
           state: 'DONE',
+          filterId: 1,
           suggestionId: 3,
           productId: 3,
           name: '테스트 상품 3',

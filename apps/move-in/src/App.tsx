@@ -15,13 +15,39 @@ function App() {
     <IonApp>
       <BrowserRouter>
         <Route path="/sign-up" component={SignUpPage} />
-        <AuthRoute exact path="/product-filters" component={ProductFilterListPage} />
-        <AuthRoute exact path="/product-filters-draft" component={ProductFilterDraftListPage} />
-        <AuthRoute path="/product-filters-create" component={ProductFilterCreatePage} />
-        <AuthRoute exact path="/product-filters/:id" component={ProductFilterDetailPage} />
-        <AuthRoute path="/product-filters/:id/update" component={ProductFilterUpdatePage} />
-        <AuthRoute exact path="/product-suggestions/:id" component={ProductSuggestionDetailPage} />
-        <AuthRoute exact path="/product-consultants" component={ProductConsultingListPage} />
+        <AuthRoute
+          exact
+          path="/product-filters"
+          component={ProductFilterListPage}
+        />
+        <AuthRoute
+          exact
+          path="/product-filters-draft"
+          component={ProductFilterDraftListPage}
+        />
+        <AuthRoute
+          path="/product-filters-create"
+          component={ProductFilterCreatePage}
+        />
+        <AuthRoute
+          exact
+          path="/product-filters/:id"
+          component={ProductFilterDetailPage}
+        />
+        <AuthRoute
+          path="/product-filters/:id/update"
+          component={ProductFilterUpdatePage}
+        />
+        <AuthRoute
+          exact
+          path="/product-filters/:filterId/product-suggestions/:id"
+          component={ProductSuggestionDetailPage}
+        />
+        <AuthRoute
+          exact
+          path="/product-consultants"
+          component={ProductConsultingListPage}
+        />
         <AuthRoute
           exact
           path="/"

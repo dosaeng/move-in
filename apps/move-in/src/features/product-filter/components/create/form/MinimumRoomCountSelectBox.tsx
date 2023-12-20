@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import useCodeList from '@/common/hooks/useCodeList';
 import FilterSelectBox from '../base/FilterSelectBox';
 
 interface Props {
@@ -6,17 +6,12 @@ interface Props {
   onChange?: (value: number) => void;
 }
 
-const MinimumRoomCountSelectBox: React.FC<Props> = ({ defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['minimumRoomCountSelectOptions'], () => {
-    return [
-      { key: 1, value: '방 구분은 따로 없어도 돼요' },
-      { key: 2, value: '방 1개 이상 필요해요' },
-      { key: 3, value: '방 2개 이상 필요해요' },
-      { key: 4, value: '방 3개 이상 필요해요' },
-      { key: 5, value: '방 4개 이상 필요해요' },
-      { key: 6, value: '방 5개 이상 필요해요' },
-    ];
-  });
+const MinimumRoomCountSelectBox: React.FC<Props> = ({
+  defaultValue,
+  onChange,
+}) => {
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.minimumRoomCount;
 
   return (
     <FilterSelectBox

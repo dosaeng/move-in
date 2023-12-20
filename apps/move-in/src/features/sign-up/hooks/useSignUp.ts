@@ -1,4 +1,5 @@
 import { defineMock } from "@/common/utils/defineMock";
+import { httpClient } from "@/common/utils/httpClient";
 import { UseMutationOptions, useMutation } from "react-query";
 
 export interface SignUpRequestModel {
@@ -9,24 +10,19 @@ export interface SignUpRequestModel {
   phoneNumber?: string;
 }
 
-const signUpEndpoint = "/api/app-user";
+const signUpEndpoint = "/app-user";
 
 const useSignUp = (options?: Omit<UseMutationOptions<void, unknown, SignUpRequestModel, unknown>, "mutationFn">) => {
   return useMutation(async (request: SignUpRequestModel) => {
-    const response = await fetch(signUpEndpoint, {
-      method: "POST",
-      body: JSON.stringify({
+    await httpClient.post(signUpEndpoint, {
+      body: {
         email: request.email,
         password: request.password,
         name: request.name,
         gender: request.birthday,
         phone_number: request.phoneNumber,
-      }),
+      },
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to sign up");
-    }
   }, options);
 }
 

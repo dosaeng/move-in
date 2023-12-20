@@ -1,4 +1,10 @@
-import { IonContent, IonHeader, IonPage, IonRefresher, IonRefresherContent } from '@ionic/react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+} from '@ionic/react';
 import { Divider, PageHeader } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import ProductConsultingListView from '../components/ProductConsultingListView';
@@ -60,7 +66,9 @@ const ProductConsultingListPage: React.FC = () => {
             <ProductConsultingListView
               state={[ProductConsultingState.WAITING]}
               onClick={(item) => {
-                history.push(`/product-suggestions/${item.suggestionId}`);
+                history.push(
+                  `/product-filters/${item.filterId}/product-suggestions/${item.suggestionId}`
+                );
               }}
             />
             {hasDoneConsulting && (

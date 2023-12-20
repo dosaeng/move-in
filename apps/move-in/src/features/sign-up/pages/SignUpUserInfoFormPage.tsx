@@ -18,7 +18,7 @@ const SignUpUserInfoFormPage: React.FC = () => {
   } = useForm<{
     name: string;
     birthday: string;
-    phone_number: string;
+    phoneNumber: string;
   }>();
   const { present } = useToast();
   const [isOpenTermsModal, setIsOpenTermsModal] = useState(false);
@@ -98,7 +98,7 @@ const SignUpUserInfoFormPage: React.FC = () => {
               helperText="전화번호를 입력해 주세요 (숫자만)"
               maxLength={11}
               disabled={isLoadingSignUp}
-              {...register('phone_number', { required: true, minLength: 10, maxLength: 11 })}
+              {...register('phoneNumber', { required: true, minLength: 10, maxLength: 11 })}
             />
           </div>
           <Button

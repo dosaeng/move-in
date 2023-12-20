@@ -1,15 +1,15 @@
+import useCodeList from '@/common/hooks/useCodeList';
 import {
   Button,
+  FormInputLabel,
   Modal,
   SelectBoxModalContent,
   SelectBoxOption,
   SelectBoxOptionRow,
   SelectBoxTrigger,
-  FormInputLabel,
 } from '@move-in/design-system';
-import { PropsWithChildren, useState } from 'react';
-import { useQuery } from 'react-query';
 import { css } from '@move-in/styled-system/css';
+import { PropsWithChildren, useState } from 'react';
 
 interface TrafficLifeSelectBoxValue {
   busStop?: number;
@@ -25,49 +25,8 @@ interface Props {
 }
 
 const TrafficLifeSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }) => {
-  const { data: options, isLoading } = useQuery(['trafficLifeSelectOptions'], () => {
-    return {
-      // 버스 정류장까지
-      busStop: [
-        {
-          key: 1,
-          value: '도보 5분',
-        },
-        {
-          key: 2,
-          value: '도보 10분',
-        },
-        {
-          key: 3,
-          value: '상관없음',
-        },
-      ],
-      // 지하철역까지
-      trainStation: [
-        { key: 1, value: '도보 5분' },
-        { key: 2, value: '도보 10분' },
-        { key: 3, value: '도보 15분' },
-        { key: 4, value: '버스 5분' },
-        { key: 5, value: '버스 10분' },
-        { key: 6, value: '버스 15분' },
-      ],
-      // 버스 터미널 및 기차역까지 대중교통으로
-      terminal: [
-        { key: 1, value: '편의점' },
-        { key: 2, value: '마트' },
-        { key: 3, value: '식당' },
-        { key: 4, value: '카페' },
-        { key: 5, value: '병원' },
-        { key: 6, value: '은행' },
-      ],
-      // 차량 주차 공간이 필요해요
-      parking: [
-        { key: 1, value: '1대' },
-        { key: 2, value: '2대 이상' },
-        { key: 3, value: '필요 없음' },
-      ],
-    };
-  });
+  const { data: codeTable, isLoading } = useCodeList();
+  const options = codeTable?.trafficLife;
   const [internalValue, setInternalValue] = useState<TrafficLifeSelectBoxValue | undefined>(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   const currentValue = value != null ? value : internalValue;

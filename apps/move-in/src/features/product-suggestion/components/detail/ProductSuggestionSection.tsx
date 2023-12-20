@@ -1,4 +1,6 @@
-import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';
+import useProductSuggestionDetail, {
+  ProductSuggestionDetailModel,
+} from '../../hooks/useProductSuggestionDetail';
 import { css } from '@move-in/styled-system/css';
 import {
   ProductDepositFormat,
@@ -9,10 +11,11 @@ import {
 
 interface Props {
   id: string | number;
+  filterId: string | number;
 }
 
-const ProductSuggestionSection: React.FC<Props> = ({ id }) => {
-  const { data } = useProductSuggestionDetail(id);
+const ProductSuggestionSection: React.FC<Props> = ({ id, filterId }) => {
+  const { data } = useProductSuggestionDetail(filterId, id);
 
   return (
     <div
@@ -43,11 +46,15 @@ const ProductSuggestionSection: React.FC<Props> = ({ id }) => {
             maxWidth: '360px',
           })}
           ratings={{
-            familyPreference: data?.productSuggestion.familyPreference.score ?? 0,
+            familyPreference:
+              data?.productSuggestion.familyPreference.score ?? 0,
             costPreference: data?.productSuggestion.costPreference.score ?? 0,
-            lifestylePreference: data?.productSuggestion.lifestylePreference.score ?? 0,
-            productPreference: data?.productSuggestion.productPreference.score ?? 0,
-            moveInPreference: data?.productSuggestion.moveInPreference.score ?? 0,
+            lifestylePreference:
+              data?.productSuggestion.lifestylePreference.score ?? 0,
+            productPreference:
+              data?.productSuggestion.productPreference.score ?? 0,
+            moveInPreference:
+              data?.productSuggestion.moveInPreference.score ?? 0,
           }}
         />
       </div>
@@ -60,7 +67,10 @@ const ProductSuggestionSection: React.FC<Props> = ({ id }) => {
           overflowX: 'hidden',
         })}
       >
-        <ProductSuggestionRatingView title="함께 하는 가족" data={data?.productSuggestion.familyPreference} />
+        <ProductSuggestionRatingView
+          title="함께 하는 가족"
+          data={data?.productSuggestion.familyPreference}
+        />
         <ProductSuggestionRatingView
           title="희망 입주 시기"
           data={data?.productSuggestion.moveInPreference}
@@ -72,8 +82,14 @@ const ProductSuggestionSection: React.FC<Props> = ({ id }) => {
           data={data?.productSuggestion.costPreference}
           additionalContent={<ProductCostView data={data?.product} />}
         />
-        <ProductSuggestionRatingView title="원하는 집의 조건" data={data?.productSuggestion.productPreference} />
-        <ProductSuggestionRatingView title="라이프 스타일" data={data?.productSuggestion.lifestylePreference} />
+        <ProductSuggestionRatingView
+          title="원하는 집의 조건"
+          data={data?.productSuggestion.productPreference}
+        />
+        <ProductSuggestionRatingView
+          title="라이프 스타일"
+          data={data?.productSuggestion.lifestylePreference}
+        />
       </div>
     </div>
   );
@@ -81,7 +97,9 @@ const ProductSuggestionSection: React.FC<Props> = ({ id }) => {
 
 export default ProductSuggestionSection;
 
-const ProductMoveInView: React.FC<{ data?: ProductSuggestionDetailModel['product'] }> = ({ data }) => {
+const ProductMoveInView: React.FC<{
+  data?: ProductSuggestionDetailModel['product'];
+}> = ({ data }) => {
   return (
     <div
       className={css({
@@ -104,7 +122,9 @@ const ProductMoveInView: React.FC<{ data?: ProductSuggestionDetailModel['product
   );
 };
 
-const ProductCostView: React.FC<{ data?: ProductSuggestionDetailModel['product'] }> = ({ data }) => {
+const ProductCostView: React.FC<{
+  data?: ProductSuggestionDetailModel['product'];
+}> = ({ data }) => {
   return (
     <div
       className={css({
@@ -143,12 +163,16 @@ const ProductCostView: React.FC<{ data?: ProductSuggestionDetailModel['product']
           borderLeftColor: 'stroke.light.02',
         })}
       />
-      <ProductCostViewRow title="비율 조정">{data?.isCostAdjustable ? '가능' : '불가능'}</ProductCostViewRow>
+      <ProductCostViewRow title="비율 조정">
+        {data?.isCostAdjustable ? '가능' : '불가능'}
+      </ProductCostViewRow>
     </div>
   );
 };
 
-const ProductCostViewRow: React.FC<React.PropsWithChildren<{ title: string }>> = ({ title, children }) => {
+const ProductCostViewRow: React.FC<
+  React.PropsWithChildren<{ title: string }>
+> = ({ title, children }) => {
   return (
     <div
       className={css({

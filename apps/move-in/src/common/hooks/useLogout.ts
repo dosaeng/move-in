@@ -1,13 +1,12 @@
-import { UseMutationOptions, useMutation, useQueryClient } from "react-query";
+import { UseMutationOptions, useMutation } from "react-query";
+import useAuthState from "./useAuthState";
 
 
 const useLogout = (options?: Omit<UseMutationOptions<void, unknown, void, unknown>, "mutationFn">) => {
-  const queryClient = useQueryClient();
+  const { logout } = useAuthState();
 
   return useMutation(async () => {
-    localStorage.removeItem("accessToken");
-
-    queryClient.refetchQueries("authState");
+    logout();
   }, options);
 }
 

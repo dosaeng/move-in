@@ -25,7 +25,7 @@ import ProductFilterDeleteRequestPopup from '../components/ProductFilterDeleteRe
 import ProductFilterDetailActionModal from '../components/ProductFilterDetailActionModal';
 import useDeleteProductFilter from '../hooks/useDeleteProductFilter';
 import useProductFilterDetail from '../hooks/useProductFilterDetail';
-import useRequestStopProductConsulting from '../hooks/useRequestStopProductConsulting';
+import useRequestStopProductSuggestion from '../hooks/useRequestStopProductSuggestion';
 
 const ProductFilterDetailPage: React.FC<
   RouteComponentProps<{
@@ -37,8 +37,8 @@ const ProductFilterDetailPage: React.FC<
   const { data: detail, isLoading: isLoadingDetail } =
     useProductFilterDetail(filterId);
   const { refetch: refetchSuggestionList } = useProductSuggestionList(filterId);
-  const { mutate: requestStopConsulting, isLoading: isLoadingStop } =
-    useRequestStopProductConsulting({
+  const { mutate: requestStopSuggestion, isLoading: isLoadingStop } =
+    useRequestStopProductSuggestion({
       onSuccess: () => {
         present(`‘${detail?.name}’에 대한 제안이 중지되었습니다.`, 500);
       },
@@ -50,7 +50,7 @@ const ProductFilterDetailPage: React.FC<
     useDeleteProductFilter({
       onSuccess: () => {
         present(`‘${detail?.name}’가 삭제되었습니다.`, 500);
-        history.goBack();
+        history.push('/product-filters');
       },
       onError: () => {
         present(`삭제 요청에 실패하였습니다.`, 500);
@@ -150,7 +150,9 @@ const ProductFilterDetailPage: React.FC<
           })}
           filterId={filterId}
           onClick={(item) => {
-            history.push(`/product-suggestions/${item.id}`);
+            history.push(
+              `/product-filters/${filterId}/product-suggestions/${item.id}`
+            );
           }}
         />
       </IonContent>
@@ -194,7 +196,7 @@ const ProductFilterDetailPage: React.FC<
 
           if (!isAgree) return;
 
-          requestStopConsulting(filterId);
+          requestStopSuggestion(filterId);
         }}
       />
     </IonPage>

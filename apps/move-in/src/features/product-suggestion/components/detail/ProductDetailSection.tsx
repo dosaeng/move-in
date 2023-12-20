@@ -1,18 +1,26 @@
 import { BoxLabel, DateFormat } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import { useMemo } from 'react';
-import useProductSuggestionDetail, { ProductSuggestionDetailModel } from '../../hooks/useProductSuggestionDetail';
+import useProductSuggestionDetail, {
+  ProductSuggestionDetailModel,
+} from '../../hooks/useProductSuggestionDetail';
 
 interface Props {
   className?: string;
   id: string | number;
+  filterId: string | number;
 }
 
-const ProductDetailSection: React.FC<Props> = ({ className, id }) => {
-  const { data } = useProductSuggestionDetail(id);
+const ProductDetailSection: React.FC<Props> = ({ className, id, filterId }) => {
+  const { data } = useProductSuggestionDetail(filterId, id);
 
   return (
-    <div className={cx(css({ display: 'flex', flexDirection: 'column' }), className)}>
+    <div
+      className={cx(
+        css({ display: 'flex', flexDirection: 'column' }),
+        className
+      )}
+    >
       <ProductDetailHeader
         className={css({
           marginBottom: '24px',
@@ -38,12 +46,17 @@ const ProductDetailSection: React.FC<Props> = ({ className, id }) => {
 
 export default ProductDetailSection;
 
-const ProductDetailHeader: React.FC<{ className?: string; data?: ProductSuggestionDetailModel }> = ({
-  className,
-  data,
-}) => {
+const ProductDetailHeader: React.FC<{
+  className?: string;
+  data?: ProductSuggestionDetailModel;
+}> = ({ className, data }) => {
   return (
-    <div className={cx(css({ display: 'flex', flexDirection: 'column', gap: '8px' }), className)}>
+    <div
+      className={cx(
+        css({ display: 'flex', flexDirection: 'column', gap: '8px' }),
+        className
+      )}
+    >
       <div
         className={css({
           display: 'flex',
@@ -80,15 +93,19 @@ const ProductDetailHeader: React.FC<{ className?: string; data?: ProductSuggesti
   );
 };
 
-const ProductDetailImageGrid: React.FC<{ className?: string; data?: ProductSuggestionDetailModel }> = ({
-  className,
-  data,
-}) => {
+const ProductDetailImageGrid: React.FC<{
+  className?: string;
+  data?: ProductSuggestionDetailModel;
+}> = ({ className, data }) => {
   const images = useMemo(() => {
     const images = [...(data?.product.images ?? [])];
 
     if (images.length < 5) {
-      images.push(...Array(5 - images.length).fill('https://placehold.co/300x300?text=MoveIn'));
+      images.push(
+        ...Array(5 - images.length).fill(
+          'https://placehold.co/300x300?text=MoveIn'
+        )
+      );
     }
 
     return images;
@@ -146,7 +163,7 @@ const ProductDetailImageGrid: React.FC<{ className?: string; data?: ProductSugge
                 minWidth: 'calc(100vw / 4)',
               },
             })}
-            key={image}
+            key={`${image}-${index}`}
             src={image}
             alt={`이미지 ${index + 2}`}
           />
@@ -157,14 +174,19 @@ const ProductDetailImageGrid: React.FC<{ className?: string; data?: ProductSugge
   );
 };
 
-const ProductDetailContent: React.FC<{ className?: string; data?: ProductSuggestionDetailModel }> = ({
-  className,
-  data,
-}) => {
+const ProductDetailContent: React.FC<{
+  className?: string;
+  data?: ProductSuggestionDetailModel;
+}> = ({ className, data }) => {
   return (
     <div
       className={cx(
-        css({ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', rowGap: '20px', columnGap: '12px' }),
+        css({
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          rowGap: '20px',
+          columnGap: '12px',
+        }),
         className
       )}
     >
@@ -175,7 +197,8 @@ const ProductDetailContent: React.FC<{ className?: string; data?: ProductSuggest
         {data?.product.roomCount}개 / {data?.product.bathroomCount}개
       </ProductDetailContentRow>
       <ProductDetailContentRow title="층수 및 주실 방향">
-        {data?.product.floor}층 / {data?.product.totalFloor}층 / {data?.product.direction}
+        {data?.product.floor}층 / {data?.product.totalFloor}층 /{' '}
+        {data?.product.direction}
       </ProductDetailContentRow>
       <ProductDetailContentRow title="사용 승인일">
         <DateFormat date={data?.product.approvalDate} format="yyyy.MM.dd" />
@@ -183,18 +206,23 @@ const ProductDetailContent: React.FC<{ className?: string; data?: ProductSuggest
       <ProductDetailContentRow title="매물 등록일">
         <DateFormat date={data?.product.registeredDate} format="yyyy.MM.dd" />
       </ProductDetailContentRow>
-      <ProductDetailContentRow title="담당 중개인">{data?.agent.name}</ProductDetailContentRow>
+      <ProductDetailContentRow title="담당 중개인">
+        {data?.agent.name}
+      </ProductDetailContentRow>
     </div>
   );
 };
 
-const ProductDetailContentRow: React.FC<React.PropsWithChildren<{ className?: string; title: string }>> = ({
-  className,
-  title,
-  children,
-}) => {
+const ProductDetailContentRow: React.FC<
+  React.PropsWithChildren<{ className?: string; title: string }>
+> = ({ className, title, children }) => {
   return (
-    <div className={cx(css({ display: 'flex', flexDirection: 'column', gap: '4px' }), className)}>
+    <div
+      className={cx(
+        css({ display: 'flex', flexDirection: 'column', gap: '4px' }),
+        className
+      )}
+    >
       <div
         className={css({
           textStyle: 'body-12-r',

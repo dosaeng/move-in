@@ -1,4 +1,5 @@
 import { defineMock } from '@/common/utils/defineMock';
+import { httpClient } from '@/common/utils/httpClient';
 import { koreanCurrencyFormat } from '@move-in/core';
 import { addDays, isAfter, subDays } from 'date-fns';
 import { useMemo } from 'react';
@@ -25,7 +26,7 @@ interface ProductFilterListItemDTO {
   costPreferenceType: string;
   preferredRegion: string;
   preferredVillage: string;
-  itemHouseType: string;
+  itemHouseType: string[];
   recommendationCount: number,
 }
 
@@ -43,13 +44,9 @@ export const getProductFilterList = "/app-user-api/filter-card";
 
 const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) => {
   const result = useQuery<ProductFilterListItemModel[]>([getProductFilterList], async () => {
-    const response = await fetch(getProductFilterList, {
-      method: 'GET',
-    })
+    const response = await httpClient.get<ProductFilterListItemDTO[]>(getProductFilterList)
 
-    const data: ProductFilterListItemDTO[] = await response.json();
-
-    return data.map((item) => {
+    return response.map((item) => {
       const suggestionDueDate = item.suggestionDueDate != null ? new Date(item.suggestionDueDate) : undefined;
       let state;
 
@@ -68,7 +65,7 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
           item.familyType,
           item.itemHouseType,
           `${koreanCurrencyFormat(item.maximumDeposit)} · 월 ${item.maximumMonthlyCost / 10000}-${item.minimumMonthlyCost / 10000}`
-        ].map((filterItem, index) => {
+        ].flat().map((filterItem, index) => {
           return {
             key: index,
             value: filterItem,
@@ -112,7 +109,7 @@ defineMock((mock) => {
       costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
       preferredRegion: '서울 / 경기 / 인천',
       preferredVillage: '서울특별시 강남구 역삼동',
-      itemHouseType: '오피스텔',
+      itemHouseType: ['오피스텔'],
       recommendationCount: 30,
     }, {
       id: 2,
@@ -128,7 +125,7 @@ defineMock((mock) => {
       costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
       preferredRegion: '서울 / 경기 / 인천',
       preferredVillage: '서울특별시 강남구 역삼동',
-      itemHouseType: '오피스텔',
+      itemHouseType: ['오피스텔'],
       recommendationCount: 10,
     }, {
       id: 3,
@@ -142,7 +139,7 @@ defineMock((mock) => {
       costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
       preferredRegion: '서울 / 경기 / 인천',
       preferredVillage: '서울특별시 강남구 역삼동',
-      itemHouseType: '오피스텔',
+      itemHouseType: ['오피스텔'],
       recommendationCount: 0,
     }] as ProductFilterListItemDTO[]), {
       status: 200,

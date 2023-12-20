@@ -1,34 +1,27 @@
 import { defineMock } from "@/common/utils/defineMock";
-import { UseMutationOptions, useMutation, useQueryClient } from "react-query";
+import { UseMutationOptions, useMutation } from "react-query";
+import { httpClient } from "../utils/httpClient";
+import useAuthState from "./useAuthState";
 
 export interface LoginRequestModel {
   email?: string;
   password?: string;
 }
 
-const loginEndpoint = "/api/login";
+const loginEndpoint = "/login";
 
 const useLogin = (options?: Omit<UseMutationOptions<void, unknown, LoginRequestModel, unknown>, "mutationFn">) => {
-  const queryClient = useQueryClient();
+  const { login } = useAuthState();
 
   return useMutation(async (request: LoginRequestModel) => {
-    const response = await fetch(loginEndpoint, {
-      method: "POST",
-      body: JSON.stringify({
+    const accessToken = await httpClient.post<LoginRequestModel, string>(loginEndpoint, {
+      body: {
         email: request.email,
         password: request.password,
-      }),
+      },
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to login");
-    }
-
-    const data = await response.json();
-
-    localStorage.setItem("accessToken", data.access_token);
-
-    queryClient.refetchQueries("authState");
+    login(accessToken);
   }, options);
 }
 

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
 import useCreateProductFilter from '../../hooks/useCreateProductFilter';
-import useRequestProductConsulting from '../../hooks/useRequestProductConsulting';
+import useRequestProductSuggestion from '../../hooks/useRequestProductSuggestion';
 
 const ProductFilterCreateFormStep5Page: React.FC<{
   onBack: () => void;
@@ -32,7 +32,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
       present('필터 생성에 실패했습니다.', 500);
     },
   });
-  const { mutate: requestConsulting, isLoading: isLoadingRequestConsulting } = useRequestProductConsulting({
+  const { mutate: requestSuggestion, isLoading: isLoadingRequestSuggestion } = useRequestProductSuggestion({
     onSuccess: () => {
       present(`‘${visibleFilterName}’로 제안 요청을 했어요.`, 500);
       onNext && onNext();
@@ -87,7 +87,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
-            disabled={isLoadingCreateFilter || isLoadingRequestConsulting}
+            disabled={isLoadingCreateFilter || isLoadingRequestSuggestion}
             label={hasFilterName ? '완료했어요' : '넘어갈께요'}
             onClick={() => {
               createFilter(data!);
@@ -102,7 +102,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsModalOpen(false);
 
           if (isAgree) {
-            requestConsulting(filterId!);
+            requestSuggestion(filterId!);
 
             return;
           }
@@ -116,7 +116,7 @@ const ProductFilterCreateFormStep5Page: React.FC<{
           setIsNudgeOpen(false);
 
           if (isAgree) {
-            requestConsulting(filterId!);
+            requestSuggestion(filterId!);
             return;
           }
 
