@@ -4,10 +4,14 @@ import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHead
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import ProductFilterDetailView from '../components/ProductFilterDetailView';
 import { css } from '@move-in/styled-system/css';
+import useProductFilterDetailViewState from '../hooks/useProductFilterDetailViewState';
 
-const ProductFilterDetailPage: React.FC<RouteComponentProps<{ id: string }>> = ({ match }) => {
+const ProductFilterDetailPage: React.FC<
+  RouteComponentProps<{ id: string }>
+> = ({ match }) => {
   const history = useHistory();
   const { id } = match.params;
+  const { hasSuggestionList } = useProductFilterDetailViewState(id);
 
   return (
     <IonPage>
@@ -40,7 +44,7 @@ const ProductFilterDetailPage: React.FC<RouteComponentProps<{ id: string }>> = (
             onClick={() => {
               history.push(`/product-suggestions/products?filterId=${id}`);
             }}
-            label="다른 매물도 제안하기"
+            label={hasSuggestionList ? '다른 매물도 제안하기' : '매물 제안하기'}
           />
         </CTAButtonBlock>
       </IonFooter>
