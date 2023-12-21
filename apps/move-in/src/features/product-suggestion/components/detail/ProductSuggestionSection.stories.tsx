@@ -11,6 +11,7 @@ const meta = {
   },
   args: {
     id: 1,
+    filterId: 1,
   },
   decorators: [
     (Story) => (

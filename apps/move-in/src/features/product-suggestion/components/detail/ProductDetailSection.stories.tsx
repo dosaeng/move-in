@@ -11,10 +11,13 @@ const meta = {
   },
   args: {
     id: 1,
+    filterId: 1,
   },
   decorators: [
     (Story) => (
-      <div style={{ width: '375px', padding: '16px', border: '1px solid black' }}>
+      <div
+        style={{ width: '375px', padding: '16px', border: '1px solid black' }}
+      >
         <Story />
       </div>
     ),
