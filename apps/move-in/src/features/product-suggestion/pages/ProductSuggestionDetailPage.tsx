@@ -1,5 +1,6 @@
 import ProductConsultingRequestModal from '@/features/product-consulting/components/ProductConsultingRequestModal';
 import ProductConsultingRequestNudgePopup from '@/features/product-consulting/components/ProductConsultingRequestNudgePopup';
+import useRequestProductConsulting from '@/features/product-consulting/hooks/useRequestProductConsulting';
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import {
   Button,
@@ -15,6 +16,7 @@ import { RouteComponentProps, useHistory } from 'react-router-dom';
 import ProductAgentSection from '../components/detail/ProductAgentSection';
 import ProductDetailSection from '../components/detail/ProductDetailSection';
 import ProductSuggestionSection from '../components/detail/ProductSuggestionSection';
+import useProductSuggestionDetailPageState from '../hooks/useProductSuggestionDetailPageState';
 
 const ProductSuggestionDetailPage: React.FC<
   RouteComponentProps<{
@@ -28,6 +30,16 @@ const ProductSuggestionDetailPage: React.FC<
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNudgeOpen, setIsNudgeOpen] = useState(false);
   const { present } = useToast();
+  const { canRequestConsulting } = useProductSuggestionDetailPageState(detailId);
+  const { mutate: requestConsulting } = useRequestProductConsulting({
+    onSuccess: () => {
+      present(`3영업일 이내로 중개사에게 연락이 갈거에요.`, 500);
+      history.goBack();
+    },
+    onError: () => {
+      present(`상담 요청에 실패했어요.`, 500);
+    },
+  });
 
   return (
     <IonPage>
@@ -59,17 +71,19 @@ const ProductSuggestionDetailPage: React.FC<
         <ProductSuggestionSection id={detailId} filterId={filterId} />
         <ProductAgentSection id={detailId} filterId={filterId} />
       </IonContent>
-      <IonFooter className="ion-no-border">
-        <CTAButtonBlock>
-          <Button
-            className={css({
-              maxWidth: '100%',
-            })}
-            onClick={() => setIsModalOpen(true)}
-            label="상담 요청하기"
-          />
-        </CTAButtonBlock>
-      </IonFooter>
+      {canRequestConsulting && (
+        <IonFooter className="ion-no-border">
+          <CTAButtonBlock>
+            <Button
+              className={css({
+                maxWidth: '100%',
+              })}
+              onClick={() => setIsModalOpen(true)}
+              label="상담 요청하기"
+            />
+          </CTAButtonBlock>
+        </IonFooter>
+      )}
       <ProductConsultingRequestModal
         isOpen={isModalOpen}
         onDidDismiss={(isAgree) => {
@@ -80,10 +94,10 @@ const ProductSuggestionDetailPage: React.FC<
             return;
           }
 
-          // TODO. 상담 요청 API 호출
-
-          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`, 500);
-          history.goBack();
+          requestConsulting({
+            filterId,
+            suggestionId: detailId,
+          });
         }}
       />
       <ProductConsultingRequestNudgePopup
@@ -93,9 +107,10 @@ const ProductSuggestionDetailPage: React.FC<
 
           if (!isAgree) return;
 
-          // TODO. 상담 요청 API 호출
-          present(`3영업일 이내로 중개사에게 연락이 갈거에요.`, 500);
-          history.goBack();
+          requestConsulting({
+            filterId,
+            suggestionId: detailId,
+          });
         }}
       />
     </IonPage>

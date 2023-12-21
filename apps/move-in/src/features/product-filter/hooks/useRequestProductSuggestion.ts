@@ -20,7 +20,7 @@ export default useRequestProductSuggestion;
 
 
 defineMock((mock) => {
-  mock.patch(new RegExp(requestProductSuggestionEndpoint('[0-9]+')), async (_, request) => {
+  mock.patch(new RegExp(`^${requestProductSuggestionEndpoint('[0-9]+')}$`), async (_, request) => {
     console.debug("Mocked product suggestion request", request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));

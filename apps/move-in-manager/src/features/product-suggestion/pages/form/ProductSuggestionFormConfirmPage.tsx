@@ -9,9 +9,10 @@ import {
   ProductSuggestionRatingView,
 } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
+import { useMemo } from 'react';
 import ProductListItem from '../../../product/components/ProductListItem';
 import useProductDetail from '../../../product/hooks/useProductDetail';
-import useProductSuggestionFormState from '../../hooks/useProductSuggestionFormState';
+import { useProductSuggestionFormContext } from '../../hooks/useProductSuggestionFormState';
 
 interface Props {
   filterId: string | number;
@@ -19,9 +20,31 @@ interface Props {
   onNext?: () => void;
 }
 
-const ProductSuggestionFormConfirmPage: React.FC<Props> = ({ productId, onNext }) => {
+const ProductSuggestionFormConfirmPage: React.FC<Props> = ({
+  productId,
+  onNext,
+}) => {
   const { data: productDetail } = useProductDetail(productId);
-  const formState = useProductSuggestionFormState();
+  const { data: formData } = useProductSuggestionFormContext();
+  const lifestylePreference = formData?.productSuggestion?.lifestylePreference;
+  const lifestylePreferenceData = useMemo(() => {
+    return {
+      score: lifestylePreference?.score,
+      comment: lifestylePreference?.comment,
+      selected: [
+        lifestylePreference?.traffic,
+        lifestylePreference?.livingOption,
+        lifestylePreference?.communityLife,
+        lifestylePreference?.livingInfra,
+        lifestylePreference?.educationLife,
+      ]
+        .filter((item) => item != null)
+        .flat() as {
+        key: number;
+        value: string;
+      }[],
+    };
+  }, [lifestylePreference]);
 
   return (
     <IonPage>
@@ -77,11 +100,16 @@ const ProductSuggestionFormConfirmPage: React.FC<Props> = ({ productId, onNext }
               maxWidth: '360px',
             })}
             ratings={{
-              familyPreference: formState.productSuggestion.familyPreference.score,
-              costPreference: formState.productSuggestion.costPreference.score,
-              lifestylePreference: formState.productSuggestion.lifestylePreference.score,
-              productPreference: formState.productSuggestion.productPreference.score,
-              moveInPreference: formState.productSuggestion.moveInPreference.score,
+              familyPreference:
+                formData?.productSuggestion?.familyPreference?.score,
+              costPreference:
+                formData?.productSuggestion?.costPreference?.score,
+              lifestylePreference:
+                formData?.productSuggestion?.lifestylePreference?.score,
+              productPreference:
+                formData?.productSuggestion?.productPreference?.score,
+              moveInPreference:
+                formData?.productSuggestion?.moveInPreference?.score,
             }}
           />
         </div>
@@ -94,20 +122,33 @@ const ProductSuggestionFormConfirmPage: React.FC<Props> = ({ productId, onNext }
             overflowX: 'hidden',
           })}
         >
-          <ProductSuggestionRatingView title="함께 하는 가족" data={formState.productSuggestion.familyPreference} />
+          <ProductSuggestionRatingView
+            title="함께 하는 가족"
+            data={formData?.productSuggestion?.familyPreference}
+          />
           <ProductSuggestionRatingView
             title="희망 입주 시기"
-            data={formState.productSuggestion.moveInPreference}
-            additionalContent={<ProductMoveInView minimumMoveInDate={productDetail?.minimumMoveInDate} />}
+            data={formData?.productSuggestion?.moveInPreference}
+            additionalContent={
+              <ProductMoveInView
+                minimumMoveInDate={productDetail?.minimumMoveInDate}
+              />
+            }
             hideComment
           />
           <ProductSuggestionRatingView
             title="주거 비용 예산"
-            data={formState.productSuggestion.costPreference}
+            data={formData?.productSuggestion?.costPreference}
             additionalContent={<ProductCostView {...productDetail} />}
           />
-          <ProductSuggestionRatingView title="원하는 집의 조건" data={formState.productSuggestion.productPreference} />
-          <ProductSuggestionRatingView title="라이프 스타일" data={formState.productSuggestion.lifestylePreference} />
+          <ProductSuggestionRatingView
+            title="원하는 집의 조건"
+            data={formData?.productSuggestion?.productPreference}
+          />
+          <ProductSuggestionRatingView
+            title="라이프 스타일"
+            data={lifestylePreferenceData}
+          />
         </div>
       </IonContent>
       <IonFooter className="ion-no-border">

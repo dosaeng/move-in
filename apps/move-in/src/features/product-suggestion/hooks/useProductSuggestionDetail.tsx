@@ -232,9 +232,9 @@ export default useProductSuggestionDetail;
 
 defineMock((mock) => {
   return mock.get(
-    new RegExp(getProductSuggestionDetailEndpoint('[0-9]+', '[0-9]+')),
+    new RegExp(`^${getProductSuggestionDetailEndpoint('[0-9]+', '[0-9]+')}$`),
     async (path, request) => {
-      console.debug('Mocked consulting detail request', path, request);
+      console.debug('Mocked suggestion detail request', path, request);
 
       await new Promise((resolve) => setTimeout(resolve, 300));
 

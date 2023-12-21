@@ -85,7 +85,7 @@ export default useProductSuggestionList;
 
 defineMock((mock) => {
   mock.get(new RegExp(`^${getProductSuggestionListEndpoint('[0-9]+')}$`), async (_, request) => {
-    console.debug('Mocked consulting list request', request);
+    console.debug('Mocked suggestion list request', request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 

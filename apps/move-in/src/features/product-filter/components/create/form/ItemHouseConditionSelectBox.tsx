@@ -1,4 +1,4 @@
-import useCodeList from '@/common/hooks/useCodeList';
+import { useCodeList } from '@move-in/core'
 import FilterMultipleSelectBox from '../base/FilterMultipleSelectBox';
 
 interface Props {

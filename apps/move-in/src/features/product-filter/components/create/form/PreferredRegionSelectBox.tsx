@@ -1,4 +1,4 @@
-import useCodeList from '@/common/hooks/useCodeList';
+import { useCodeList } from '@move-in/core'
 import {
   Button,
   FormInputLabel,

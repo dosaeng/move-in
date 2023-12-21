@@ -1,4 +1,4 @@
-import useCodeList from '@/common/hooks/useCodeList';
+import { useCodeList } from '@move-in/core'
 import { css } from '@move-in/styled-system/css';
 import FilterSelectBox from '../base/FilterSelectBox';
 

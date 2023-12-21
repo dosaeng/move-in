@@ -1,4 +1,4 @@
-import useCodeList from "@/common/hooks/useCodeList";
+import { useCodeList } from "@move-in/core";
 import { defineMock } from "@/common/utils/defineMock";
 import { httpClient } from "@/common/utils/httpClient";
 import { format } from "date-fns";
@@ -22,6 +22,15 @@ export interface ProductFilterCreateRequestDTO {
   item_house_type?: string[];
   item_house_condition?: string[];
   item_wish_list?: string[];
+  to_bus_stop_minutes?: string;
+  to_train_station_minutes?: string;
+  to_terminal_minutes?: string;
+  parking?: string;
+  living_options?: string[];
+  community_life?: string[];
+  living_infra?: string[];
+  education_life?: string[];
+  delivery_life?: string[];
 }
 
 export interface ProductFilterCreateRequestModel {
@@ -86,6 +95,15 @@ const useCreateProductFilter = (options?: Omit<UseMutationOptions<{ id: number }
         item_house_type: request.houseTypeId?.map((item) => codeTable?.itemHouseType.find((houseType) => houseType.key == item)?.value).filter((item) => item != null) as string[],
         item_house_condition: request.houseConditionId?.map((item) => codeTable?.itemHouseCondition.find((houseCondition) => houseCondition.key == item)?.value).filter((item) => item != null) as string[],
         item_wish_list: request.wishListId?.map((item) => codeTable?.itemWithList.find((wishList) => wishList.key == item)?.value).filter((item) => item != null) as string[],
+        to_bus_stop_minutes: codeTable?.trafficLife.busStop.find((item) => item.key == request.trafficOptions?.busStop)?.value,
+        to_train_station_minutes: codeTable?.trafficLife.trainStation.find((item) => item.key == request.trafficOptions?.trainStation)?.value,
+        to_terminal_minutes: codeTable?.trafficLife.terminal.find((item) => item.key == request.trafficOptions?.terminal)?.value,
+        parking: codeTable?.trafficLife.parking.find((item) => item.key == request.trafficOptions?.parking)?.value,
+        living_options: codeTable?.extraOptions.livingOption.filter((item) => request.extraOptions?.livingOption?.includes(item.key)).map((item) => item.value),
+        community_life: codeTable?.extraOptions.communityLife.filter((item) => request.extraOptions?.communityLife?.includes(item.key)).map((item) => item.value),
+        living_infra: codeTable?.extraOptions.livingInfra.filter((item) => request.extraOptions?.livingInfra?.includes(item.key)).map((item) => item.value),
+        education_life: codeTable?.extraOptions.educationLife.filter((item) => request.extraOptions?.educationLife?.includes(item.key)).map((item) => item.value),
+        delivery_life: codeTable?.extraOptions.deliveryLife.filter((item) => request.extraOptions?.deliveryLife?.includes(item.key)).map((item) => item.value),
       }
     });
 

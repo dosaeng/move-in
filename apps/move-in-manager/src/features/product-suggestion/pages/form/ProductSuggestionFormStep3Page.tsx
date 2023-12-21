@@ -5,13 +5,14 @@ import {
   ChipButtonList,
   ProductCostView,
   RatingInput,
-  TextArea
+  TextArea,
 } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import useProductFilterDetail from '../../../product-filter/hooks/useProductFilterDetail';
 import useProductDetail from '../../../product/hooks/useProductDetail';
 import FormInputContainer from '../../components/FormInputContainer';
 import FormPageHeader from '../../components/FormPageHeader';
+import { useProductSuggestionFormContext } from '../../hooks/useProductSuggestionFormState';
 
 interface Props {
   filterId: string | number;
@@ -19,9 +20,18 @@ interface Props {
   onNext?: () => void;
 }
 
-const ProductSuggestionFormStep3Page: React.FC<Props> = ({ filterId, productId, onNext }) => {
+const ProductSuggestionFormStep3Page: React.FC<Props> = ({
+  filterId,
+  productId,
+  onNext,
+}) => {
   const { data: filterDetail } = useProductFilterDetail(filterId);
   const { data: productDetail } = useProductDetail(productId);
+  const { data: formData, setData: setFormData } =
+    useProductSuggestionFormContext();
+  const isValid =
+    !!formData?.productSuggestion?.costPreference?.score &&
+    !!formData?.productSuggestion?.costPreference?.comment?.length;
 
   return (
     <IonPage>
@@ -61,7 +71,22 @@ const ProductSuggestionFormStep3Page: React.FC<Props> = ({ filterId, productId, 
             prefix="03-A"
             label="해당 부문에 대한 적합도를 평가해주세요"
           >
-            <RatingInput size={48} />
+            <RatingInput
+              size={48}
+              defaultValue={formData?.productSuggestion?.costPreference?.score}
+              onChange={(value) => {
+                setFormData({
+                  ...formData,
+                  productSuggestion: {
+                    ...formData?.productSuggestion,
+                    costPreference: {
+                      ...formData?.productSuggestion?.costPreference,
+                      score: value,
+                    },
+                  },
+                });
+              }}
+            />
           </FormInputContainer>
           <FormInputContainer
             className={css({
@@ -70,7 +95,25 @@ const ProductSuggestionFormStep3Page: React.FC<Props> = ({ filterId, productId, 
             prefix="03-B"
             label="해당 내용에 대한 커멘트를 작성해주세요"
           >
-            <TextArea placeholder="여기에 내용을 입력해주세요" maxLength={2000} />
+            <TextArea
+              placeholder="여기에 내용을 입력해주세요"
+              maxLength={2000}
+              defaultValue={
+                formData?.productSuggestion?.costPreference?.comment
+              }
+              onChange={(event) => {
+                setFormData({
+                  ...formData,
+                  productSuggestion: {
+                    ...formData?.productSuggestion,
+                    costPreference: {
+                      ...formData?.productSuggestion?.costPreference,
+                      comment: event.target.value,
+                    },
+                  },
+                });
+              }}
+            />
           </FormInputContainer>
         </div>
       </IonContent>
@@ -80,6 +123,7 @@ const ProductSuggestionFormStep3Page: React.FC<Props> = ({ filterId, productId, 
             className={css({
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label="다음"
           />

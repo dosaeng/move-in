@@ -1,4 +1,4 @@
-import useCodeList from '@/common/hooks/useCodeList';
+import { useCodeList } from '@move-in/core'
 import { SelectBox } from '@move-in/design-system';
 import InputFieldHeaderContainer from '../base/InputFieldHeaderContainer';
 

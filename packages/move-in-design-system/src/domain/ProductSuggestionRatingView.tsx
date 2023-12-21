@@ -3,9 +3,9 @@ import { css } from '@move-in/styled-system/css';
 import React from 'react';
 
 export interface ProductSuggestionRatingModel {
-  score: number;
-  selected: { key: number; value: string }[];
-  comment: string;
+  score?: number;
+  selected?: { key: number; value: string }[];
+  comment?: string;
 }
 
 interface Props {

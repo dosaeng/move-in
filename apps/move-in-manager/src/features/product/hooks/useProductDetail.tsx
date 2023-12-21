@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query';
+import { useMemo } from 'react';
+import { useProductListDTO } from './useProductList';
 
 export interface ProductDetailModel {
   id: number;
@@ -31,24 +32,32 @@ export interface ProductDetailModel {
 }
 
 const useProductDetail = (productId: string | number) => {
-  return useQuery<ProductDetailModel>(['productDetail', productId], async () => {
-    return {
-      id: 1,
-      thumbnail: 'https://picsum.photos/200/300',
-      name: '상품 이름 1',
-      address: '상품 주소 1',
-      dedicatedArea: 10,
-      supplyArea: 20,
-      roomCount: 1,
-      bathroomCount: 1,
-      floor: 1,
-      deposit: 10000000,
-      monthlyRent: 1000000,
-      monthlyFixedCost: 200000,
-      minimumMoveInDate: new Date(),
-      isCostAdjustable: true,
-    };
-  });
+  const { data, ...result } = useProductListDTO();
+  const item = data?.find((item) => item.id === Number(productId));
+
+  return {
+    data: useMemo(() => {
+      if (item === undefined) return undefined;
+
+      return {
+        id: item.id,
+        thumbnail: item.photo_in_base64,
+        name: item.name,
+        address: item.address,
+        dedicatedArea: item.dedicated_area,
+        supplyArea: item.supply_area,
+        roomCount: item.room_count,
+        bathroomCount: item.toilet_count,
+        floor: item.floor,
+        deposit: item.deposit,
+        monthlyRent: item.monthly_rent,
+        minimumMoveInDate: new Date(item.minimum_move_in_date),
+        monthlyFixedCost: item.monthly_cost,
+        isCostAdjustable: item.cost_adjustability,
+      } as ProductDetailModel;
+    }, [item]),
+    ...result,
+  };
 };
 
 export default useProductDetail;

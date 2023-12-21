@@ -16,18 +16,18 @@ interface ProductFilterListItemDTO {
   id: number;
   name: string;
   // 제안 가능 여부
-  canSuggestion?: boolean;
+  can_suggestion?: boolean;
   // 제안 만료 날짜
-  suggestionDueDate?: string;
-  familyType: string;
-  maximumDeposit: number;
-  maximumMonthlyCost: number;
-  minimumMonthlyCost: number;
-  costPreferenceType: string;
-  preferredRegion: string;
-  preferredVillage: string;
-  itemHouseType: string[];
-  recommendationCount: number,
+  suggestion_due_date?: string;
+  family_type: string;
+  maximum_deposit: number;
+  maximum_monthly_cost: number;
+  minimum_monthly_cost: number;
+  cost_preference_type: string;
+  preferred_region: string;
+  preferred_village: string;
+  item_house_type: string[];
+  recommendation_count: number,
 }
 
 export interface ProductFilterListItemModel {
@@ -47,11 +47,11 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
     const response = await httpClient.get<ProductFilterListItemDTO[]>(getProductFilterList)
 
     return response.map((item) => {
-      const suggestionDueDate = item.suggestionDueDate != null ? new Date(item.suggestionDueDate) : undefined;
+      const suggestionDueDate = item.suggestion_due_date != null ? new Date(item.suggestion_due_date) : undefined;
       let state;
 
       if (suggestionDueDate != null) {
-        const isLive = isAfter(suggestionDueDate, new Date()) && item.canSuggestion === true;
+        const isLive = isAfter(suggestionDueDate, new Date()) && item.can_suggestion === true;
         state = isLive ? ProductFilterState.REQUESTED : ProductFilterState.EXPIRED;
       } else {
         state = ProductFilterState.PUBLISHED;
@@ -60,11 +60,11 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
       return {
         id: item.id,
         name: item.name,
-        dueDate: item.suggestionDueDate != null ? new Date(item.suggestionDueDate) : undefined,
+        dueDate: item.suggestion_due_date != null ? new Date(item.suggestion_due_date) : undefined,
         filterList: [
-          item.familyType,
-          item.itemHouseType,
-          `${koreanCurrencyFormat(item.maximumDeposit)} · 월 ${item.maximumMonthlyCost / 10000}-${item.minimumMonthlyCost / 10000}`
+          item.family_type,
+          item.item_house_type,
+          `${koreanCurrencyFormat(item.maximum_deposit)} · 월 ${item.maximum_monthly_cost / 10000}-${item.minimum_monthly_cost / 10000}`
         ].flat().map((filterItem, index) => {
           return {
             key: index,
@@ -72,7 +72,7 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
           };
         }),
         state,
-        suggestionCount: item.recommendationCount,
+        suggestionCount: item.recommendation_count,
         hasNewSuggestion: false,
       };
     });
@@ -99,48 +99,48 @@ defineMock((mock) => {
       id: 1,
       name: '신사 영끌 신혼집 1',
       // 제안 가능 여부
-      canSuggestion: false,
+      can_suggestion: false,
       // 제안 만료 날짜
-      suggestionDueDate: subDays(new Date(), 3),
-      familyType: '싱글 라이프',
-      maximumDeposit: 100000000,
-      maximumMonthlyCost: 1000000,
-      minimumMonthlyCost: 900000,
-      costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
-      preferredRegion: '서울 / 경기 / 인천',
-      preferredVillage: '서울특별시 강남구 역삼동',
-      itemHouseType: ['오피스텔'],
-      recommendationCount: 30,
+      suggestion_due_date: subDays(new Date(), 3),
+      family_type: '싱글 라이프',
+      maximum_deposit: 100000000,
+      maximum_monthly_cost: 1000000,
+      minimum_monthly_cost: 900000,
+      cost_preference_type: '낮은 보증, 높은 월 고정 비용이 좋아요',
+      preferred_region: '서울 / 경기 / 인천',
+      preferred_village: '서울특별시 강남구 역삼동',
+      item_house_type: ['오피스텔'],
+      recommendation_count: 30,
     }, {
       id: 2,
       name: '신사 영끌 신혼집 2',
       // 제안 가능 여부
-      canSuggestion: true,
+      can_suggestion: true,
       // 제안 만료 날짜
-      suggestionDueDate: addDays(new Date(), 3),
-      familyType: '싱글 라이프',
-      maximumDeposit: 100000000,
-      maximumMonthlyCost: 1000000,
-      minimumMonthlyCost: 900000,
-      costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
-      preferredRegion: '서울 / 경기 / 인천',
-      preferredVillage: '서울특별시 강남구 역삼동',
-      itemHouseType: ['오피스텔'],
-      recommendationCount: 10,
+      suggestion_due_date: addDays(new Date(), 3),
+      family_type: '싱글 라이프',
+      maximum_deposit: 100000000,
+      maximum_monthly_cost: 1000000,
+      minimum_monthly_cost: 900000,
+      cost_preference_type: '낮은 보증, 높은 월 고정 비용이 좋아요',
+      preferred_region: '서울 / 경기 / 인천',
+      preferred_village: '서울특별시 강남구 역삼동',
+      item_house_type: ['오피스텔'],
+      recommendation_count: 10,
     }, {
       id: 3,
       name: '신사 영끌 신혼집 3',
       // 제안 가능 여부
-      canSuggestion: false,
-      familyType: '싱글 라이프',
-      maximumDeposit: 100000000,
-      maximumMonthlyCost: 1000000,
-      minimumMonthlyCost: 900000,
-      costPreferenceType: '낮은 보증, 높은 월 고정 비용이 좋아요',
-      preferredRegion: '서울 / 경기 / 인천',
-      preferredVillage: '서울특별시 강남구 역삼동',
-      itemHouseType: ['오피스텔'],
-      recommendationCount: 0,
+      can_suggestion: false,
+      family_type: '싱글 라이프',
+      maximum_deposit: 100000000,
+      maximum_monthly_cost: 1000000,
+      minimum_monthly_cost: 900000,
+      cost_preference_type: '낮은 보증, 높은 월 고정 비용이 좋아요',
+      preferred_region: '서울 / 경기 / 인천',
+      preferred_village: '서울특별시 강남구 역삼동',
+      item_house_type: ['오피스텔'],
+      recommendation_count: 0,
     }] as ProductFilterListItemDTO[]), {
       status: 200,
     })

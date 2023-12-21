@@ -1,10 +1,17 @@
 import { IonContent, IonFooter, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, ChipButtonList, ProductMoveInView, RatingInput } from '@move-in/design-system';
+import {
+  Button,
+  CTAButtonBlock,
+  ChipButtonList,
+  ProductMoveInView,
+  RatingInput,
+} from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import useProductFilterDetail from '../../../product-filter/hooks/useProductFilterDetail';
 import useProductDetail from '../../../product/hooks/useProductDetail';
 import FormInputContainer from '../../components/FormInputContainer';
 import FormPageHeader from '../../components/FormPageHeader';
+import { useProductSuggestionFormContext } from '../../hooks/useProductSuggestionFormState';
 
 interface Props {
   filterId: string | number;
@@ -12,9 +19,16 @@ interface Props {
   onNext?: () => void;
 }
 
-const ProductSuggestionFormStep2Page: React.FC<Props> = ({ filterId, productId, onNext }) => {
+const ProductSuggestionFormStep2Page: React.FC<Props> = ({
+  filterId,
+  productId,
+  onNext,
+}) => {
   const { data: filterDetail } = useProductFilterDetail(filterId);
   const { data: productDetail } = useProductDetail(productId);
+  const { data: formData, setData: setFormData } =
+    useProductSuggestionFormContext();
+  const isValid = !!formData?.productSuggestion?.moveInPreference?.score;
 
   return (
     <IonPage>
@@ -46,7 +60,9 @@ const ProductSuggestionFormStep2Page: React.FC<Props> = ({ filterId, productId, 
             options={filterDetail?.moveInPreference}
             readOnly
           />
-          <ProductMoveInView minimumMoveInDate={productDetail?.minimumMoveInDate} />
+          <ProductMoveInView
+            minimumMoveInDate={productDetail?.minimumMoveInDate}
+          />
           <FormInputContainer
             className={css({
               paddingX: '16px',
@@ -54,7 +70,24 @@ const ProductSuggestionFormStep2Page: React.FC<Props> = ({ filterId, productId, 
             prefix="02-A"
             label="해당 부문에 대한 적합도를 평가해주세요"
           >
-            <RatingInput size={48} />
+            <RatingInput
+              size={48}
+              defaultValue={
+                formData?.productSuggestion?.moveInPreference?.score
+              }
+              onChange={(value) => {
+                setFormData({
+                  ...formData,
+                  productSuggestion: {
+                    ...formData?.productSuggestion,
+                    moveInPreference: {
+                      ...formData?.productSuggestion?.moveInPreference,
+                      score: value,
+                    },
+                  },
+                });
+              }}
+            />
           </FormInputContainer>
         </div>
       </IonContent>
@@ -64,6 +97,7 @@ const ProductSuggestionFormStep2Page: React.FC<Props> = ({ filterId, productId, 
             className={css({
               maxWidth: '100%',
             })}
+            disabled={!isValid}
             onClick={onNext}
             label="다음"
           />

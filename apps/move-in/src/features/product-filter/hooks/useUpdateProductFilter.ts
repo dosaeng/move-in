@@ -1,4 +1,4 @@
-import useCodeList from "@/common/hooks/useCodeList";
+import { useCodeList } from "@move-in/core";
 import { defineMock } from "@/common/utils/defineMock";
 import { httpClient } from "@/common/utils/httpClient";
 import { format } from "date-fns";
@@ -99,7 +99,7 @@ const useUpdateProductFilter = (options?: Omit<UseMutationOptions<void, unknown,
 export default useUpdateProductFilter;
 
 defineMock((mock) => {
-  mock.put(new RegExp(updateProductFilterEndpoint('[0-9]+')), async (_, request) => {
+  mock.put(new RegExp(`^${updateProductFilterEndpoint('[0-9]+')}$`), async (_, request) => {
     console.debug("Mocked update filter request", request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));

@@ -19,7 +19,7 @@ export default useDeleteProductFilter;
 
 
 defineMock((mock) => {
-  mock.delete(new RegExp(deleteProductFilterEndpoint('[0-9]+')), async (_, request) => {
+  mock.delete(new RegExp(`^${deleteProductFilterEndpoint('[0-9]+')}$`), async (_, request) => {
     console.debug("Mocked product filter delete request", request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));

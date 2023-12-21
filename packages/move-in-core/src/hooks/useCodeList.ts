@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-const useCodeList = () => {
+export const useCodeList = () => {
   return useQuery("codeList", async () => {
     return {
       // 누구와 함께 할 집을 구하나요?
@@ -110,12 +110,9 @@ const useCodeList = () => {
         ],
         // 버스 터미널 및 기차역까지 대중교통으로
         terminal: [
-          { key: 1, value: '편의점' },
-          { key: 2, value: '마트' },
-          { key: 3, value: '식당' },
-          { key: 4, value: '카페' },
-          { key: 5, value: '병원' },
-          { key: 6, value: '은행' },
+          { key: 1, value: '15분 이내' },
+          { key: 2, value: '30분 이내' },
+          { key: 3, value: '상관 없음' },
         ],
         // 차량 주차 공간이 필요해요
         parking: [
@@ -177,5 +174,3 @@ const useCodeList = () => {
     }
   });
 }
-
-export default useCodeList;
