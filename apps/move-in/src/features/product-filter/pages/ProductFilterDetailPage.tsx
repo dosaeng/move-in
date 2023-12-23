@@ -1,6 +1,7 @@
 import ProductSuggestionListView from '@/features/product-suggestion/components/ProductSuggestionListView';
 import {
   IonContent,
+  IonFooter,
   IonHeader,
   IonPage,
   IonRefresher,
@@ -8,6 +9,8 @@ import {
   IonSkeletonText,
 } from '@ionic/react';
 import {
+  Button,
+  CTAButtonBlock,
   ChipButtonList,
   IconButton,
   IconDotsVertical,
@@ -26,6 +29,9 @@ import ProductFilterDetailActionModal from '../components/ProductFilterDetailAct
 import useDeleteProductFilter from '../hooks/useDeleteProductFilter';
 import useProductFilterDetail from '../hooks/useProductFilterDetail';
 import useRequestStopProductSuggestion from '../hooks/useRequestStopProductSuggestion';
+import ProductSuggestionRequestModal from '@/features/product-suggestion/components/ProductSuggestionRequestModal';
+import useRequestProductSuggestion from '../hooks/useRequestProductSuggestion';
+import { ProductFilterState } from '../hooks/useProductFilterList';
 
 const ProductFilterDetailPage: React.FC<
   RouteComponentProps<{
@@ -56,9 +62,19 @@ const ProductFilterDetailPage: React.FC<
         present(`삭제 요청에 실패하였습니다.`, 500);
       },
     });
+  const { mutate: requestSuggestion, isLoading: isLoadingRequestSuggestion } =
+    useRequestProductSuggestion({
+      onSuccess: () => {
+        present(`‘${detail?.name ?? ''}’로 제안 요청을 했어요.`, 500);
+      },
+      onError: () => {
+        present('제안 요청에 실패했습니다.', 500);
+      },
+    });
   const [isOpenActionModal, setIsOpenActionModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenStopRequestModal, setIsOpenStopRequestModal] = useState(false);
+  const [isOpenSuggestionModal, setIsOpenSuggestionModal] = useState(false);
   const { present } = useToast();
   const isLoading = isLoadingDetail || isLoadingStop || isLoadingDelete;
 
@@ -156,6 +172,20 @@ const ProductFilterDetailPage: React.FC<
           }}
         />
       </IonContent>
+      {detail?.state === ProductFilterState.PUBLISHED && (
+        <IonFooter className="ion-no-border">
+          <CTAButtonBlock>
+            <Button
+              className={css({
+                maxWidth: '100%',
+              })}
+              disabled={isLoadingRequestSuggestion}
+              onClick={() => setIsOpenSuggestionModal(true)}
+              label="제안 요청하기"
+            />
+          </CTAButtonBlock>
+        </IonFooter>
+      )}
       {!isLoading && (
         <ProductFilterDetailActionModal
           data={detail!}
@@ -197,6 +227,19 @@ const ProductFilterDetailPage: React.FC<
           if (!isAgree) return;
 
           requestStopSuggestion(filterId);
+        }}
+      />
+      <ProductSuggestionRequestModal
+        filterName={detail?.name ?? ''}
+        isOpen={isOpenSuggestionModal}
+        onDidDismiss={(isAgree) => {
+          setIsOpenSuggestionModal(false);
+
+          if (isAgree) {
+            requestSuggestion(Number(filterId));
+
+            return;
+          }
         }}
       />
     </IonPage>

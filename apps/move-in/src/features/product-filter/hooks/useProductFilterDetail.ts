@@ -170,7 +170,7 @@ defineMock((mock) => {
     let baseData: ProductFilterDetailDTO = {
       id: id,
       name: `신사 영끌 신혼집 ${id}`,
-      family_type: '싱글라이프',
+      family_type: '싱글 라이프',
       pet_presence: true,
       minimum_size: '40평 이상 (132.2㎡)',
       minimum_room_count: 3,
@@ -186,7 +186,6 @@ defineMock((mock) => {
       item_house_type: ['오피스텔'],
       item_house_condition: ['신축 첫 입주'],
       item_wish_list: ['베란다가 있으면 좋겠어요'],
-      recommendation_due_date: addDays(new Date(), 7).toISOString(),
       to_bus_stop_minutes: '도보 5분',
       to_train_station_minutes: '도보 10분',
       to_terminal_minutes: '15분 이내',
