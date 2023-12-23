@@ -46,6 +46,7 @@ const ProductFilterCreateFormStep2Page: React.FC<{
                 minimumMoveInDate: value,
               });
             }}
+            autoFocus
           />
           <DateInputField
             id="end-date"

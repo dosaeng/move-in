@@ -38,7 +38,7 @@ const EmptyView: React.FC<PropsWithChildren<{ className?: string }>> = ({
             position: 'absolute',
             left: 0,
             right: 0,
-            bottom: 32,
+            top: 164,
             textStyle: 'body-14-r',
             color: 'text.dark.01',
             textAlign: 'center',

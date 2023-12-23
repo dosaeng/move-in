@@ -111,7 +111,10 @@ const ProductFilterListPage: React.FC = () => {
           })}
         >
           {isEmpty ? (
-            <EmptyView>아직 요청을 하지 않았어요</EmptyView>
+            <EmptyView>
+              아직 희망 조건을
+              <br />생성하지 않았어요
+            </EmptyView>
           ) : (
             <>
               <ProductFilterListView

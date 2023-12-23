@@ -1,4 +1,4 @@
-import { useCodeList } from '@move-in/core'
+import { useCodeList } from '@move-in/core';
 import {
   Button,
   FormInputLabel,
@@ -24,12 +24,23 @@ interface Props {
   onChange?: (value?: TrafficLifeSelectBoxValue) => void;
 }
 
-const TrafficLifeSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }) => {
+const TrafficLifeSelectBox: React.FC<Props> = ({
+  value,
+  defaultValue,
+  onChange,
+}) => {
   const { data: codeTable, isLoading } = useCodeList();
   const options = codeTable?.trafficLife;
-  const [internalValue, setInternalValue] = useState<TrafficLifeSelectBoxValue | undefined>(defaultValue);
+  const [internalValue, setInternalValue] = useState<
+    TrafficLifeSelectBoxValue | undefined
+  >(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   const currentValue = value != null ? value : internalValue;
+  const isValid =
+    currentValue?.busStop != null &&
+    currentValue?.trainStation != null &&
+    currentValue?.terminal != null &&
+    currentValue?.parking != null;
 
   return (
     <div
@@ -48,8 +59,11 @@ const TrafficLifeSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }
       >
         {Object.keys(currentValue ?? {})
           .map((key) => {
-            const currentOptionValue = currentValue?.[key as keyof typeof currentValue];
-            const option = options?.[key as keyof typeof options]?.find((option) => option.key === currentOptionValue);
+            const currentOptionValue =
+              currentValue?.[key as keyof typeof currentValue];
+            const option = options?.[key as keyof typeof options]?.find(
+              (option) => option.key === currentOptionValue
+            );
             return option?.value;
           })
           .filter((value) => value != null)
@@ -133,6 +147,7 @@ const TrafficLifeSelectBox: React.FC<Props> = ({ value, defaultValue, onChange }
             </div>
             <Button
               label="완료"
+              disabled={!isValid}
               onClick={() => {
                 setIsOpen(false);
                 onChange && onChange(internalValue);

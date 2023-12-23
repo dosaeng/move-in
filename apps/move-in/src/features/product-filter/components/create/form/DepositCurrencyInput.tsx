@@ -4,14 +4,27 @@ import InputFieldHeaderContainer from '../base/InputFieldHeaderContainer';
 
 interface Props {
   defaultValue?: number;
+  autoFocus?: boolean;
   onChange?: (value?: number) => void;
 }
 
-const DepositCurrencyInput: React.FC<Props> = ({ defaultValue, onChange }) => {
+const DepositCurrencyInput: React.FC<Props> = ({
+  defaultValue,
+  autoFocus,
+  onChange,
+}) => {
   return (
-    <InputFieldHeaderContainer title="최대 가능 보증금" subtitle="대출 금액을 포함한 가용 가능한 총 금액">
+    <InputFieldHeaderContainer
+      title="최대 가능 보증금"
+      subtitle="대출 금액을 포함한 가용 가능한 총 금액"
+    >
       <InputFieldContainer suffix="이하">
-        <CurrencyInput id="deposit" defaultValue={defaultValue} onChange={onChange} />
+        <CurrencyInput
+          id="deposit"
+          defaultValue={defaultValue}
+          onChange={onChange}
+          autoFocus={autoFocus}
+        />
       </InputFieldContainer>
     </InputFieldHeaderContainer>
   );

@@ -62,6 +62,7 @@ const ProductFilterCreateFormStep3Page: React.FC<{
                 deposit: value,
               });
             }}
+            autoFocus
           />
           <MonthlyRentCurrencyInput
             defaultValue={{
