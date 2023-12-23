@@ -16,9 +16,9 @@ interface ProductFilterListItemDTO {
   id: number;
   name: string;
   // 제안 가능 여부
-  can_suggestion?: boolean;
+  status?: 'DEFAULT_CREATED' | 'OPEN' | 'CLOSE';
   // 제안 만료 날짜
-  suggestion_due_date?: string;
+  recommendation_due_date?: string;
   family_type: string;
   maximum_deposit: number;
   maximum_monthly_cost: number;
@@ -47,11 +47,11 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
     const response = await httpClient.get<ProductFilterListItemDTO[]>(getProductFilterList)
 
     return response.map((item) => {
-      const suggestionDueDate = item.suggestion_due_date != null ? new Date(item.suggestion_due_date) : undefined;
+      const suggestionDueDate = item.recommendation_due_date != null ? new Date(item.recommendation_due_date) : undefined;
       let state;
 
       if (suggestionDueDate != null) {
-        const isLive = isAfter(suggestionDueDate, new Date()) && item.can_suggestion === true;
+        const isLive = isAfter(suggestionDueDate, new Date()) && item.status === 'OPEN';
         state = isLive ? ProductFilterState.REQUESTED : ProductFilterState.EXPIRED;
       } else {
         state = ProductFilterState.PUBLISHED;
@@ -60,8 +60,10 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
       return {
         id: item.id,
         name: item.name,
-        dueDate: item.suggestion_due_date != null ? new Date(item.suggestion_due_date) : undefined,
+        dueDate: suggestionDueDate,
         filterList: [
+          item.preferred_region,
+          item.preferred_village,
           item.family_type,
           item.item_house_type,
           `${koreanCurrencyFormat(item.maximum_deposit)} · 월 ${item.maximum_monthly_cost / 10000}-${item.minimum_monthly_cost / 10000}`
@@ -99,9 +101,9 @@ defineMock((mock) => {
       id: 1,
       name: '신사 영끌 신혼집 1',
       // 제안 가능 여부
-      can_suggestion: false,
+      status: 'CLOSE',
       // 제안 만료 날짜
-      suggestion_due_date: subDays(new Date(), 3),
+      recommendation_due_date: subDays(new Date(), 3),
       family_type: '싱글 라이프',
       maximum_deposit: 100000000,
       maximum_monthly_cost: 1000000,
@@ -115,9 +117,9 @@ defineMock((mock) => {
       id: 2,
       name: '신사 영끌 신혼집 2',
       // 제안 가능 여부
-      can_suggestion: true,
+      status: 'OPEN',
       // 제안 만료 날짜
-      suggestion_due_date: addDays(new Date(), 3),
+      recommendation_due_date: addDays(new Date(), 3),
       family_type: '싱글 라이프',
       maximum_deposit: 100000000,
       maximum_monthly_cost: 1000000,
@@ -131,7 +133,7 @@ defineMock((mock) => {
       id: 3,
       name: '신사 영끌 신혼집 3',
       // 제안 가능 여부
-      can_suggestion: false,
+      status: 'DEFAULT_CREATED',
       family_type: '싱글 라이프',
       maximum_deposit: 100000000,
       maximum_monthly_cost: 1000000,
