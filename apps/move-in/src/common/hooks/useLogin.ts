@@ -19,6 +19,7 @@ const useLogin = (options?: Omit<UseMutationOptions<void, unknown, LoginRequestM
         email: request.email,
         password: request.password,
       },
+      responseType: "text",
     });
 
     login(accessToken);
@@ -33,11 +34,10 @@ defineMock((mock) => {
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    return new Response(JSON.stringify({
-      access_token: "mocked-access-token",
-    }), {
-      status: 200,
-    })
+    return new Response("mocked-access-token",
+      {
+        status: 200,
+      })
   });
 });
 
