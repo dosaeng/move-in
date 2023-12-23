@@ -81,20 +81,20 @@ export class HttpClient {
     switch (responseType) {
       case 'blob':
         try {
-          return response.blob() as TResponseData;
+          return await response.blob() as TResponseData;
         } catch (error) {
           return new Blob() as TResponseData;
         }
       case 'text':
         try {
-          return response.text() as TResponseData;
+          return await response.text() as TResponseData;
         } catch (error) {
           return "" as TResponseData;
         }
       case 'json':
       default:
         try {
-          return response.json() as TResponseData;
+          return await response.json() as TResponseData;
         } catch (error) {
           return {} as TResponseData;
         }
