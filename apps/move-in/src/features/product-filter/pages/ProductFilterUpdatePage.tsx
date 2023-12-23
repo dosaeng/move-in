@@ -1,4 +1,6 @@
-import { IonPage, IonRouterOutlet } from '@ionic/react';
+import LoadingPage from '@/common/component/LoadingPage';
+import { IonContent, IonPage, IonRouterOutlet } from '@ionic/react';
+import { useEffect, useState } from 'react';
 import {
   Redirect,
   Route,
@@ -6,17 +8,22 @@ import {
   useHistory,
 } from 'react-router-dom';
 import {
-  ProductFilterCreateFormContextProvider
+  ProductFilterCreateFormContextProvider,
+  useProductFilterCreateFormState,
 } from '../hooks/useProductFilterCreateFormState';
+import useProductFilterDetail from '../hooks/useProductFilterDetail';
 import ProductFilterCreateFormStep1Page from './create/ProductFilterCreateFormStep1Page';
 import ProductFilterCreateFormStep2Page from './create/ProductFilterCreateFormStep2Page';
 import ProductFilterCreateFormStep3Page from './create/ProductFilterCreateFormStep3Page';
 import ProductFilterCreateFormStep4Page from './create/ProductFilterCreateFormStep4Page';
 import ProductFilterCreateFormStep5Page from './create/ProductFilterCreateFormStep5Page';
-import ProductFilterCreateFormStep6Page from './create/ProductFilterCreateFormStep6Page';
+import ProductFilterUpdateFormStep6Page from './create/ProductFilterUpdateFormStep6Page';
 
 const InnerOutlet: React.FC<{ id: string | number }> = ({ id }) => {
   const history = useHistory();
+  const { setData } = useProductFilterCreateFormState();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { data: detail } = useProductFilterDetail(id);
 
   const onBack = () => {
     history.goBack();
@@ -25,6 +32,21 @@ const InnerOutlet: React.FC<{ id: string | number }> = ({ id }) => {
   const onClose = () => {
     history.push(`/product-filters/${id}`);
   };
+
+  useEffect(() => {
+    if (detail) {
+      setData(detail);
+      setIsLoaded(true);
+    }
+  }, [detail, setData]);
+
+  if (!isLoaded) {
+    return (
+      <IonContent>
+        <LoadingPage />
+      </IonContent>
+    );
+  }
 
   return (
     <IonRouterOutlet>
@@ -79,7 +101,9 @@ const InnerOutlet: React.FC<{ id: string | number }> = ({ id }) => {
         />
       </Route>
       <Route exact path="/product-filters/:id/update/step6">
-        <ProductFilterCreateFormStep6Page
+        <ProductFilterUpdateFormStep6Page
+          filterId={id}
+          state={detail?.state}
           onBack={onBack}
           onClose={onClose}
           onNext={() => {

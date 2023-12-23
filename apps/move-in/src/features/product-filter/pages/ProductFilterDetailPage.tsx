@@ -69,7 +69,7 @@ const ProductFilterDetailPage: React.FC<
           left={
             <PageHeaderBackButton
               onClick={() => {
-                history.goBack();
+                history.push('/product-filters');
               }}
             />
           }

@@ -1,6 +1,6 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
-import { koreanCurrencyFormat } from '@move-in/core';
+import { koreanCurrencyFormat, useCodeList } from '@move-in/core';
 import { addDays, format, isAfter, subDays } from 'date-fns';
 import { useQuery } from 'react-query';
 import { ProductFilterState } from './useProductFilterList';
@@ -45,12 +45,45 @@ export interface ProductFilterDetailModel {
   name: string;
   filterList: { key: number, value: string }[];
   state: ProductFilterState;
+
+  familyTypeId?: number;
+  petPresenceId?: number;
+  productMinimumSizeId?: number;
+  minimumRoomCountId?: number;
+  minimumMoveInDate?: Date;
+  maximumMoveInDate?: Date;
+  deposit?: number;
+  minimumMonthlyCost?: number;
+  maximumMonthlyCost?: number;
+  costPreferenceId?: number;
+  preferredRegion?: {
+    region?: number;
+    address?: string;
+    place?: string[];
+  },
+  houseTypeId?: number[];
+  houseConditionId?: number[];
+  wishListId?: number[];
+  trafficOptions?: {
+    busStop?: number;
+    trainStation?: number;
+    terminal?: number;
+    parking?: number;
+  },
+  extraOptions?: {
+    livingOption?: number[];
+    communityLife?: number[];
+    livingInfra?: number[];
+    educationLife?: number[];
+    deliveryLife?: number[];
+  }
 }
 
 export const getProductFilterDetail = (id: string | number) => `/app-user-api/filter-card/${id}`;
 
 const useProductFilterDetail = (id: string | number) => {
   const requestPath = getProductFilterDetail(id);
+  const { data: codeList } = useCodeList();
 
   return useQuery<ProductFilterDetailModel>([requestPath], async () => {
     const data = await httpClient.get<ProductFilterDetailDTO>(requestPath)
@@ -88,6 +121,37 @@ const useProductFilterDetail = (id: string | number) => {
         };
       }),
       state,
+      familyTypeId: codeList?.familyType.find((item) => item.value == data.family_type)?.key,
+      petPresenceId: data.pet_presence ? 1 : 2,
+      productMinimumSizeId: codeList?.productMinimumSize.find((item) => item.value == data.minimum_size)?.key,
+      minimumRoomCountId: data.minimum_room_count,
+      minimumMoveInDate: new Date(data.minimum_move_in_date),
+      maximumMoveInDate: new Date(data.maximum_move_in_date),
+      deposit: data.maximum_deposit,
+      minimumMonthlyCost: data.minimum_monthly_cost,
+      maximumMonthlyCost: data.maximum_monthly_cost,
+      costPreferenceId: codeList?.costPreference.find((item) => item.value == data.cost_preference_type)?.key,
+      preferredRegion: {
+        region: codeList?.preferredRegion.find((item) => item.value == data.preferred_region)?.key,
+        address: data.preferred_village,
+        place: data.favorite_place1,
+      },
+      houseTypeId: data.item_house_type?.map((item) => codeList?.itemHouseType.find((houseType) => houseType.value == item)?.key).filter((item) => item != null) as number[],
+      houseConditionId: data.item_house_condition?.map((item) => codeList?.itemHouseCondition.find((houseCondition) => houseCondition.value == item)?.key).filter((item) => item != null) as number[],
+      wishListId: data.item_wish_list?.map((item) => codeList?.itemWithList.find((wishList) => wishList.value == item)?.key).filter((item) => item != null) as number[],
+      trafficOptions: {
+        busStop: codeList?.trafficLife.busStop.find((item) => item.value == data.to_bus_stop_minutes)?.key,
+        trainStation: codeList?.trafficLife.trainStation.find((item) => item.value == data.to_train_station_minutes)?.key,
+        terminal: codeList?.trafficLife.terminal.find((item) => item.value == data.to_terminal_minutes)?.key,
+        parking: codeList?.trafficLife.parking.find((item) => item.value == data.parking)?.key,
+      },
+      extraOptions: {
+        livingOption: codeList?.extraOptions.livingOption.filter((item) => data.living_options?.includes(item.value))?.map((item) => item.key),
+        communityLife: codeList?.extraOptions.communityLife.filter((item) => data.community_life?.includes(item.value))?.map((item) => item.key),
+        livingInfra: codeList?.extraOptions.livingInfra.filter((item) => data.living_infra?.includes(item.value))?.map((item) => item.key),
+        educationLife: codeList?.extraOptions.educationLife.filter((item) => data.education_life?.includes(item.value))?.map((item) => item.key),
+        deliveryLife: codeList?.extraOptions.deliveryLife.filter((item) => data.delivery_life?.includes(item.value))?.map((item) => item.key),
+      }
     };
   });
 };

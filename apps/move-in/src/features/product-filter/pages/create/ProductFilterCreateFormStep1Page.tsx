@@ -1,6 +1,14 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader, StepIndicator } from '@move-in/design-system';
-import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
+import {
+  Button,
+  CTAButtonBlock,
+  PageHeader,
+  StepIndicator,
+} from '@move-in/design-system';
+import {
+  PageHeaderBackButton,
+  PageHeaderCloseButton,
+} from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import FamilyTypeSelectBox from '../../components/create/form/FamilyTypeSelectBox';
@@ -31,7 +39,11 @@ const ProductFilterCreateFormStep1Page: React.FC<{
         />
       </IonHeader>
       <IonContent className="move-in-padding">
-        <StepIndicator className={css({ marginBottom: '12px' })} step={1} maxStep={5} />
+        <StepIndicator
+          className={css({ marginBottom: '12px' })}
+          step={1}
+          maxStep={5}
+        />
         <ProductFilterCreateFormHeader title="함께 하는 가족" />
         <div
           className={css({

@@ -1,46 +1,61 @@
 import ProductSuggestionRequestModal from '@/features/product-suggestion/components/ProductSuggestionRequestModal';
 import ProductSuggestionRequestNudgePopup from '@/features/product-suggestion/components/ProductSuggestionRequestNudgePopup';
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader, TextField, useToast } from '@move-in/design-system';
-import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
+import {
+  Button,
+  CTAButtonBlock,
+  PageHeader,
+  TextField,
+  useToast,
+} from '@move-in/design-system';
+import {
+  PageHeaderBackButton,
+  PageHeaderCloseButton,
+} from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import { useProductFilterCreateFormState } from '../../hooks/useProductFilterCreateFormState';
-import useCreateProductFilter from '../../hooks/useCreateProductFilter';
+import { ProductFilterState } from '../../hooks/useProductFilterList';
 import useRequestProductSuggestion from '../../hooks/useRequestProductSuggestion';
+import useUpdateProductFilter from '../../hooks/useUpdateProductFilter';
 
-const ProductFilterCreateFormStep6Page: React.FC<{
+const ProductFilterUpdateFormStep6Page: React.FC<{
+  filterId: string | number;
+  state?: ProductFilterState;
   onBack: () => void;
   onClose: () => void;
   onNext: () => void;
-}> = ({ onBack, onClose, onNext }) => {
+}> = ({ filterId, state, onBack, onClose, onNext }) => {
   const { data, setData } = useProductFilterCreateFormState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNudgeOpen, setIsNudgeOpen] = useState(false);
-  const [filterId, setFilterId] = useState<number | undefined>();
   const { present } = useToast();
-  const { mutate: createFilter, isLoading: isLoadingCreateFilter } = useCreateProductFilter({
-    onSuccess: ({ id }) => {
-      setFilterId(id);
+  const { mutate: updateFilter, isLoading: isLoadingUpdateFilter } =
+    useUpdateProductFilter({
+      onSuccess: () => {
+        if (state != ProductFilterState.PUBLISHED) {
+          present('필터 수정에 성공했습니다.', 500);
+          onNext && onNext();
+          return;
+        }
 
-      if (id == null) return;
-
-      setIsModalOpen(true);
-    },
-    onError: () => {
-      present('필터 생성에 실패했습니다.', 500);
-    },
-  });
-  const { mutate: requestSuggestion, isLoading: isLoadingRequestSuggestion } = useRequestProductSuggestion({
-    onSuccess: () => {
-      present(`‘${visibleFilterName}’로 제안 요청을 했어요.`, 500);
-      onNext && onNext();
-    },
-    onError: () => {
-      present('제안 요청에 실패했습니다.', 500);
-    },
-  });
+        setIsModalOpen(true);
+      },
+      onError: () => {
+        present('필터 수정에 실패했습니다.', 500);
+      },
+    });
+  const { mutate: requestSuggestion, isLoading: isLoadingRequestSuggestion } =
+    useRequestProductSuggestion({
+      onSuccess: () => {
+        present(`‘${visibleFilterName}’로 제안 요청을 했어요.`, 500);
+        onNext && onNext();
+      },
+      onError: () => {
+        present('제안 요청에 실패했습니다.', 500);
+      },
+    });
   const filterName = data?.name ?? '';
   const defaultFilterName = data?.defaultName ?? '';
   const hasFilterName = filterName.length > 0;
@@ -87,10 +102,13 @@ const ProductFilterCreateFormStep6Page: React.FC<{
               width: '100%',
               maxWidth: '100%',
             })}
-            disabled={isLoadingCreateFilter || isLoadingRequestSuggestion}
+            disabled={isLoadingUpdateFilter || isLoadingRequestSuggestion}
             label={hasFilterName ? '완료했어요' : '넘어갈께요'}
             onClick={() => {
-              createFilter(data!);
+              updateFilter({
+                id: Number(filterId),
+                ...data!,
+              });
             }}
           />
         </CTAButtonBlock>
@@ -102,7 +120,7 @@ const ProductFilterCreateFormStep6Page: React.FC<{
           setIsModalOpen(false);
 
           if (isAgree) {
-            requestSuggestion(filterId!);
+            requestSuggestion(Number(filterId));
 
             return;
           }
@@ -116,11 +134,11 @@ const ProductFilterCreateFormStep6Page: React.FC<{
           setIsNudgeOpen(false);
 
           if (isAgree) {
-            requestSuggestion(filterId!);
+            requestSuggestion(Number(filterId));
             return;
           }
 
-          present(`‘${visibleFilterName}’가 생성되었습니다.`, 500);
+          present(`‘${visibleFilterName}’가 수정되었습니다.`, 500);
           onNext && onNext();
         }}
       />
@@ -128,4 +146,4 @@ const ProductFilterCreateFormStep6Page: React.FC<{
   );
 };
 
-export default ProductFilterCreateFormStep6Page;
+export default ProductFilterUpdateFormStep6Page;

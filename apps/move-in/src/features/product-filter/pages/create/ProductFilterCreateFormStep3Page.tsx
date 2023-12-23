@@ -1,6 +1,14 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader, StepIndicator } from '@move-in/design-system';
-import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
+import {
+  Button,
+  CTAButtonBlock,
+  PageHeader,
+  StepIndicator,
+} from '@move-in/design-system';
+import {
+  PageHeaderBackButton,
+  PageHeaderCloseButton,
+} from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import CostPreferenceTypeSelectBox from '../../components/create/form/CostPreferenceTypeSelectBox';
@@ -30,7 +38,11 @@ const ProductFilterCreateFormStep3Page: React.FC<{
         />
       </IonHeader>
       <IonContent className="move-in-padding">
-        <StepIndicator className={css({ marginBottom: '12px' })} step={3} maxStep={5} />
+        <StepIndicator
+          className={css({ marginBottom: '12px' })}
+          step={3}
+          maxStep={5}
+        />
         <ProductFilterCreateFormHeader
           title="주거 비용 예산"
           subtitle="개략적인 시기를 알려주시면 더 좋은 추천을 해드려요"
