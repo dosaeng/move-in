@@ -40,12 +40,13 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = forwardRef<
   CurrencyInputProps
 >(({ id, onChange, minLength = 4, maxLength = 8, ...props }, ref) => {
   const classes = inputStyle();
-  const transformValue = (value?: number) => Math.floor((value ?? 0) / 10000);
+  const transformValue = (value?: number) =>
+    value == null ? value : Math.floor(value / 10000);
   const [value, setValue] = React.useState<string | undefined>(
-    transformValue(props.defaultValue).toFixed()
+    transformValue(props.defaultValue)?.toFixed()
   );
   const currentValue =
-    props.value != null ? transformValue(props.value).toFixed() : value;
+    props.value != null ? transformValue(props.value)?.toFixed() : value;
   const paddedValue = (value ?? '').padStart(minLength, '-');
 
   return (
