@@ -1,6 +1,8 @@
 import { HttpClient, HttpClientInspector } from '@move-in/core';
 import { enableMock } from './defineMock';
 
+const baseUrl = import.meta.env.VITE_API_URL as string;
+
 const mockInspector: HttpClientInspector = {
   request(request) {
     if (!enableMock) {
@@ -11,7 +13,8 @@ const mockInspector: HttpClientInspector = {
       ...request,
       url: request.url
         .toString()
-        .replace(import.meta.env.VITE_API_URL as string, ''),
+        .replace(baseUrl, '')
+        .replace(window.origin, ''),
     };
   },
 };
