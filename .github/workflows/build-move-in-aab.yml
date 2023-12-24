@@ -49,6 +49,9 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x ./android/gradlew
         working-directory: ./apps/move-in
+      - name: Update build number
+        run: corepack yarn cap-set-version -b ${{ github.run_number }}
+        working-directory: ./apps/move-in
       - run: corepack yarn build-aab
         env: 
           VITE_ENABLE_MOCK_API: ${{ inputs.enableMockApi }}
@@ -61,5 +64,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: move-in-${{ github.run_id }}
+          name: move-in-${{ github.run_number }}
           path: apps/move-in/android/app/build/outputs/bundle/release/app-release-signed.aab
