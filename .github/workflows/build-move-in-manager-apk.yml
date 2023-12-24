@@ -21,10 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
+          
       - name: Install Yarn
         run: corepack prepare yarn@* --activate
       - name: Get yarn cache directory path
@@ -40,6 +45,10 @@ jobs:
             
       - run: corepack yarn
       - run: corepack yarn codegen
+
+      - name: Make Gradle executable
+        run: chmod +x ./android/gradlew
+        working-directory: ./apps/move-in-manager
       - run: corepack yarn build-apk
         env: 
           VITE_ENABLE_MOCK_API: ${{ inputs.enableMockApi }}
@@ -48,8 +57,7 @@ jobs:
           ANDROID_KEYSTORE_KEY_PASSWORD: ${{ secrets.MOVE_IN_MANAGER_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.MOVE_IN_MANAGER_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEYSTORE_PATH: release-key-store.jks
-        with:
-          workingDirectory: ./apps/move-in-manager
+        working-directory: ./apps/move-in-manager
 
       - uses: actions/upload-artifact@v4
         with:
