@@ -1,6 +1,17 @@
-import useLogin from '@/common/hooks/useLogin';
-import { IonContent, IonFooter, IonHeader, IonPage, IonToolbar } from '@ionic/react';
-import { Button, CTAButtonBlock, IconCircleCheckFilled, useToast } from '@move-in/design-system';
+import useSignIn from '@/features/sign-in/hooks/useSignIn';
+import {
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonPage,
+  IonToolbar,
+} from '@ionic/react';
+import {
+  Button,
+  CTAButtonBlock,
+  IconCircleCheckFilled,
+  useToast,
+} from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useEffect } from 'react';
 import { useSignUpFormState } from '../hooks/useSignUpFormState';
@@ -8,7 +19,7 @@ import { useSignUpFormState } from '../hooks/useSignUpFormState';
 const SignUpCompletePage: React.FC = () => {
   const { present } = useToast();
   const { data } = useSignUpFormState();
-  const { mutate: requestLogin, isError } = useLogin({
+  const { mutate: requestSignIn, isError } = useSignIn({
     onSuccess: () => {
       window.location.href = '/product-filters';
     },
@@ -18,7 +29,7 @@ const SignUpCompletePage: React.FC = () => {
   });
 
   useEffect(() => {
-    requestLogin({
+    requestSignIn({
       email: data?.email,
       password: data?.password,
     });
@@ -63,7 +74,7 @@ const SignUpCompletePage: React.FC = () => {
               className={css({ maxWidth: '100%' })}
               label="로그인"
               onClick={() => {
-                requestLogin({
+                requestSignIn({
                   email: data?.email,
                   password: data?.password,
                 });

@@ -1,3 +1,4 @@
+import useAuthState from "@/common/hooks/useAuthState";
 import { defineMock } from "@/common/utils/defineMock";
 import { httpClient } from "@/common/utils/httpClient";
 import { UseMutationOptions, useMutation } from "react-query";
@@ -13,6 +14,8 @@ export interface SignUpRequestModel {
 const signUpEndpoint = "/app-user";
 
 const useSignUp = (options?: Omit<UseMutationOptions<void, unknown, SignUpRequestModel, unknown>, "mutationFn">) => {
+  const { setSignUpState } = useAuthState();
+
   return useMutation(async (request: SignUpRequestModel) => {
     await httpClient.post(signUpEndpoint, {
       body: {
@@ -23,6 +26,8 @@ const useSignUp = (options?: Omit<UseMutationOptions<void, unknown, SignUpReques
         phone_number: request.phoneNumber,
       },
     });
+
+    setSignUpState();
   }, options);
 }
 

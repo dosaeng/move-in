@@ -2,7 +2,10 @@ import { Redirect, Route, RouteProps } from 'react-router-dom';
 import useAuthState, { AuthState } from '../hooks/useAuthState';
 import LoadingPage from './LoadingPage';
 
-const AuthRoute = <Path extends string = string>({ component: Component, ...rest }: RouteProps<Path>) => {
+const AuthRoute = <Path extends string = string>({
+  component: Component,
+  ...rest
+}: RouteProps<Path>) => {
   const { data: authState, isLoading: isLoadingAuthState } = useAuthState();
 
   return (
@@ -21,6 +24,15 @@ const AuthRoute = <Path extends string = string>({ component: Component, ...rest
           } else {
             return rest.children as React.ReactNode;
           }
+        } else if (authState === AuthState.unauthorized) {
+          return (
+            <Redirect
+              to={{
+                pathname: '/sign-in',
+                state: { from: props.location },
+              }}
+            />
+          );
         }
 
         return (

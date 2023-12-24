@@ -9,12 +9,16 @@ import ProductFilterListPage from './features/product-filter/pages/ProductFilter
 import ProductFilterUpdatePage from './features/product-filter/pages/ProductFilterUpdatePage';
 import ProductSuggestionDetailPage from './features/product-suggestion/pages/ProductSuggestionDetailPage';
 import SignUpPage from './features/sign-up/pages/SignUpPage';
+import SignInPage from './features/sign-in/pages/SignInPage';
+import SignOutPage from './features/sign-in/pages/SignOutPage';
 
 function App() {
   return (
     <IonApp>
       <BrowserRouter>
         <Route path="/sign-up" component={SignUpPage} />
+        <Route path="/sign-in" component={SignInPage} />
+        <Route path="/sign-out" component={SignOutPage} />
         <AuthRoute
           exact
           path="/product-filters"
