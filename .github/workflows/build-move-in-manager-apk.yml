@@ -29,7 +29,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-          
+
       - name: Install Yarn
         run: corepack prepare yarn@* --activate
       - name: Get yarn cache directory path
@@ -62,5 +62,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: android/app/build/outputs/apk/release/app-release-signed.apk
-          workingDirectory: ./apps/move-in-manager
+          path: apps/move-in-manager/android/app/build/outputs/apk/release/app-release-signed.apk
