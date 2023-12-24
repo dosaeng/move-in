@@ -14,7 +14,7 @@ const useLogin = (options?: Omit<UseMutationOptions<void, unknown, LoginRequestM
   const { login } = useAuthState();
 
   return useMutation(async (request: LoginRequestModel) => {
-    const accessToken = await httpClient.post<LoginRequestModel, string>(loginEndpoint, {
+    await httpClient.post<LoginRequestModel, string>(loginEndpoint, {
       body: {
         email: request.email,
         password: request.password,
@@ -22,7 +22,7 @@ const useLogin = (options?: Omit<UseMutationOptions<void, unknown, LoginRequestM
       responseType: "text",
     });
 
-    login(accessToken);
+    login();
   }, options);
 }
 

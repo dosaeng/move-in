@@ -14,8 +14,18 @@ const mockInspector: HttpClientInspector = {
   },
 };
 
+const authInspector: HttpClientInspector = {
+  request(request) {
+    return {
+      ...request,
+      credentials: 'include',
+    }
+  },
+};
+
 export const httpClient = new HttpClient({
   baseUrl: import.meta.env.VITE_API_URL as string, inspectors: [
     mockInspector,
+    authInspector,
   ]
 });
