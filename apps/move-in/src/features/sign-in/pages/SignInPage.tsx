@@ -91,7 +91,7 @@ const SignInPage: React.FC = () => {
                 textDecoration: 'underline',
                 fontSize: '12px',
               })}
-              type='button'
+              type="button"
               size="xs"
               shape="clear"
               label="아직 아이디가 없어요"
@@ -101,20 +101,27 @@ const SignInPage: React.FC = () => {
               }}
             />
           </div>
-          <Button
-            type="submit"
-            disabled={!isValid}
+          <div
             className={css({
               position: 'absolute',
               left: '0',
               right: '0',
               bottom: '0',
-              width: '100%',
-              maxWidth: '100%',
-              borderRadius: '0',
+              height: 'fit-content',
+              backgroundColor: 'fill.light.01',
             })}
-            label={'다음'}
-          />
+          >
+            <Button
+              type="submit"
+              disabled={!isValid}
+              className={css({
+                width: '100%',
+                maxWidth: '100%',
+                borderRadius: '0',
+              })}
+              label={'다음'}
+            />
+          </div>
         </form>
       </IonContent>
     </IonPage>
