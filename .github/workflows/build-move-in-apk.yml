@@ -61,5 +61,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: move-in.apk
+          name: move-in-${{ github.run_id }}
           path: apps/move-in/android/app/build/outputs/apk/release/app-release-signed.apk
