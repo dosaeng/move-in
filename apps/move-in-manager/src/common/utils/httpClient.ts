@@ -23,6 +23,13 @@ const authInspector: HttpClientInspector = {
       credentials: 'include',
     };
   },
+  response(response) {
+    if (response.status === 401) {
+      window.location.href = '/sign-out';
+    }
+
+    return response;
+  },
 };
 
 export const httpClient = new HttpClient({

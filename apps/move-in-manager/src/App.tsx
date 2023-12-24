@@ -4,27 +4,32 @@ import HomePage from './features/home/pages/HomePage';
 import ProductFilterDetailPage from './features/product-filter/pages/ProductFilterDetailPage';
 import ProductSuggestionFormPage from './features/product-suggestion/pages/ProductSuggestionFormPage';
 import ProductSuggestionPage from './features/product-suggestion/pages/ProductSuggestionPage';
+import SignInPage from './features/sign-in/pages/SignInPage';
+import AuthRoute from './common/components/AuthRoute';
+import SignOutPage from './features/sign-in/pages/SignOutPage';
 
 function App() {
   return (
     <IonApp>
       <BrowserRouter>
-        <Route path="/tabs" component={HomePage} />
-        <Route
+        <Route path="/sign-in" component={SignInPage} />
+        <Route path="/sign-out" component={SignOutPage} />
+        <AuthRoute path="/tabs" component={HomePage} />
+        <AuthRoute
           exact
           path="/product-filters/:id"
           component={ProductFilterDetailPage}
         />
-        <Route
+        <AuthRoute
           exact
           path="/product-suggestions/products"
           component={ProductSuggestionPage}
         />
-        <Route
+        <AuthRoute
           path="/product-suggestions/form"
           component={ProductSuggestionFormPage}
         />
-        <Route exact path="/" render={() => <Redirect to="/tabs" />} />
+        <AuthRoute exact path="/" render={() => <Redirect to="/tabs" />} />
       </BrowserRouter>
     </IonApp>
   );
