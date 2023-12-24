@@ -1,0 +1,9 @@
+{
+  "name": "cap-set-version",
+  "packageManager": "yarn@4.0.2",
+  "bin": "./bin/run",
+  "main": "src/index.js",
+  "dependencies": {
+    "commander": "^11.1.0"
+  }
+}

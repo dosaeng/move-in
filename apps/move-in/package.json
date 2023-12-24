@@ -1,7 +1,7 @@
 {
   "name": "@move-in/move-in",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "codegen": "panda codegen --clean",
@@ -25,6 +25,7 @@
     "@ionic/react-router": "^7.5.7",
     "@move-in/core": "workspace:^",
     "@move-in/design-system": "workspace:^",
+    "cap-set-version": "workspace:^",
     "date-fns": "^2.30.0",
     "dotenv-flow": "^4.0.1",
     "react": "^18.2.0",
