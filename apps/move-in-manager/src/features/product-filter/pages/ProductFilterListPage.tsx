@@ -1,4 +1,3 @@
-import useProductList from '@/features/product/hooks/useProductList';
 import {
   IonContent,
   IonPage,
@@ -9,6 +8,7 @@ import {
 import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
 import ProductFilterListView from '../components/ProductFilterListView';
+import useProductFilterList from '../hooks/useProductFilterList';
 
 interface Props {
   onIonScroll?: (e: CustomEvent<ScrollDetail>) => void;
@@ -16,7 +16,7 @@ interface Props {
 
 const ProductFilterListPage: React.FC<Props> = ({ onIonScroll }) => {
   const history = useHistory();
-  const { refetch } = useProductList();
+  const { refetch } = useProductFilterList();
 
   return (
     <IonPage>
