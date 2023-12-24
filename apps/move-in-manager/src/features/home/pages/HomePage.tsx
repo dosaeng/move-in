@@ -5,11 +5,10 @@ import {
   IonPage,
   IonRouterOutlet,
   IonTabBar,
-  IonTabButton
+  IonTabButton,
 } from '@ionic/react';
 import { IconButton, IconMenu2, PageHeader } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
-import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import ProductFilterListPage from '../../product-filter/pages/ProductFilterListPage';
 import ProfileSection from '../../profile/components/ProfileSection';
@@ -32,8 +31,6 @@ const tabStyle = cx(
 );
 
 const HomePage: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -47,17 +44,7 @@ const HomePage: React.FC = () => {
             />
           }
         />
-        <div
-          className={cx(
-            css({
-              transition: 'height 0.3s ease-in-out',
-              overflow: 'hidden',
-            })
-          )}
-          style={{ height: isScrolled ? '0px' : '167px' }}
-        >
-          <ProfileSection />
-        </div>
+        <ProfileSection />
         <IonTabBar>
           <IonTabButton
             className={tabStyle}
@@ -86,11 +73,7 @@ const HomePage: React.FC = () => {
         <IonRouterOutlet>
           <Redirect exact path="/tabs" to="/tabs/product-filters" />
           <Route exact path="/tabs/product-filters">
-            <ProductFilterListPage
-              onIonScroll={(e) => {
-                setIsScrolled(e.detail.currentY > 0);
-              }}
-            />
+            <ProductFilterListPage />
           </Route>
           <Redirect exact path="/tabs/products" to="/tabs/product-filters" />
           <Redirect exact path="/tabs/consultants" to="/tabs/product-filters" />
