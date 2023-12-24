@@ -70,7 +70,7 @@ const SignInPage: React.FC = () => {
               id="password"
               type="password"
               label="무브인 비밀번호"
-              helperText="사용하실 비밀번호를 입력해주세요 (8자 이상)"
+              helperText="비밀번호를 입력해주세요 (8자 이상)"
               {...register('password', { required: true, minLength: 8 })}
             />
           </div>
