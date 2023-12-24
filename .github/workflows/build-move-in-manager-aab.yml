@@ -1,4 +1,4 @@
-name: Build android abb to MoveInManager
+name: Build android aab to MoveInManager
 on:
   workflow_dispatch:
     inputs:
@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
-    name: Build android abb to MoveInManager
+    name: Build android aab to MoveInManager
     steps:
       - uses: actions/checkout@v4
       
@@ -62,4 +62,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: move-in-manager-${{ github.run_id }}
-          path: apps/move-in-manager/android/app/build/outputs/bundle/release/app-release-signed.abb
+          path: apps/move-in-manager/android/app/build/outputs/bundle/release/app-release-signed.aab
