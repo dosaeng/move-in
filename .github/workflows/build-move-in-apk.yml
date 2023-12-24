@@ -48,11 +48,10 @@ jobs:
           ANDROID_KEYSTORE_KEY_PASSWORD: ${{ secrets.MOVE_IN_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.MOVE_IN_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEYSTORE_PATH: release-key-store.jks
-        with:
-          workingDirectory: ./apps/move-in
+        working-directory: ./apps/move-in
 
       - uses: actions/upload-artifact@v4
         with:
           name: apk
           path: android/app/build/outputs/apk/release/app-release-signed.apk
-          workingDirectory: ./apps/move-in
+          working-directory: ./apps/move-in
