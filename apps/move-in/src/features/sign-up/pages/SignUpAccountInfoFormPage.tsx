@@ -7,6 +7,7 @@ import { useSignUpFormState } from '../hooks/useSignUpFormState';
 
 const SignUpAccountInfoFormPage: React.FC = () => {
   const history = useHistory();
+  const { data, setData } = useSignUpFormState();
   const {
     register,
     handleSubmit,
@@ -16,8 +17,9 @@ const SignUpAccountInfoFormPage: React.FC = () => {
     email: string;
     password: string;
     re_password: string;
-  }>();
-  const { data, setData } = useSignUpFormState();
+  }>({
+    defaultValues: data,
+  });
 
   return (
     <IonPage>

@@ -11,6 +11,7 @@ import useSignUp from '../hooks/useSignUp';
 
 const SignUpUserInfoFormPage: React.FC = () => {
   const history = useHistory();
+  const { data, setData } = useSignUpFormState();
   const {
     register,
     handleSubmit,
@@ -19,10 +20,11 @@ const SignUpUserInfoFormPage: React.FC = () => {
     name: string;
     birthday: string;
     phoneNumber: string;
-  }>();
+  }>({
+    defaultValues: data,
+  });
   const { present } = useToast();
   const [isOpenTermsModal, setIsOpenTermsModal] = useState(false);
-  const { data, setData } = useSignUpFormState();
   const { isLoading: isLoadingSignUp, mutate: requestSignUp } = useSignUp({
     onSuccess: () => {
       history.push('/sign-up/complete');
