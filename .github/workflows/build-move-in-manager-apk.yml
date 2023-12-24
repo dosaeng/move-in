@@ -61,5 +61,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: move-in-manager.apk
+          name: move-in-manager-${{ github.run_id }}
           path: apps/move-in-manager/android/app/build/outputs/apk/release/app-release-signed.apk
