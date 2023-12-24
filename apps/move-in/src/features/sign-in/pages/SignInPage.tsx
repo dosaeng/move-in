@@ -1,4 +1,3 @@
-import useSignIn from '../hooks/useSignIn';
 import { IonContent, IonPage, IonToolbar } from '@ionic/react';
 import {
   Button,
@@ -8,8 +7,11 @@ import {
 } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import useSignIn from '../hooks/useSignIn';
 
 const SignInPage: React.FC = () => {
+  const history = useHistory();
   const { present } = useToast();
   const {
     register,
@@ -21,7 +23,7 @@ const SignInPage: React.FC = () => {
   }>();
   const { mutate: requestSignIn } = useSignIn({
     onSuccess: () => {
-      window.location.href = '/product-filters';
+      history.replace('/product-filters');
     },
     onError: () => {
       present('로그인에 실패했습니다.', 300);
