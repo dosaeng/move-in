@@ -16,6 +16,7 @@ const config: CapacitorConfig = {
       keystoreAliasPassword: process.env.ANDROID_KEYSTORE_KEY_PASSWORD,
       keystorePassword: process.env.ANDROID_KEYSTORE_PASSWORD,
       keystorePath: process.env.ANDROID_KEYSTORE_PATH,
+      signingType: 'apksigner'
     },
   },
 };
