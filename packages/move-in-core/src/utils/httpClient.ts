@@ -42,7 +42,8 @@ export class HttpClient {
     path: string,
     params?: Record<string, unknown>
   ): URL | string {
-    const url = new URL(path, this.baseUrl ?? window.origin);
+    const isValidBaseUrl = this.baseUrl != null && this.baseUrl !== '';
+    const url = new URL(path, isValidBaseUrl ? this.baseUrl : window.origin);
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
