@@ -1,4 +1,3 @@
-
 export interface HttpClientOptions {
   baseUrl?: string;
   inspectors?: HttpClientInspector[];
@@ -13,7 +12,7 @@ export interface HttpClientRequestOptions<TData = Record<string, unknown>> {
 }
 
 export interface FetchRequest extends RequestInit {
-  url: string | URL
+  url: string | URL;
 }
 
 export interface HttpClientInspector {
@@ -22,7 +21,10 @@ export interface HttpClientInspector {
 }
 
 export class HttpClientError extends Error {
-  constructor(message: string, public response: Response) {
+  constructor(
+    message: string,
+    public response: Response
+  ) {
     super(message);
   }
 }
@@ -36,8 +38,11 @@ export class HttpClient {
     this.inspectors = inspectors;
   }
 
-  private buildUrl(path: string, params?: Record<string, unknown>): URL | string {
-    const url = new URL(path, this.baseUrl);
+  private buildUrl(
+    path: string,
+    params?: Record<string, unknown>
+  ): URL | string {
+    const url = new URL(path, this.baseUrl ?? window.origin);
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
@@ -50,26 +55,62 @@ export class HttpClient {
     return url;
   }
 
-  async get<TResponseData = unknown>(path: string, options: Omit<HttpClientRequestOptions, 'body' | 'method'> = {}) {
-    return this.request<void, TResponseData>(path, { ...options, method: 'GET' });
+  async get<TResponseData = unknown>(
+    path: string,
+    options: Omit<HttpClientRequestOptions, 'body' | 'method'> = {}
+  ) {
+    return this.request<void, TResponseData>(path, {
+      ...options,
+      method: 'GET',
+    });
   }
 
-  async post<TData = Record<string, unknown>, TResponseData = unknown>(path: string, options: HttpClientRequestOptions<TData> = {}) {
-    return this.request<TData, TResponseData>(path, { ...options, method: 'POST' });
+  async post<TData = Record<string, unknown>, TResponseData = unknown>(
+    path: string,
+    options: HttpClientRequestOptions<TData> = {}
+  ) {
+    return this.request<TData, TResponseData>(path, {
+      ...options,
+      method: 'POST',
+    });
   }
 
-  async patch<TData = Record<string, unknown>, TResponseData = unknown>(path: string, options: HttpClientRequestOptions<TData> = {}) {
-    return this.request<TData, TResponseData>(path, { ...options, method: 'PATCH' });
+  async patch<TData = Record<string, unknown>, TResponseData = unknown>(
+    path: string,
+    options: HttpClientRequestOptions<TData> = {}
+  ) {
+    return this.request<TData, TResponseData>(path, {
+      ...options,
+      method: 'PATCH',
+    });
   }
 
-  async put<TData = Record<string, unknown>, TResponseData = unknown>(path: string, options: HttpClientRequestOptions<TData> = {}) {
-    return this.request<TData, TResponseData>(path, { ...options, method: 'PUT' });
+  async put<TData = Record<string, unknown>, TResponseData = unknown>(
+    path: string,
+    options: HttpClientRequestOptions<TData> = {}
+  ) {
+    return this.request<TData, TResponseData>(path, {
+      ...options,
+      method: 'PUT',
+    });
   }
-  async delete<TResponseData = unknown>(path: string, options: Omit<HttpClientRequestOptions, 'body' | 'method'> = {}) {
+  async delete<TResponseData = unknown>(
+    path: string,
+    options: Omit<HttpClientRequestOptions, 'body' | 'method'> = {}
+  ) {
     return this.request<TResponseData>(path, { ...options, method: 'DELETE' });
   }
 
-  async request<TData = Record<string, unknown>, TResponseData = unknown>(path: string, { params, headers, body, method, responseType = 'json' }: HttpClientRequestOptions<TData> = {}) {
+  async request<TData = Record<string, unknown>, TResponseData = unknown>(
+    path: string,
+    {
+      params,
+      headers,
+      body,
+      method,
+      responseType = 'json',
+    }: HttpClientRequestOptions<TData> = {}
+  ) {
     const url = this.buildUrl(path, params);
     let request: FetchRequest = {
       url,
@@ -79,7 +120,7 @@ export class HttpClient {
         ...headers,
       },
       body: JSON.stringify(body),
-    }
+    };
 
     for (const inspector of this.inspectors ?? []) {
       if (inspector?.request == null) continue;
@@ -96,26 +137,29 @@ export class HttpClient {
     }
 
     if (!response.ok) {
-      throw new HttpClientError(`Failed to ${method} ${path} ${response.status}`, response);
+      throw new HttpClientError(
+        `Failed to ${method} ${path} ${response.status}`,
+        response
+      );
     }
 
     switch (responseType) {
       case 'blob':
         try {
-          return await response.blob() as TResponseData;
+          return (await response.blob()) as TResponseData;
         } catch (error) {
           return new Blob() as TResponseData;
         }
       case 'text':
         try {
-          return await response.text() as TResponseData;
+          return (await response.text()) as TResponseData;
         } catch (error) {
-          return "" as TResponseData;
+          return '' as TResponseData;
         }
       case 'json':
       default:
         try {
-          return await response.json() as TResponseData;
+          return (await response.json()) as TResponseData;
         } catch (error) {
           return {} as TResponseData;
         }
