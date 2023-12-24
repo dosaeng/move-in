@@ -22,6 +22,7 @@ export const FormInputLabel: React.FC<Props> = ({ className, prefix, label }) =>
         className={css({
           textStyle: 'body-14-sb',
           color: 'brand.purple.03',
+          whiteSpace: "nowrap"
         })}
       >
         {prefix}
