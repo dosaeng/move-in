@@ -11,11 +11,13 @@ import ProductSuggestionDetailPage from './features/product-suggestion/pages/Pro
 import SignUpPage from './features/sign-up/pages/SignUpPage';
 import SignInPage from './features/sign-in/pages/SignInPage';
 import SignOutPage from './features/sign-in/pages/SignOutPage';
+import useSetupBackButton from './common/hooks/useSetupBackButton';
 
 function App() {
   return (
     <IonApp>
       <BrowserRouter>
+        <SetUp />
         <Route path="/sign-up" component={SignUpPage} />
         <Route path="/sign-in" component={SignInPage} />
         <Route path="/sign-out" component={SignOutPage} />
@@ -65,3 +67,9 @@ function App() {
 }
 
 export default App;
+
+const SetUp = () => {
+  useSetupBackButton();
+
+  return <></>;
+};
