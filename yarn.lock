@@ -2392,6 +2392,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^6.10.0"
     "@vitejs/plugin-react": "npm:^4.2.0"
     date-fns: "npm:^2.30.0"
+    dotenv-flow: "npm:^4.0.1"
     eslint: "npm:^8.53.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.4"
@@ -2440,6 +2441,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^6.10.0"
     "@vitejs/plugin-react": "npm:^4.2.0"
     date-fns: "npm:^2.30.0"
+    dotenv-flow: "npm:^4.0.1"
     eslint: "npm:^8.53.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.4"
@@ -7344,6 +7346,15 @@ __metadata:
   version: 10.0.0
   resolution: "dotenv-expand@npm:10.0.0"
   checksum: 298f5018e29cfdcb0b5f463ba8e8627749103fbcf6cf81c561119115754ed582deee37b49dfc7253028aaba875ab7aea5fa90e5dac88e511d009ab0e6677924e
+  languageName: node
+  linkType: hard
+
+"dotenv-flow@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "dotenv-flow@npm:4.0.1"
+  dependencies:
+    dotenv: "npm:^16.0.0"
+  checksum: 3316952472432ddf66594c5af4880e83da022ec0e541bdc386c899630c22adbd91f92cd92f22bd82cd0f7867232090c0863beea0f4a06df075f17753d001c784
   languageName: node
   linkType: hard
 

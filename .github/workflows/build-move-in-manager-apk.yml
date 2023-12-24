@@ -1,0 +1,58 @@
+name: Build android apk to MoveInManager
+on:
+  workflow_dispatch:
+    inputs:
+      enableMockApi:
+        description: 'enable mock api'
+        type: boolean
+        required: false
+      apiUrl:
+        description: 'api url'
+        type: string
+        required: false
+        
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Build android apk to MoveInManager
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Install Yarn
+        run: corepack prepare yarn@* --activate
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(corepack yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+            
+      - run: corepack yarn
+      - run: corepack yarn codegen
+      - run: corepack yarn build-apk
+        env: 
+          VITE_ENABLE_MOCK_API: ${{ inputs.enableMockApi }}
+          VITE_API_URL: ${{ inputs.apiUrl }}
+          ANDROID_KEYSTORE_KEY_ALIAS: key
+          ANDROID_KEYSTORE_KEY_PASSWORD: ${{ secrets.MOVE_IN_MANAGER_ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.MOVE_IN_MANAGER_ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_PATH: release-key-store.jks
+        with:
+          workingDirectory: ./apps/move-in-manager
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: android/app/build/outputs/apk/release/app-release-signed.apk
+          workingDirectory: ./apps/move-in-manager
