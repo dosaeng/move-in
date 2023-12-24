@@ -8,20 +8,22 @@ import {
 } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 
 const SignInPage: React.FC = () => {
+  const history = useHistory();
   const { present } = useToast();
   const {
     register,
     handleSubmit,
     formState: { isValid },
   } = useForm<{
-    email: string;
+    id: string;
     password: string;
   }>();
   const { mutate: requestSignIn } = useSignIn({
     onSuccess: () => {
-      window.location.href = '/product-filters';
+      history.replace('/tabs/product-filters');
     },
     onError: () => {
       present('로그인에 실패했습니다.', 300);
@@ -58,11 +60,11 @@ const SignInPage: React.FC = () => {
             })}
           >
             <TextField
-              id="email"
-              type="email"
-              label="이메일 주소"
-              helperText="이메일 주소를 입력해 주세요"
-              {...register('email', { required: true })}
+              id="id"
+              type="text"
+              label="아이디"
+              helperText="아이디를 입력해 주세요"
+              {...register('id', { required: true })}
             />
             <TextField
               id="password"

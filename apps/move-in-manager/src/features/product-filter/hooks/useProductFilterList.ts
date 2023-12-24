@@ -43,7 +43,6 @@ export interface ProductFilterListItemModel {
 const getProductFilterList = "/agent-api/filter-card";
 
 const useProductFilterList = () => {
-
   return useQuery<ProductFilterListItemModel[]>(getProductFilterList, async () => {
     const data = await httpClient.get<ProductFilterListItemDTO[]>(getProductFilterList)
 

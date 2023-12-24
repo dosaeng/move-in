@@ -5,14 +5,14 @@ import {
   IonPage,
   IonRouterOutlet,
   IonTabBar,
-  IonTabButton,
+  IonTabButton
 } from '@ionic/react';
 import { IconButton, IconMenu2, PageHeader } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
+import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import ProductFilterListPage from '../../product-filter/pages/ProductFilterListPage';
 import ProfileSection from '../../profile/components/ProfileSection';
-import { useState } from 'react';
 
 const tabStyle = cx(
   css({

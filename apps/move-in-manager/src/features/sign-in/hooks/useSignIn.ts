@@ -3,8 +3,13 @@ import { UseMutationOptions, useMutation } from 'react-query';
 import { httpClient } from '@/common/utils/httpClient';
 import useAuthState from '@/common/hooks/useAuthState';
 
+export interface SignInRequestDTO {
+  login_id?: string;
+  password?: string;
+}
+
 export interface SignInRequestModel {
-  email?: string;
+  id?: string;
   password?: string;
 }
 
@@ -19,9 +24,9 @@ const useSignIn = (
   const { setSignInState } = useAuthState();
 
   return useMutation(async (request: SignInRequestModel) => {
-    await httpClient.post<SignInRequestModel, string>(signInEndpoint, {
+    await httpClient.post<SignInRequestDTO, string>(signInEndpoint, {
       body: {
-        email: request.email,
+        login_id: request.id,
         password: request.password,
       },
       responseType: 'text',

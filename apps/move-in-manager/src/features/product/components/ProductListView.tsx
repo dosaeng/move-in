@@ -1,6 +1,7 @@
 import { css, cx } from '@move-in/styled-system/css';
 import useProductList, { ProductListItemModel } from '../hooks/useProductList';
 import ProductListItem, { ProductListItemSkeleton } from './ProductListItem';
+import EmptyView from '@/common/components/EmptyView';
 
 interface Props {
   className?: string;
@@ -9,7 +10,8 @@ interface Props {
 }
 
 const ProductListView: React.FC<Props> = ({ className, onClick }) => {
-  const { data, isLoading } = useProductList();
+  const { data, isLoading, isError } = useProductList();
+  const isEmpty = isError || data?.length === 0;
 
   return (
     <div
@@ -27,10 +29,16 @@ const ProductListView: React.FC<Props> = ({ className, onClick }) => {
           <ProductListItemSkeleton />
           <ProductListItemSkeleton />
         </>
+      ) : isEmpty ? (
+        <EmptyView>내 상품이 없습니다.</EmptyView>
       ) : (
         <>
           {data?.map((item) => (
-            <ProductListItem key={item.id} data={item} onClick={() => onClick && onClick(item)} />
+            <ProductListItem
+              key={item.id}
+              data={item}
+              onClick={() => onClick && onClick(item)}
+            />
           ))}
         </>
       )}

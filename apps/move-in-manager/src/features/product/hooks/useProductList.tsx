@@ -57,9 +57,17 @@ export interface ProductListItemModel {
 export const getProductListEndpoint = '/agent-api/item';
 
 export const useProductListDTO = () => {
-  return useQuery<ProductListItemDTO[]>(getProductListEndpoint, async () => {
-    return await httpClient.get<ProductListItemDTO[]>(getProductListEndpoint);
-  });
+  const result = useQuery<ProductListItemDTO[]>(
+    getProductListEndpoint,
+    async () => {
+      return await httpClient.get<ProductListItemDTO[]>(getProductListEndpoint);
+    }
+  );
+
+  return {
+    ...result,
+    data: result.data instanceof Array ? result.data : undefined,
+  };
 };
 
 const useProductList = () => {

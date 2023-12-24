@@ -1,17 +1,19 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
+import useProductList from '@/features/product/hooks/useProductList';
+import { IonContent, IonHeader, IonPage, IonRefresher, IonRefresherContent } from '@ionic/react';
 import { useSearchParams } from '@move-in/core';
 import { PageHeader } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
-import useProductSuggestionPageState from '../hooks/useProductSuggestionPageState';
 import ProductListView from '../../product/components/ProductListView';
+import useProductSuggestionPageState from '../hooks/useProductSuggestionPageState';
 
 const ProductSuggestionPage: React.FC = () => {
   const searchParams = useSearchParams();
   const history = useHistory();
   const filterId = searchParams.get('filterId')!;
   const { filterName } = useProductSuggestionPageState(filterId);
+  const { refetch } = useProductList();
 
   return (
     <IonPage>
@@ -28,6 +30,16 @@ const ProductSuggestionPage: React.FC = () => {
         />
       </IonHeader>
       <IonContent className="move-in-padding">
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={(event) => {
+            refetch().then(() => {
+              event.target.complete();
+            });
+          }}
+        >
+          <IonRefresherContent />
+        </IonRefresher>
         <h2
           className={css({
             textStyle: 'header-24-sb',
@@ -39,7 +51,9 @@ const ProductSuggestionPage: React.FC = () => {
         </h2>
         <ProductListView
           onClick={(item) => {
-            history.push(`/product-suggestions/form?filterId=${filterId}&productId=${item.id}`);
+            history.push(
+              `/product-suggestions/form?filterId=${filterId}&productId=${item.id}`
+            );
           }}
         />
       </IonContent>

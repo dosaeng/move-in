@@ -1,6 +1,11 @@
 import { css, cx } from '@move-in/styled-system/css';
-import useProductFilterList, { ProductFilterListItemModel } from '../hooks/useProductFilterList';
-import ProductFilterListItem, { ProductFilterListItemSkeleton } from './ProductFilterListItem';
+import useProductFilterList, {
+  ProductFilterListItemModel,
+} from '../hooks/useProductFilterList';
+import ProductFilterListItem, {
+  ProductFilterListItemSkeleton,
+} from './ProductFilterListItem';
+import EmptyView from '@/common/components/EmptyView';
 
 interface Props {
   className?: string;
@@ -9,7 +14,8 @@ interface Props {
 }
 
 const ProductFilterListView: React.FC<Props> = ({ className, onClick }) => {
-  const { data, isLoading } = useProductFilterList();
+  const { data, isLoading, isError } = useProductFilterList();
+  const isEmpty = isError || data?.length === 0;
 
   return (
     <div
@@ -28,10 +34,16 @@ const ProductFilterListView: React.FC<Props> = ({ className, onClick }) => {
           <ProductFilterListItemSkeleton />
           <ProductFilterListItemSkeleton />
         </>
+      ) : isEmpty ? (
+        <EmptyView>고객이 생성한 필터가 없습니다.</EmptyView>
       ) : (
         <>
           {data?.map((item) => (
-            <ProductFilterListItem key={item.id} data={item} onClick={() => onClick && onClick(item)} />
+            <ProductFilterListItem
+              key={item.id}
+              data={item}
+              onClick={() => onClick && onClick(item)}
+            />
           ))}
         </>
       )}

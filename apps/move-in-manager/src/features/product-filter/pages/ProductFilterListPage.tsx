@@ -1,7 +1,14 @@
-import { IonContent, IonPage, ScrollDetail } from '@ionic/react';
-import ProductFilterListView from '../components/ProductFilterListView';
+import useProductList from '@/features/product/hooks/useProductList';
+import {
+  IonContent,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  ScrollDetail,
+} from '@ionic/react';
 import { css } from '@move-in/styled-system/css';
 import { useHistory } from 'react-router-dom';
+import ProductFilterListView from '../components/ProductFilterListView';
 
 interface Props {
   onIonScroll?: (e: CustomEvent<ScrollDetail>) => void;
@@ -9,6 +16,7 @@ interface Props {
 
 const ProductFilterListPage: React.FC<Props> = ({ onIonScroll }) => {
   const history = useHistory();
+  const { refetch } = useProductList();
 
   return (
     <IonPage>
@@ -20,6 +28,16 @@ const ProductFilterListPage: React.FC<Props> = ({ onIonScroll }) => {
         onIonScroll={onIonScroll}
         scrollEvents
       >
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={(event) => {
+            refetch().then(() => {
+              event.target.complete();
+            });
+          }}
+        >
+          <IonRefresherContent />
+        </IonRefresher>
         <ProductFilterListView
           onClick={(data) => {
             history.push(`/product-filters/${data.id}`);
