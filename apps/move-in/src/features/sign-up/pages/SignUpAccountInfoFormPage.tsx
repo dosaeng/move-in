@@ -68,14 +68,46 @@ const SignUpAccountInfoFormPage: React.FC = () => {
               id="re_password"
               type="password"
               label="무브인 비밀번호 재확인"
-              helperText={errors.re_password?.message ?? '비밀번호를 재입력해 주세요'}
+              helperText={
+                errors.re_password?.message ?? '비밀번호를 재입력해 주세요'
+              }
               {...register('re_password', {
                 required: true,
                 minLength: 8,
                 validate: (value) => {
-                  return value === getValues('password') || '비밀번호가 일치하지 않습니다.';
+                  return (
+                    value === getValues('password') ||
+                    '비밀번호가 일치하지 않습니다.'
+                  );
                 },
               })}
+            />
+          </div>
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyItems: 'center',
+              width: '100%',
+              paddingTop: '48px',
+            })}
+          >
+            <Button
+              className={css({
+                maxWidth: 'fit-content',
+                color: 'text.light.04',
+                textDecoration: 'underline',
+                fontSize: '12px',
+              })}
+              type='button'
+              size="xs"
+              shape="clear"
+              label="이미 아이디가 있어요"
+              theme="neutral"
+              onClick={() => {
+                history.replace('/sign-in');
+              }}
             />
           </div>
           <Button

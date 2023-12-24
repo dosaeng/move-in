@@ -74,6 +74,33 @@ const SignInPage: React.FC = () => {
               {...register('password', { required: true, minLength: 8 })}
             />
           </div>
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyItems: 'center',
+              width: '100%',
+              paddingTop: '48px',
+            })}
+          >
+            <Button
+              className={css({
+                maxWidth: 'fit-content',
+                color: 'text.light.04',
+                textDecoration: 'underline',
+                fontSize: '12px',
+              })}
+              type='button'
+              size="xs"
+              shape="clear"
+              label="아직 아이디가 없어요"
+              theme="neutral"
+              onClick={() => {
+                history.replace('/sign-up');
+              }}
+            />
+          </div>
           <Button
             type="submit"
             disabled={!isValid}

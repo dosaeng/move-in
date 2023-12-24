@@ -26,6 +26,7 @@ const useAuthState = () => {
       refetch();
     },
     setSignInState() {
+      localStorage.setItem('isSignUp', 'true');
       localStorage.setItem('isSignIn', 'true');
 
       refetch();
