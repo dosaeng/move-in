@@ -1,3 +1,4 @@
+import urlJoin from 'url-join';
 export interface HttpClientOptions {
   baseUrl?: string;
   inspectors?: HttpClientInspector[];
@@ -43,7 +44,11 @@ export class HttpClient {
     params?: Record<string, unknown>
   ): URL | string {
     const isValidBaseUrl = this.baseUrl != null && this.baseUrl !== '';
-    const url = new URL(path, isValidBaseUrl ? this.baseUrl : window.origin);
+    const urlString = urlJoin(
+      isValidBaseUrl ? this.baseUrl! : window.origin,
+      path
+    );
+    const url = new URL(urlString);
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
