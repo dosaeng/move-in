@@ -26,7 +26,7 @@ const SignInPage: React.FC = () => {
       history.replace('/tabs/product-filters');
     },
     onError: () => {
-      present('로그인에 실패했습니다.', 300);
+      present('로그인에 실패했습니다.', 1000);
     },
   });
 
