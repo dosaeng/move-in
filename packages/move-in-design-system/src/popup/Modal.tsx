@@ -76,7 +76,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
       style={{
         '--width': 'fit-content',
         '--min-width': '320px',
-        '--height': 'fit-content',
+        '--height': 'auto',
         '--border-radius': '24px',
         '--background': 'transparent',
         '--box-shadow': 'none',
