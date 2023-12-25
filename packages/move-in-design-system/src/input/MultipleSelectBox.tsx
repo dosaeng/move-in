@@ -51,6 +51,8 @@ export const MultipleSelectBox = <K extends Key, V>({
               display: 'grid',
               flexDirection: 'column',
               gap: '12px',
+              flex: 1,
+              overflow: 'auto',
             })}
             style={{
               gridTemplateColumns: `repeat(${modalColumnsCount ?? 1}, 1fr)`,

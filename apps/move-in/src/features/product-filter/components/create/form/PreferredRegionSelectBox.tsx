@@ -250,6 +250,8 @@ const PlaceSearchView: React.FC<{
           display: 'grid',
           flexDirection: 'column',
           gap: '12px',
+          flex: 1,
+          overflow: 'auto',
         })}
       >
         {placeList?.map((place) => {
