@@ -14,7 +14,8 @@ const useSetupBackButton = () => {
     event.detail.register(-1, () => {
       if (
         window.location.pathname === '/sign-in' ||
-        window.location.pathname === '/tabs/product-filters'
+        window.location.pathname === '/tabs/product-filters' ||
+        window.location.pathname === '/tabs/products'
       ) {
         App.exitApp();
       }
