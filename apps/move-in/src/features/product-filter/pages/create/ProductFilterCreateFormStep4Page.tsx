@@ -1,6 +1,14 @@
 import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { Button, CTAButtonBlock, PageHeader, StepIndicator } from '@move-in/design-system';
-import { PageHeaderBackButton, PageHeaderCloseButton } from '@move-in/design-system/src/header/PageHeader';
+import {
+  Button,
+  CTAButtonBlock,
+  PageHeader,
+  StepIndicator,
+} from '@move-in/design-system';
+import {
+  PageHeaderBackButton,
+  PageHeaderCloseButton,
+} from '@move-in/design-system/src/header/PageHeader';
 import { css } from '@move-in/styled-system/css';
 import ProductFilterCreateFormHeader from '../../components/create/ProductFilterCreateFormHeader';
 import ItemHouseConditionSelectBox from '../../components/create/form/ItemHouseConditionSelectBox';
@@ -15,11 +23,7 @@ const ProductFilterCreateFormStep4Page: React.FC<{
   onNext: () => void;
 }> = ({ onBack, onClose, onNext }) => {
   const { data, setData } = useProductFilterCreateFormState();
-  const isValid =
-    data?.preferredRegion != null &&
-    data?.houseTypeId != null &&
-    data?.houseConditionId != null &&
-    data?.wishListId != null;
+  const isValid = data?.preferredRegion != null && data?.houseTypeId != null;
 
   return (
     <IonPage>
@@ -31,7 +35,11 @@ const ProductFilterCreateFormStep4Page: React.FC<{
         />
       </IonHeader>
       <IonContent className="move-in-padding">
-        <StepIndicator className={css({ marginBottom: '12px' })} step={4} maxStep={5} />
+        <StepIndicator
+          className={css({ marginBottom: '12px' })}
+          step={4}
+          maxStep={5}
+        />
         <ProductFilterCreateFormHeader
           title="원하는 집의 조건"
           subtitle="원하는 조건을 알려주시면 딱 맞는 집을 추천해 드려요"
