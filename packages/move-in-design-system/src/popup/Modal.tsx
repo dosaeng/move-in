@@ -9,7 +9,7 @@ export const ModalView: React.FC<React.PropsWithChildren> = ({ children }) => {
         display: 'flex',
         minWidth: '320px',
         minHeight: '156px',
-        height: 'fit-content',
+        height: 'auto',
         flexDirection: 'column',
         borderRadius: '24px',
         backgroundColor: 'fill.light.01',
@@ -38,7 +38,7 @@ export const ModalView: React.FC<React.PropsWithChildren> = ({ children }) => {
           display: 'flex',
           flex: 1,
           minHeight: '120px',
-          height: 'fit-content',
+          height: 'auto',
         })}
       >
         {children}
@@ -87,7 +87,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
           display: 'flex',
           flexDirection: 'column',
           height: 'fit-content',
-          maxHeight: 'dvh',
+          maxHeight: '80vh',
           paddingTop: '30px',
           paddingBottom: '20px',
           paddingLeft: '20px',
