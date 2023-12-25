@@ -1,4 +1,5 @@
-import { cva, sva } from '@move-in/styled-system/css';
+import { IonToolbar } from '@ionic/react';
+import { css, cva, sva } from '@move-in/styled-system/css';
 import { IconArrowLeft, IconX } from '@tabler/icons-react';
 import React from 'react';
 
@@ -65,17 +66,28 @@ interface PagerHeaderProps {
   theme?: 'default' | 'clearWhite' | 'clearBlack';
 }
 
-export const PageHeader: React.FC<PagerHeaderProps> = ({ left, title, right, theme }) => {
+export const PageHeader: React.FC<PagerHeaderProps> = ({
+  left,
+  title,
+  right,
+  theme,
+}) => {
   const classes = headerStyle({ theme });
 
   return (
-    <div className={classes.root}>
-      <div className={classes.icon}>{left}</div>
-      <div className={classes.titleContainer}>
-        <span className={classes.title}>{title}</span>
+    <IonToolbar
+      className={css({
+        '--min-height': '48px',
+      })}
+    >
+      <div className={classes.root}>
+        <div className={classes.icon}>{left}</div>
+        <div className={classes.titleContainer}>
+          <span className={classes.title}>{title}</span>
+        </div>
+        <div className={classes.icon}>{right}</div>
       </div>
-      <div className={classes.icon}>{right}</div>
-    </div>
+    </IonToolbar>
   );
 };
 
@@ -102,7 +114,9 @@ const iconStyle = cva({
   },
 });
 
-export const PageHeaderBackButton: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
+export const PageHeaderBackButton: React.FC<{ onClick?: () => void }> = ({
+  onClick,
+}) => {
   return (
     <button className={iconStyle()} onClick={onClick}>
       {<IconArrowLeft size={24} />}
@@ -110,7 +124,9 @@ export const PageHeaderBackButton: React.FC<{ onClick?: () => void }> = ({ onCli
   );
 };
 
-export const PageHeaderCloseButton: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
+export const PageHeaderCloseButton: React.FC<{ onClick?: () => void }> = ({
+  onClick,
+}) => {
   return (
     <button className={iconStyle()} onClick={onClick}>
       {<IconX size={24} />}
