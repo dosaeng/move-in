@@ -1,6 +1,7 @@
 import { AgentScoreBar, BoxLabel, ProfileImage } from '@move-in/design-system';
 import { css, cx } from '@move-in/styled-system/css';
 import useProfile from '../hooks/useProfile';
+import { IonSkeletonText } from '@ionic/react';
 
 interface Props {
   className?: string;
@@ -28,7 +29,13 @@ const ProfileSection: React.FC<Props> = ({ className }) => {
           gap: '8px',
         })}
       >
-        <BoxLabel>{data?.type}</BoxLabel>
+        <BoxLabel>
+          {data != null ? (
+            data?.type
+          ) : (
+            <div style={{ width: '80px', height: '12px' }}></div>
+          )}
+        </BoxLabel>
       </div>
       <div
         className={css({
@@ -50,9 +57,19 @@ const ProfileSection: React.FC<Props> = ({ className }) => {
               color: 'text.dark.04',
             })}
           >
-            {data?.name}
+            {data != null ? (
+              data.name
+            ) : (
+              <IonSkeletonText
+                animated
+                style={{ width: '120px', height: '24px', borderRadius: '4px' }}
+              />
+            )}
           </div>
-          <AgentScoreBar reviewCount={data?.reviewCount} reviewScore={data?.reviewScore} />
+          <AgentScoreBar
+            reviewCount={data?.reviewCount}
+            reviewScore={data?.reviewScore}
+          />
         </div>
         <ProfileImage src={data?.profileImage} alt={`${data?.name}-profile`} />
       </div>

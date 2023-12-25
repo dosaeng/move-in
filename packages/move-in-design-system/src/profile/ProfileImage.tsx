@@ -8,6 +8,24 @@ interface Props {
 }
 
 export const ProfileImage: React.FC<Props> = ({ className, src, alt }) => {
+  if (src == null) {
+    return (
+      <div
+        className={cx(
+          css({
+            borderRadius: '24px',
+            objectFit: 'cover',
+            width: '64px',
+            height: '64px',
+            marginBottom: '20px',
+            backgroundColor: 'fill.light.03',
+          }),
+          className
+        )}
+      ></div>
+    );
+  }
+
   return (
     <img
       className={cx(

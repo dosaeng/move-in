@@ -57,6 +57,7 @@ const HomePage: React.FC = () => {
             className={tabStyle}
             tab="products"
             href="/tabs/products"
+            disabled
           >
             <IonLabel>매물 관리</IonLabel>
           </IonTabButton>
@@ -64,6 +65,7 @@ const HomePage: React.FC = () => {
             className={tabStyle}
             tab="consultants"
             href="/tabs/consultants"
+            disabled
           >
             <IonLabel>상담 관리</IonLabel>
           </IonTabButton>
