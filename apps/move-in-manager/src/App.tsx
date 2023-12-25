@@ -7,11 +7,13 @@ import ProductSuggestionPage from './features/product-suggestion/pages/ProductSu
 import SignInPage from './features/sign-in/pages/SignInPage';
 import AuthRoute from './common/components/AuthRoute';
 import SignOutPage from './features/sign-in/pages/SignOutPage';
+import useSetupBackButton from './common/hooks/useSetupBackButton';
 
 function App() {
   return (
     <IonApp>
       <BrowserRouter>
+        <SetUp />
         <Route path="/sign-in" component={SignInPage} />
         <Route path="/sign-out" component={SignOutPage} />
         <AuthRoute path="/tabs" component={HomePage} />
@@ -36,3 +38,9 @@ function App() {
 }
 
 export default App;
+
+const SetUp = () => {
+  useSetupBackButton();
+
+  return <></>;
+};
