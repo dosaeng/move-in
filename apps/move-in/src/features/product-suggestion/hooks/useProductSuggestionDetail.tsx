@@ -1,5 +1,6 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
+import { convertImageUrl } from '@move-in/core';
 import { ProductSuggestionRatingModel } from '@move-in/design-system';
 import { useQuery } from 'react-query';
 
@@ -198,7 +199,7 @@ const useProductSuggestionDetail = (
           name: response.item?.name ?? '',
           address: response.item?.address ?? '',
           type: response.item?.house_type ?? '',
-          images: [response.item?.photo_in_base64 ?? ''],
+          images: [convertImageUrl(response.item?.photo_in_base64 ?? '')],
           dedicatedArea: response.item?.dedicated_area ?? 0,
           supplyArea: response.item?.supply_area ?? 0,
           roomCount: response.item?.room_count ?? 0,

@@ -1,5 +1,6 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
+import { convertImageUrl } from '@move-in/core';
 import { addDays, subDays } from 'date-fns';
 import { useQuery } from 'react-query';
 
@@ -67,7 +68,7 @@ const useProductSuggestionList = (filterId: string | number) => {
         id: item.id,
         productId: item.item_id,
         name: item.name,
-        thumbnail: item.photo_in_base64_string,
+        thumbnail: convertImageUrl(item.photo_in_base64_string),
         deposit: item.deposit,
         monthlyRent: item.monthly_rent,
         address: item.address,

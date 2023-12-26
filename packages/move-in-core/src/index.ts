@@ -11,3 +11,4 @@ export type {
 export { format as koreanCurrencyFormat } from './utils/koreanCurrencyFormat';
 export { useCodeList } from './hooks/useCodeList';
 export { useIonBackButton } from './hooks/useIonBackButton';
+export { convertImageUrl } from './utils/imageConvertor';

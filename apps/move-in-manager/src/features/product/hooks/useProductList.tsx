@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { defineMock } from '../../../common/utils/defineMock';
 import { httpClient } from '../../../common/utils/httpClient';
+import { convertImageUrl } from '@move-in/core';
 
 export interface ProductListItemDTO {
   id: number;
@@ -77,7 +78,7 @@ const useProductList = () => {
     data: data?.map((item) => {
       return {
         id: item.id,
-        thumbnail: item.photo_in_base64,
+        thumbnail: convertImageUrl(item.photo_in_base64),
         name: item.name,
         address: item.address,
         dedicatedArea: item.dedicated_area,

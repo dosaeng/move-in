@@ -1,5 +1,6 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
+import { convertImageUrl } from '@move-in/core';
 import { useQuery } from 'react-query';
 
 export enum ProductConsultingState {
@@ -97,7 +98,7 @@ const useProductConsultingList = () => {
           suggestionId: item.recommendation_id,
           productId: item.item.id,
           name: item.item.name,
-          thumbnail: item.item.photo_in_base64,
+          thumbnail: convertImageUrl(item.item.photo_in_base64),
           deposit: item.item.deposit,
           monthlyRent: item.item.monthly_rent,
           address: item.item.address,

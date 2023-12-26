@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useProductListDTO } from './useProductList';
+import { convertImageUrl } from '@move-in/core';
 
 export interface ProductDetailModel {
   id: number;
@@ -41,7 +42,7 @@ const useProductDetail = (productId: string | number) => {
 
       return {
         id: item.id,
-        thumbnail: item.photo_in_base64,
+        thumbnail: convertImageUrl(item.photo_in_base64),
         name: item.name,
         address: item.address,
         dedicatedArea: item.dedicated_area,
