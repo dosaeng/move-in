@@ -17,7 +17,7 @@ export const ProductFilterCreateFormContextProvider: React.FC<React.PropsWithChi
   const { data } = useProductFilterList();
 
   const [value, setValue] = useState<ProductFilterCreateRequestModel | undefined>({
-    defaultName: `필터 ${(data?.length ?? 0) + 1} (${format(new Date(), 'yyyy-MM-dd')})`,
+    defaultName: `필터 ${(data?.length ?? 0) + 1} (${format(new Date(), 'yyyy-MM-dd HH:mm:ss')})`,
   });
 
   return (

@@ -38,6 +38,7 @@ const styles = sva({
       borderRadius: '12px',
       textStyle: 'body-14-m',
       height: 'fit-content',
+      whiteSpace: 'nowrap',
     },
   },
   variants: {
@@ -113,6 +114,7 @@ const ProductFilterListItem: React.FC<Props> = ({ data, onClick }) => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          gap: '8px',
         })}
       >
         <div
