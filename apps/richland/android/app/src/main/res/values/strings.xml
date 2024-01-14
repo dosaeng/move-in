@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Richland</string>
+    <string name="title_activity_main">Richland</string>
+    <string name="package_name">com.kreit.richland</string>
+    <string name="custom_url_scheme">com.kreit.richland</string>
+</resources>
