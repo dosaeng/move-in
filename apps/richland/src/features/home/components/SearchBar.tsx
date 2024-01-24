@@ -32,7 +32,13 @@ const SearchBar: React.FC<Props> = ({ className, onClick }) => {
       >
         경매 물건 통합 검색
       </div>
-      <IconSearch width={20} height={20} />
+      <IconSearch
+        className={css({
+          color: 'text.light.04',
+        })}
+        width={20}
+        height={20}
+      />
     </div>
   );
 };
