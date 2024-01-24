@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react';
 import { setupIonicReact } from '@ionic/react';
 
-import '../src/index.scss';
+import '../src/index.css';
 
 
 setupIonicReact();

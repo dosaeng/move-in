@@ -1,5 +1,7 @@
 @layer reset, base, tokens, recipes, utilities;
 
+@import '@move-in/design-system/src/index.css';
+
 ion-content.content-padding {
   --padding-top: 24px;
   --padding-bottom: 40px;

@@ -23,8 +23,8 @@
     "@ionic/react": "^7.6.4",
     "@move-in/core": "workspace:^",
     "@move-in/design-system": "workspace:^",
-    "@pandacss/dev": "^0.26.2",
     "cap-set-version": "workspace:^",
+    "fetch-mock": "^9.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^5.6.0",
+    "@pandacss/dev": "^0.27.3",
     "@storybook/addon-essentials": "7.6.7",
     "@storybook/addon-interactions": "7.6.7",
     "@storybook/addon-links": "7.6.7",
@@ -51,6 +52,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-storybook": "^0.6.15",
+    "postcss": "^8.4.33",
+    "sass": "^1.70.0",
     "storybook": "7.6.7",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
