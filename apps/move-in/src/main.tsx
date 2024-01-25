@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App.tsx';
 
-import '@move-in/design-system/src/index.scss';
-import './index.scss';
+import '@move-in/design-system/src/index.css';
+import './index.css';
 
 setupIonicReact({
   mode: 'md',
