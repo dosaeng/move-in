@@ -17,7 +17,7 @@ const useProfile = () => {
       id: 1,
       name: '김영희',
       type: '베테랑 중개인',
-      profileImage: 'https://placehold.co/300x300?text=profile',
+      profileImage: 'https://www.koreatimes.net/images/attach/138298/20210422-12040918.jpg',
       reviewScore: 4.5,
       reviewCount: 100,
     };
