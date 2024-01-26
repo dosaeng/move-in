@@ -92,14 +92,14 @@ const useProductFilterList = ({ state }: { state?: ProductFilterState[] } = {}) 
 export default useProductFilterList;
 
 defineMock((mock) => {
-  mock.get(getProductFilterList, async (_, request) => {
+  mock.get(new RegExp(`^${getProductFilterList}$`), async (_, request) => {
     console.debug("Mocked get filter request", request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     return new Response(JSON.stringify([{
       id: 1,
-      name: '신사 영끌 신혼집 1',
+      name: '강남 신혼집',
       // 제안 가능 여부
       status: 'CLOSE',
       // 제안 만료 날짜
