@@ -107,7 +107,7 @@ defineMock((mock) => {
       JSON.stringify([
         {
           id: 1,
-          photo_in_base64: 'https://picsum.photos/200/300',
+          photo_in_base64: 'https://cdn.ggumim.co.kr/cache/star/1000/20180111112345fnszkGJABC.jpg',
           name: '상품 이름 1',
           region: '지역 1',
           address: '상품 주소 1',
@@ -131,8 +131,8 @@ defineMock((mock) => {
         },
         {
           id: 2,
-          photo_in_base64: 'https://picsum.photos/200/300',
-          name: '힐스테이트 레이크 마운틴 아파트 2',
+          photo_in_base64: 'https://cdn.ggumim.co.kr/cache/star/1000/201801091136533uN31QAb4o.jpg',
+          name: '힐스테이트 레이크 마운틴 아파트',
           region: '지역 2',
           address: '경기 동탄시',
           dedicated_area: 10,
@@ -155,7 +155,7 @@ defineMock((mock) => {
         },
         {
           id: 3,
-          photo_in_base64: 'https://picsum.photos/200/300',
+          photo_in_base64: 'https://img.maisonkorea.com/2019/02/msk_5c61036ec39f2.jpg',
           name: '힐스테이트 레이크 마운틴 아파트 3',
           region: '지역 3',
           address: '경기 동탄시',
@@ -179,7 +179,7 @@ defineMock((mock) => {
         },
         {
           id: 4,
-          photo_in_base64: 'https://picsum.photos/200/300',
+          photo_in_base64: 'https://img.maisonkorea.com/2019/02/msk_5c61035eb090a.jpg',
           name: '힐스테이트 레이크 마운틴 아파트 4',
           region: '지역 4',
           address: '경기 동탄시',

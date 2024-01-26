@@ -82,14 +82,14 @@ const useProductFilterList = () => {
 export default useProductFilterList;
 
 defineMock((mock) => {
-  mock.get(getProductFilterList, async (_, request) => {
+  mock.get(new RegExp(`^${getProductFilterList}$`), async (_, request) => {
     console.debug('Mocked product filter list request', request);
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     return new Response(JSON.stringify([{
       id: 1,
-      name: '신사 영끌 신혼집 1',
+      name: '신사 영끌 신혼집',
       // 제안 만료 날짜
       recommendation_due_date: subDays(new Date(), 3).toISOString(),
       family_type: '싱글 라이프',
@@ -105,7 +105,7 @@ defineMock((mock) => {
       is_consultation_requested: false,
     }, {
       id: 2,
-      name: '신사 영끌 신혼집 2',
+      name: '강남 가성비 신혼집',
       // 제안 만료 날짜
       recommendation_due_date: addDays(new Date(), 3).toISOString(),
       family_type: '싱글 라이프',
@@ -122,7 +122,7 @@ defineMock((mock) => {
       is_consultation_requested: true,
     }, {
       id: 3,
-      name: '신사 영끌 신혼집 3',
+      name: '제주도 영끌 신혼집',
       family_type: '싱글 라이프',
       // 제안 만료 날짜
       recommendation_due_date: addDays(new Date(), 3).toISOString(),
@@ -130,8 +130,8 @@ defineMock((mock) => {
       maximum_monthly_cost: 1000000,
       minimum_monthly_cost: 900000,
       cost_preference_type: '낮은 보증, 높은 월 고정 비용이 좋아요',
-      preferred_region: '서울 / 경기 / 인천',
-      preferred_village: '서울특별시 강남구 역삼동',
+      preferred_region: '제주',
+      preferred_village: '제주도 제주시',
       item_house_type: ['오피스텔'],
       recommendation_count: 1,
       did_suggest_already: true,
