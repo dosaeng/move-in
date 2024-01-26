@@ -169,8 +169,8 @@ defineMock((mock) => {
 
     let baseData: ProductFilterDetailDTO = {
       id: id,
-      name: `신사 영끌 신혼집 ${id}`,
-      family_type: '싱글 라이프',
+      name: `강남 가성비 신혼집`,
+      family_type: '신혼 부부',
       pet_presence: true,
       minimum_size: '40평 이상 (132.2㎡)',
       minimum_room_count: 3,

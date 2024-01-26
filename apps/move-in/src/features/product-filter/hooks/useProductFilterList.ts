@@ -104,7 +104,7 @@ defineMock((mock) => {
       status: 'CLOSE',
       // 제안 만료 날짜
       recommendation_due_date: subDays(new Date(), 3),
-      family_type: '싱글 라이프',
+      family_type: '신혼 부부',
       maximum_deposit: 100000000,
       maximum_monthly_cost: 1000000,
       minimum_monthly_cost: 900000,
@@ -120,7 +120,7 @@ defineMock((mock) => {
       status: 'OPEN',
       // 제안 만료 날짜
       recommendation_due_date: addDays(new Date(), 3),
-      family_type: '싱글 라이프',
+      family_type: '신혼 부부',
       maximum_deposit: 100000000,
       maximum_monthly_cost: 1000000,
       minimum_monthly_cost: 900000,
@@ -134,7 +134,7 @@ defineMock((mock) => {
       name: '강남 가성비 신혼집 2',
       // 제안 가능 여부
       status: 'DEFAULT_CREATED',
-      family_type: '싱글 라이프',
+      family_type: '신혼 부부',
       maximum_deposit: 100000000,
       maximum_monthly_cost: 1000000,
       minimum_monthly_cost: 900000,
