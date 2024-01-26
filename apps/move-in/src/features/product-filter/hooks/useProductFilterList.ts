@@ -115,7 +115,7 @@ defineMock((mock) => {
       recommendation_count: 30,
     }, {
       id: 2,
-      name: '신사 영끌 신혼집 2',
+      name: '강남 가성비 신혼집',
       // 제안 가능 여부
       status: 'OPEN',
       // 제안 만료 날짜
@@ -131,7 +131,7 @@ defineMock((mock) => {
       recommendation_count: 10,
     }, {
       id: 3,
-      name: '신사 영끌 신혼집 3',
+      name: '강남 가성비 신혼집 2',
       // 제안 가능 여부
       status: 'DEFAULT_CREATED',
       family_type: '싱글 라이프',
