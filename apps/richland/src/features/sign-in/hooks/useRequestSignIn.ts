@@ -49,12 +49,12 @@ export default useRequestSignIn;
 
 defineMock((mock) => {
   mock.post(signInEndpoint, () => {
-    return [
-      200,
-      {
+    return new Response(
+      JSON.stringify({
         accessToken: 'accessToken',
         refreshToken: 'refreshToken',
-      },
-    ];
+      }),
+      { status: 404 }
+    );
   });
 });

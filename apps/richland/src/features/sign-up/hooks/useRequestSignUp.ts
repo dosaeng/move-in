@@ -35,6 +35,6 @@ export default useRequestSignUp;
 
 defineMock((mock) => {
   mock.post(signUpEndpoint, () => {
-    return [200];
+    return new Response(JSON.stringify({}), { status: 200 });
   });
 });

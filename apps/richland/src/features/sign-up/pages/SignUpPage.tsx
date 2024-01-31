@@ -56,13 +56,19 @@ const SignUpPage: React.FC = () => {
             })}
           >
             <KakaoLoginButton
-              onSuccess={() => {
+              onSuccessSignIn={() => {
                 navigate('/');
+              }}
+              onSuccessSignUp={() => {
+                navigate('/sign-up/complete');
               }}
             />
             <AppleLoginButton
-              onSuccess={() => {
+              onSuccessSignIn={() => {
                 navigate('/');
+              }}
+              onRequireSignUp={() => {
+                navigate('/sign-up/identity-verification');
               }}
             />
           </div>

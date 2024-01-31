@@ -6,12 +6,12 @@ import { useToast } from '@move-in/design-system';
 import { SignUpType } from '../sign-up';
 
 const AppleLoginButton: React.FC<{
-  onSuccess?: () => void;
+  onSuccessSignIn?: () => void;
   onRequireSignUp?: () => void;
-}> = ({ onSuccess, onRequireSignUp }) => {
+}> = ({ onSuccessSignIn, onRequireSignUp }) => {
   const toast = useToast();
   const { isLoading: isLoadingSignIn, mutate: requestSignIn } = useSignIn({
-    onSuccess: () => onSuccess && onSuccess(),
+    onSuccess: () => onSuccessSignIn && onSuccessSignIn(),
     onError: (error) => {
       logger.error(error);
 

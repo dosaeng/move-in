@@ -11,6 +11,11 @@ export class KakaoLoginPluginWeb extends WebPlugin implements KakaoLoginPlugin {
   }
 
   async loginWithKakaoTalk(): Promise<KakaoLoginTokenData> {
+    return {
+      accessToken: 'accessToken',
+      refreshToken: 'refreshToken',
+      idToken: 'idToken',
+    };
     throw new Error('Method not implemented.');
   }
 
