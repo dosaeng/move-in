@@ -1,6 +1,8 @@
 import { HttpClient, HttpClientInspector } from '@move-in/core';
 import { enableMock } from './defineMock';
 
+export { HttpClientError } from '@move-in/core';
+
 const baseUrl = import.meta.env.VITE_API_URL as string;
 
 const mockInspector: HttpClientInspector = {
