@@ -1,11 +1,16 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
+import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
 import { Button, CTAButtonBlock, PageHeader } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
-import { useNavigate } from 'react-router-dom';
 import { css } from '@move-in/styled-system/css';
+import { useNavigate } from 'react-router-dom';
+import SignUpTermsListView from '../components/SignUpTermsListView';
+import useTerms from '@/features/terms/hooks/useTerms';
+import { useState } from 'react';
 
 const SignUpTermsPage: React.FC = () => {
   const navigate = useNavigate();
+  const { isLoading, data } = useTerms();
+  const [agreedTermIds, setAgreedTermIds] = useState<number[]>([]);
 
   return (
     <IonPage>
@@ -23,8 +28,8 @@ const SignUpTermsPage: React.FC = () => {
       <IonContent
         className={css({
           '--padding-top': '24px',
-          '--padding-start': '16px',
-          '--padding-end': '16px',
+          '--padding-start': '20px',
+          '--padding-end': '20px',
         })}
       >
         <div
@@ -62,18 +67,35 @@ const SignUpTermsPage: React.FC = () => {
               철저히 보안처리하고 있어요
             </p>
           </div>
-          <div className={css({ flex: 1 })}></div>
-          <CTAButtonBlock className={css({ width: '100%' })}>
-            <Button
-              className={css({ maxWidth: '100%' })}
-              label="약관 동의하고 본인 인증하기"
-              onClick={() => {
-                navigate('/identity-verification?redirect=/sign-up/complete');
-              }}
+          <div
+            className={css({
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              marginBottom: '20px',
+            })}
+          >
+            <SignUpTermsListView
+              data={data}
+              isLoading={isLoading}
+              value={agreedTermIds}
+              onChange={setAgreedTermIds}
             />
-          </CTAButtonBlock>
+          </div>
         </div>
       </IonContent>
+      <IonFooter className="ion-no-border">
+        <CTAButtonBlock className={css({ width: '100%' })}>
+          <Button
+            className={css({ maxWidth: '100%' })}
+            label="약관 동의하고 본인 인증하기"
+            onClick={() => {
+              navigate('/identity-verification?redirect=/sign-up/complete');
+            }}
+          />
+        </CTAButtonBlock>
+      </IonFooter>
     </IonPage>
   );
 };

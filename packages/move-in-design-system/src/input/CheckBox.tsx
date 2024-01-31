@@ -39,7 +39,10 @@ const inputStyle = sva({
   },
 });
 
-type CheckBoxInputAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange'>;
+type CheckBoxInputAttributes = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'value' | 'defaultValue' | 'onChange'
+>;
 
 interface CheckBoxProps extends CheckBoxInputAttributes {
   label: string;
@@ -47,30 +50,33 @@ interface CheckBoxProps extends CheckBoxInputAttributes {
   onChange?: (checked: boolean) => void;
 }
 
-export const CheckBox: React.FC<CheckBoxProps> = forwardRef<HTMLInputElement, CheckBoxProps>(
-  ({ label, onChange, id, ...props }, ref) => {
-    const [value, setValue] = React.useState<boolean | undefined>(props.checked ?? props.defaultChecked);
-    const classes = inputStyle({ hasValue: !!value });
+export const CheckBox: React.FC<CheckBoxProps> = forwardRef<
+  HTMLInputElement,
+  CheckBoxProps
+>(({ label, onChange, id, ...props }, ref) => {
+  const [value, setValue] = React.useState<boolean | undefined>(
+    props.checked ?? props.defaultChecked
+  );
+  const classes = inputStyle({ hasValue: !!value });
 
-    return (
-      <div className={classes.root}>
-        <input
-          {...props}
-          id={id}
-          className={classes.input}
-          ref={ref}
-          type="checkbox"
-          onChange={(e) => {
-            setValue(e.target.checked);
+  return (
+    <div className={classes.root}>
+      <input
+        {...props}
+        id={id}
+        className={classes.input}
+        ref={ref}
+        type="checkbox"
+        onChange={(e) => {
+          setValue(e.target.checked);
 
-            onChange && onChange(e.target.checked);
-          }}
-        />
-        <label htmlFor={id} className={classes.label}>
-          <IconCheck className={classes.checkIcon} />
-          {label}
-        </label>
-      </div>
-    );
-  }
-);
+          onChange && onChange(e.target.checked);
+        }}
+      />
+      <label htmlFor={id} className={classes.label}>
+        <IconCheck className={classes.checkIcon} />
+        {label}
+      </label>
+    </div>
+  );
+});
