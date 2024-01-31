@@ -5,6 +5,7 @@ import SearchPage from './features/search/pages/SearchPage';
 import SignUpCompletePage from './features/sign-up/pages/SignUpCompletePage';
 import SignUpIdentityVerificationPage from './features/sign-up/pages/SignUpIdentityVerificationPage';
 import SignUpPage from './features/sign-up/pages/SignUpPage';
+import SignUpErrorPage from './features/sign-up/pages/SignUpErrorPage';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ export const router = createBrowserRouter([
   {
     path: '/sign-up/complete',
     element: <SignUpCompletePage />,
+    loader: withoutAuthLoader(),
+  },
+  {
+    path: '/sign-up/error',
+    element: <SignUpErrorPage />,
     loader: withoutAuthLoader(),
   },
   {

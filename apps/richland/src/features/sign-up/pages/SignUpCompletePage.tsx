@@ -84,7 +84,7 @@ const SignUpCompletePage: React.FC = () => {
           <div
             className={css({
               textAlign: 'center',
-              textStyle: 'header-28-b',
+              textStyle: 'header-24-sb',
             })}
           >
             리치랜드 회원가입을
