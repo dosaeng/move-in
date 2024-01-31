@@ -58,6 +58,7 @@
     "postcss": "^8.4.33",
     "sass": "^1.70.0",
     "storybook": "7.6.7",
+    "storybook-addon-react-router-v6": "^2.0.10",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }
