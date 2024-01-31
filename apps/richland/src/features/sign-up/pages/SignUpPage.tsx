@@ -1,8 +1,9 @@
 import { IonContent, IonPage } from '@ionic/react';
 import { css } from '@move-in/styled-system/css';
 import { useNavigate } from 'react-router-dom';
-import KakaoLoginButton from '../components/KakaoLoginButton';
 import AppleLoginButton from '../components/AppleLoginButton';
+import FindIdButton from '../components/FindIdButton';
+import KakaoLoginButton from '../components/KakaoLoginButton';
 
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
@@ -68,10 +69,11 @@ const SignUpPage: React.FC = () => {
                 navigate('/');
               }}
               onRequireSignUp={() => {
-                navigate('/sign-up/identity-verification');
+                navigate('/sign-up/terms');
               }}
             />
           </div>
+          <FindIdButton />
         </div>
       </IonContent>
     </IonPage>

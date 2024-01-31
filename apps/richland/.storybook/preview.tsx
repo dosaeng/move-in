@@ -2,9 +2,9 @@ import type { Preview } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { setupIonicReact } from '@ionic/react';
-import '@move-in/design-system/src/index.scss';
+import '@move-in/design-system/src/index.css';
 import React from 'react';
-import '../src/index.scss';
+import '../src/index.css';
 
 setupIonicReact({
   mode: 'md',

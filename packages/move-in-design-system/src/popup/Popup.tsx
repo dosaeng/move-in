@@ -106,7 +106,7 @@ export const PopupViewButton: React.FC<ButtonProps> = ({ ...props }: ButtonProps
   );
 };
 
-interface PopupProps extends PopupViewProps {
+export interface PopupProps extends PopupViewProps {
   id?: string;
   isOpen?: boolean;
   onDidDismiss?: () => void;

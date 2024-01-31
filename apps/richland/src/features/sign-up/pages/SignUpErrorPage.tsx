@@ -1,9 +1,10 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { PageHeader } from '@move-in/design-system';
-import { useSearchParams } from 'react-router-dom';
+import { IonContent, IonFooter, IonPage } from '@ionic/react';
+import { Button, CTAButtonBlock } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const SignUpErrorPage: React.FC = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const errorCode = searchParams.get('errorCode');
   let errorMessage = (
@@ -33,9 +34,6 @@ const SignUpErrorPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border">
-        <PageHeader></PageHeader>
-      </IonHeader>
       <IonContent
         className={css({
           '--padding-top': '24px',
@@ -79,11 +77,24 @@ const SignUpErrorPage: React.FC = () => {
                 textStyle: 'header-20-sb',
               })}
             >
-             {errorMessage}
+              {errorMessage}
             </div>
           </div>
         </div>
       </IonContent>
+      <IonFooter className="ion-no-border">
+        <CTAButtonBlock className={css({ width: '100%' })}>
+          <Button
+            className={css({
+              maxWidth: '100%',
+            })}
+            label="처음으로 돌아가기"
+            onClick={() => {
+              navigate('/sign-up');
+            }}
+          />
+        </CTAButtonBlock>
+      </IonFooter>
     </IonPage>
   );
 };

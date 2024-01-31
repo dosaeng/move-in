@@ -4,7 +4,7 @@ import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHead
 import { useNavigate } from 'react-router-dom';
 import { css } from '@move-in/styled-system/css';
 
-const SignUpIdentityVerificationPage: React.FC = () => {
+const SignUpTermsPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -68,8 +68,7 @@ const SignUpIdentityVerificationPage: React.FC = () => {
               className={css({ maxWidth: '100%' })}
               label="약관 동의하고 본인 인증하기"
               onClick={() => {
-                // TODO. 휴대폰 본인 인증 페이지로 이동
-                navigate('/');
+                navigate('/identity-verification?redirect=/sign-up/complete');
               }}
             />
           </CTAButtonBlock>
@@ -79,4 +78,4 @@ const SignUpIdentityVerificationPage: React.FC = () => {
   );
 };
 
-export default SignUpIdentityVerificationPage;
+export default SignUpTermsPage;

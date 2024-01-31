@@ -3,9 +3,10 @@ import { withAuthLoader, withoutAuthLoader } from './common/hooks/useAuthState';
 import HomePage from './features/home/pages/HomePage';
 import SearchPage from './features/search/pages/SearchPage';
 import SignUpCompletePage from './features/sign-up/pages/SignUpCompletePage';
-import SignUpIdentityVerificationPage from './features/sign-up/pages/SignUpIdentityVerificationPage';
+import SignUpTermsPage from './features/sign-up/pages/SignUpTermsPage';
 import SignUpPage from './features/sign-up/pages/SignUpPage';
 import SignUpErrorPage from './features/sign-up/pages/SignUpErrorPage';
+import IdentityVerificationPage from './features/identity-verification/pages/IdentityVerificationPage';
 
 export const router = createBrowserRouter([
   {
@@ -19,8 +20,8 @@ export const router = createBrowserRouter([
     loader: withoutAuthLoader(),
   },
   {
-    path: '/sign-up/identity-verification',
-    element: <SignUpIdentityVerificationPage />,
+    path: '/sign-up/terms',
+    element: <SignUpTermsPage />,
     loader: withoutAuthLoader(),
   },
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
     path: '/sign-up/error',
     element: <SignUpErrorPage />,
     loader: withoutAuthLoader(),
+  },
+  {
+    path: '/identity-verification',
+    element: <IdentityVerificationPage />,
   },
   {
     path: '/search',

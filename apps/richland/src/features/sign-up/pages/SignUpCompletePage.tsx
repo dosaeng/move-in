@@ -1,12 +1,11 @@
 import logger from '@/common/utils/logger';
 import useRequestSignIn from '@/features/sign-in/hooks/useRequestSignIn';
 import useSignInState from '@/features/sign-in/hooks/useSignInState';
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
+import { IonContent, IonFooter, IonPage } from '@ionic/react';
 import {
   Button,
   CTAButtonBlock,
-  PageHeader,
-  useToast,
+  useToast
 } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useEffect, useState } from 'react';
@@ -53,9 +52,6 @@ const SignUpCompletePage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border">
-        <PageHeader></PageHeader>
-      </IonHeader>
       <IonContent
         className={css({
           '--padding-top': '24px',
