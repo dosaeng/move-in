@@ -4,7 +4,7 @@ import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHead
 import { useNavigate } from 'react-router-dom';
 import { css } from '@move-in/styled-system/css';
 
-const IdentityVerificationPage: React.FC = () => {
+const SignUpIdentityVerificationPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -79,4 +79,4 @@ const IdentityVerificationPage: React.FC = () => {
   );
 };
 
-export default IdentityVerificationPage;
+export default SignUpIdentityVerificationPage;

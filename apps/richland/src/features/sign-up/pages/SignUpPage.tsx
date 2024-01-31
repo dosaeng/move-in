@@ -1,6 +1,8 @@
 import { IonContent, IonPage } from '@ionic/react';
 import { css } from '@move-in/styled-system/css';
 import { useNavigate } from 'react-router-dom';
+import KakaoLoginButton from '../components/KakaoLoginButton';
+import AppleLoginButton from '../components/AppleLoginButton';
 
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
@@ -53,27 +55,16 @@ const SignUpPage: React.FC = () => {
               marginBottom: '20px',
             })}
           >
-            <img
-              className={css({
-                width: '320px',
-                height: '48px',
-              })}
-              src="/public/images/kakao-login-button.png"
-              onClick={() => {
-                // TODO. 카카오 인증 페이지로 이동
+            <KakaoLoginButton
+              onSuccess={() => {
+                navigate('/');
               }}
-            ></img>
-            <img
-              className={css({
-                width: '320px',
-                height: '48px',
-              })}
-              src="/public/images/apple-login-button.png"
-              onClick={() => {
-                // TODO. 애플 인증 이후 본인 인증 페이지로 이동
-                navigate('/sign-up/identity-verification');
+            />
+            <AppleLoginButton
+              onSuccess={() => {
+                navigate('/');
               }}
-            ></img>
+            />
           </div>
         </div>
       </IonContent>

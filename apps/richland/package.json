@@ -25,6 +25,7 @@
     "@move-in/design-system": "workspace:^",
     "cap-set-version": "workspace:^",
     "fetch-mock": "^9.11.0",
+    "pino": "^8.17.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",

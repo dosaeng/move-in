@@ -24,7 +24,7 @@ const HomePageHeader: React.FC<Props> = ({ onClickMenu }) => {
       >
         <img
           className={css({ height: '40px' })}
-          src="/public/images/logo.png"
+          src="/images/logo.png"
         />
         <IconButton
           shape="clear"
