@@ -6,6 +6,8 @@ import App from './App.tsx';
 
 import KakaoLogin from '@/common/plugins/KakaoLoginPlugin.ts';
 import logger from '@/common/utils/logger.ts';
+
+import '@move-in/design-system/src/index.css';
 import './index.css';
 
 setupIonicReact({
