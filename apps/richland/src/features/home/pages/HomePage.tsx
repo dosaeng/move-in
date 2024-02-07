@@ -1,5 +1,6 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
-import { Divider } from '@move-in/design-system';
+import useRequestSignOut from '@/features/sign-in/hooks/useRequestSignOut';
+import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
+import { Button, CTAButtonBlock, Divider } from '@move-in/design-system';
 import { css } from '@move-in/styled-system/css';
 import { useNavigate } from 'react-router-dom';
 import FilterNotificationNudgeBanner from '../components/FilterNotificationNudgeBanner';
@@ -7,6 +8,13 @@ import HomePageHeader from '../components/HomePageHeader';
 import SearchBar from '../components/SearchBar';
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+  const { mutate: requestSignOut } = useRequestSignOut({
+    onSuccess: () => {
+      navigate('/sign-up');
+    },
+  });
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -17,6 +25,7 @@ const HomePage: React.FC = () => {
           className={css({
             display: 'flex',
             flexDirection: 'column',
+
             height: '100%',
             paddingY: '24px',
           })}
@@ -25,6 +34,18 @@ const HomePage: React.FC = () => {
           <Divider />
         </div>
       </IonContent>
+      {/* TODO. 테스트용 로그아웃 버튼 제거 하기 */}
+      <IonFooter>
+        <CTAButtonBlock className={css({ width: '100%' })}>
+          <Button
+            className={css({
+              maxWidth: '100%',
+            })}
+            onClick={requestSignOut}
+            label="Logout"
+          />
+        </CTAButtonBlock>
+      </IonFooter>
     </IonPage>
   );
 };
