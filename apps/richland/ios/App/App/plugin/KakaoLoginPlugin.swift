@@ -15,7 +15,7 @@ public class KakaoLoginPlugin: CAPPlugin {
         let appKey = call.getString("appKey") ?? ""
         
         if(appKey.isEmpty) {
-            call.reject("Require kakao appKey", "INITIALIZE")
+            call.reject("Require kakao appKey", "REQUIRED_APP_KEY")
             return
         }
         
@@ -27,22 +27,26 @@ public class KakaoLoginPlugin: CAPPlugin {
     // 카카오톡으로 로그인
     @objc func loginWithKakaoTalk(_ call: CAPPluginCall) {
         if (!UserApi.isKakaoTalkLoginAvailable()) {
-            call.reject("Unavailable kakao login", "LOGIN")
+            call.reject("Unavailable kakao login", "LOGIN_UNAVAILABLE")
             return
         }
         
         UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
             if let error = error {
-                call.reject("Failed login", "LOGIN", error)
+                call.reject("Failed login", "LOGIN_ERROR", error)
                 return
             }
-           
-            call.resolve([
-                "accessToken": oauthToken?.accessToken ?? "",
-                "refreshToken": oauthToken?.refreshToken ?? "",
-                "idToken": oauthToken?.idToken ?? ""
-            ])
             
+            if let oauthToken = oauthToken {
+                call.resolve([
+                    "accessToken": oauthToken.accessToken,
+                    "refreshToken": oauthToken.refreshToken,
+                    "idToken": oauthToken.idToken ?? ""
+                ])
+                return
+            }
+            
+            call.reject("Invalid login result", "LOGIN_INVALID_RESULT")
         }
     }
     
@@ -50,7 +54,7 @@ public class KakaoLoginPlugin: CAPPlugin {
     @objc func logout(_ call: CAPPluginCall) {
         UserApi.shared.logout { error in
             if let error = error {
-                call.reject("Failed logout", "LOGOUT", error)
+                call.reject("Failed logout", "LOGOUT_ERROR", error)
                 return
             }
             
@@ -62,7 +66,7 @@ public class KakaoLoginPlugin: CAPPlugin {
     @objc func unlink(_ call: CAPPluginCall) {
         UserApi.shared.unlink { error in
             if let error = error {
-                call.reject("Failed unlink", "UNLINK", error)
+                call.reject("Failed unlink", "UNLINK_ERROR", error)
                 return
             }
             

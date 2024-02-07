@@ -7,6 +7,8 @@ import com.getcapacitor.PluginCall
 import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 
@@ -21,7 +23,7 @@ class KakaoLoginPlugin : Plugin() {
 
         Log.d(TAG, Utility.getKeyHash(this.context))
         if (appKey == null) {
-            call.reject("Require kakao appKey.");
+            call.reject("Require kakao appKey", "REQUIRED_APP_KEY");
             return;
         }
 
@@ -34,16 +36,26 @@ class KakaoLoginPlugin : Plugin() {
     // 카카오톡으로 로그인
     fun loginWithKakaoTalk(call: PluginCall) {
         UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
-            if (error != null) {
-                call.reject("Failed login", error.message)
-                Log.e(TAG, "Failed kakao login", error)
-            }
-            else if (token != null) {
-                val ret = JSObject()
-                ret.put("accessToken", token.accessToken)
-                ret.put("refreshToken", token.refreshToken)
-                ret.put("idToken", token.idToken)
-                call.resolve(ret)
+            when(error) {
+                null -> {
+                    if(token == null) {
+                        call.reject("Invalid login result", "LOGIN_INVALID_RESULT")
+                        Log.e(TAG, "Failed kakao login. Not exist token")
+                    } else {
+                        val ret = JSObject()
+                        ret.put("accessToken", token.accessToken)
+                        ret.put("refreshToken", token.refreshToken)
+                        ret.put("idToken", token.idToken)
+                        call.resolve(ret)
+                    }
+                }
+                is ClientError -> {
+                    call.reject("Unavailable kakao login", "LOGIN_UNAVAILABLE", Exception(error.message))
+                }
+                else -> {
+                    call.reject("Failed login", "LOGIN_ERROR", Exception(error.message))
+                    Log.e(TAG, "Failed kakao login", error)
+                }
             }
         }
     }
@@ -53,7 +65,7 @@ class KakaoLoginPlugin : Plugin() {
     fun logout(call: PluginCall) {
         UserApiClient.instance.logout { error ->
             if (error != null) {
-                call.reject("Failed logout", error.message)
+                call.reject("Failed logout", "LOGOUT_ERROR", Exception(error.message))
                 Log.e(TAG, "Failed kakao logout", error)
             }
             else {
@@ -67,7 +79,7 @@ class KakaoLoginPlugin : Plugin() {
     fun unlink(call: PluginCall) {
         UserApiClient.instance.unlink { error ->
             if (error != null) {
-                call.reject("Failed unlink", error.message)
+                call.reject("Failed unlink", "UNLINK_ERROR", Exception(error.message))
                 Log.e(TAG, "Failed kakao unlink", error)
             }
             else {
