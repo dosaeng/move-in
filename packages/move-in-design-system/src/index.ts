@@ -23,6 +23,8 @@ export { SearchInput } from './input/SearchInput';
 export type { SearchInputProps } from './input/SearchInput';
 export { RatingInput } from './input/RatingInput';
 export type { RatingInputProps } from './input/RatingInput';
+export { Toggle } from './input/Toggle';
+
 export { BoxLabel } from './profile/BoxLabel';
 export { ProfileImage } from './profile/ProfileImage';
 export { AgentScoreBar } from './profile/AgentScoreBar';

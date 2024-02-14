@@ -3,8 +3,9 @@ import { setupIonicReact } from '@ionic/react';
 
 import '../src/index.css';
 
-
-setupIonicReact();
+setupIonicReact({
+  mode: 'md',
+});
 
 const preview: Preview = {
   parameters: {
