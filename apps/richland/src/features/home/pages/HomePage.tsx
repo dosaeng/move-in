@@ -7,10 +7,16 @@ import HomePageHeader from '../components/HomePageHeader';
 import SearchBar from '../components/SearchBar';
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <HomePageHeader />
+        <HomePageHeader
+          onClickMenu={() => {
+            navigate('/service');
+          }}
+        />
       </IonHeader>
       <IonContent>
         <div

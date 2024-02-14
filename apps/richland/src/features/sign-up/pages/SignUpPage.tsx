@@ -16,7 +16,7 @@ const SignUpPage: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            height: '100%',
+            minHeight: '100%',
           })}
         >
           <div

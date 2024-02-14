@@ -7,11 +7,17 @@ import SignUpTermsPage from './features/sign-up/pages/SignUpTermsPage';
 import SignUpPage from './features/sign-up/pages/SignUpPage';
 import SignUpErrorPage from './features/sign-up/pages/SignUpErrorPage';
 import IdentityVerificationPage from './features/identity-verification/pages/IdentityVerificationPage';
+import ServicePage from './features/service/pages/ServicePage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+    loader: withAuthLoader(),
+  },
+  {
+    path: '/service',
+    element: <ServicePage />,
     loader: withAuthLoader(),
   },
   {
