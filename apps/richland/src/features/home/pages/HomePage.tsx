@@ -23,6 +23,7 @@ const HomePage: React.FC = () => {
           className={css({
             display: 'flex',
             flexDirection: 'column',
+
             height: '100%',
             paddingY: '24px',
           })}

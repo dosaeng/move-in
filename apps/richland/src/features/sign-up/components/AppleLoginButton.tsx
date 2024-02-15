@@ -1,7 +1,7 @@
 import { css } from '@move-in/styled-system/css';
 import useRequestAppleAuth from '../hooks/useRequestAppleAuth';
 import logger from '@/common/utils/logger';
-import useSignIn from '@/features/sign-in/hooks/useRequestSignIn';
+import useRequestSignIn from '@/features/sign-in/hooks/useRequestSignIn';
 import { useToast } from '@move-in/design-system';
 import { SignUpType } from '../sign-up';
 
@@ -10,7 +10,7 @@ const AppleLoginButton: React.FC<{
   onRequireSignUp?: () => void;
 }> = ({ onSuccessSignIn, onRequireSignUp }) => {
   const toast = useToast();
-  const { isLoading: isLoadingSignIn, mutate: requestSignIn } = useSignIn({
+  const { isLoading: isLoadingSignIn, mutate: requestSignIn } = useRequestSignIn({
     onSuccess: () => onSuccessSignIn && onSuccessSignIn(),
     onError: (error) => {
       logger.error(error);
