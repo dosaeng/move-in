@@ -1,0 +1,35 @@
+{
+  "fc": {
+    "prefix": "fc",
+    "body": [
+      "import { cx, css } from '@move-in/styled-system/css';",
+      "",
+      "interface Props {",
+      "  className?: string;",
+      "}",
+      "",
+      "const ${TM_FILENAME_BASE/(.+)\\.[a-z]+/${1:/pascalcase}/g}: React.FC<React.PropsWithChildren<Props>> = ({",
+      "  className,",
+      "  children,",
+      "}) => {",
+      "  return (",
+      "    <div",
+      "      className={cx(",
+      "        className,",
+      "        css({",
+      "          display: 'flex',",
+      "          flexDirection: 'column',",
+      "          gap: '20px',",
+      "        })",
+      "      )}",
+      "    >",
+      "      {children}",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default ${TM_FILENAME_BASE/(.+)\\.[a-z]+/${1:/pascalcase}/g};"
+    ],
+    "description": "Create a new React component with Props"
+  }
+}
