@@ -59,6 +59,15 @@ const inputStyle = sva({
     },
   },
   variants: {
+    hasLabel: {
+      false: {
+        clearButton: {
+          _peerFocusVisible: {
+            top: '14px',
+          },
+        },
+      },
+    },
     hasError: {
       true: {
         input: {
@@ -87,15 +96,19 @@ export const OutlinedTextField: React.FC<OutlinedTextFieldProps> =
   React.forwardRef<HTMLInputElement, OutlinedTextFieldProps>(
     ({ id, label, errorText, onChange, ...props }, ref) => {
       const inputRef = React.useRef<HTMLInputElement | null | undefined>();
+      const hasLabel = !!label || !!errorText;
       const classes = inputStyle({
         hasError: !!errorText,
+        hasLabel,
       });
 
       return (
         <div className={classes.root}>
-          <label htmlFor={id} className={classes.label}>
-            {errorText ?? label}
-          </label>
+          {hasLabel && (
+            <label htmlFor={id} className={classes.label}>
+              {errorText ?? label}
+            </label>
+          )}
           <input
             {...props}
             id={id}

@@ -67,6 +67,21 @@ export const Error: Story = {
   },
 };
 
+export const EmptyLabel: Story = {
+  args: {
+    errorText: undefined,
+    label: undefined,
+  },
+  render: (args) => {
+    return (
+      <>
+        <OutlinedTextField {...args} />
+        <OutlinedTextField {...args} defaultValue={'Default Value'} />
+      </>
+    );
+  },
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,
