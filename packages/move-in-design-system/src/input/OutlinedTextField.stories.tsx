@@ -13,7 +13,7 @@ const meta = {
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   args: {
-    label: 'Label',
+    hasError: false,
     placeholder: 'Placeholder',
   },
   decorators: [
@@ -55,22 +55,7 @@ export const Default: Story = {
 
 export const Error: Story = {
   args: {
-    errorText: 'Error Label',
-  },
-  render: (args) => {
-    return (
-      <>
-        <OutlinedTextField {...args} />
-        <OutlinedTextField {...args} defaultValue={'Default Value'} />
-      </>
-    );
-  },
-};
-
-export const EmptyLabel: Story = {
-  args: {
-    errorText: undefined,
-    label: undefined,
+    hasError: true,
   },
   render: (args) => {
     return (

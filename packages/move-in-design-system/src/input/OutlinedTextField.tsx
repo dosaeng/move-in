@@ -3,13 +3,10 @@ import React from 'react';
 import { IconCircleXFilled } from '../icons/icons';
 
 const inputStyle = sva({
-  slots: ['root', 'input', 'label', 'clearButton'],
+  slots: ['root', 'input', 'clearButton'],
   base: {
     root: {
       position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '8px',
     },
     input: {
       color: 'text.dark.04',
@@ -39,11 +36,6 @@ const inputStyle = sva({
         paddingRight: '42px',
       },
     },
-    label: {
-      pointerEvents: 'none',
-      color: 'text.dark.02',
-      textStyle: 'body-14-r',
-    },
     clearButton: {
       display: 'none',
       width: '24px',
@@ -53,21 +45,12 @@ const inputStyle = sva({
       _peerFocusVisible: {
         display: 'block',
         position: 'absolute',
-        top: '42px',
+        top: '14px',
         right: '12px',
       },
     },
   },
   variants: {
-    hasLabel: {
-      false: {
-        clearButton: {
-          _peerFocusVisible: {
-            top: '14px',
-          },
-        },
-      },
-    },
     hasError: {
       true: {
         input: {
@@ -75,9 +58,6 @@ const inputStyle = sva({
           _focusVisible: {
             borderColor: 'error.red.03',
           },
-        },
-        label: {
-          color: 'error.red.03',
         },
       },
     },
@@ -88,27 +68,19 @@ interface OutlinedTextFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   value?: string;
   defaultValue?: string;
-  label?: string;
-  errorText?: string;
+  hasError?: boolean;
 }
 
 export const OutlinedTextField: React.FC<OutlinedTextFieldProps> =
   React.forwardRef<HTMLInputElement, OutlinedTextFieldProps>(
-    ({ id, label, errorText, onChange, ...props }, ref) => {
+    ({ id, hasError, onChange, ...props }, ref) => {
       const inputRef = React.useRef<HTMLInputElement | null | undefined>();
-      const hasLabel = !!label || !!errorText;
       const classes = inputStyle({
-        hasError: !!errorText,
-        hasLabel,
+        hasError,
       });
 
       return (
         <div className={classes.root}>
-          {hasLabel && (
-            <label htmlFor={id} className={classes.label}>
-              {errorText ?? label}
-            </label>
-          )}
           <input
             {...props}
             id={id}
