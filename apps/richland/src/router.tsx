@@ -9,6 +9,7 @@ import SignUpErrorPage from './features/sign-up/pages/SignUpErrorPage';
 import IdentityVerificationPage from './features/identity-verification/pages/IdentityVerificationPage';
 import ServicePage from './features/service/pages/ServicePage';
 import ProfileEditPage from './features/profile/pages/ProfileEditPage';
+import WithdrawalMemberPage from './features/profile/pages/WithdrawalMemberPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ export const router = createBrowserRouter([
   {
     path: '/service/profile',
     element: <ProfileEditPage />,
+    loader: withAuthLoader(),
+  },
+  {
+    path: '/service/profile/withdrawal',
+    element: <WithdrawalMemberPage />,
     loader: withAuthLoader(),
   },
   {

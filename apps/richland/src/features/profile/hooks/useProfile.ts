@@ -23,6 +23,7 @@ export interface ProfileDTO {
   signUpMethodId: number;
 }
 
+// TODO. update endpoint
 export const getProfileEndpoint = '/user/profile';
 
 const useProfile = (

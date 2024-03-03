@@ -58,9 +58,11 @@ const useAuthState = () => {
 
       refetch();
     },
-    unsetAuthData() {
+    unsetAuthData({ skipRefetch = false }: { skipRefetch?: boolean } = {}) {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+
+      if (skipRefetch) return;
 
       refetch();
     },
