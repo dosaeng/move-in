@@ -80,3 +80,17 @@ export const Disabled: Story = {
     );
   },
 };
+
+export const ReadOnly: Story = {
+  args: {
+    readOnly: true,
+  },
+  render: (args) => {
+    return (
+      <>
+        <OutlinedTextField {...args} />
+        <OutlinedTextField {...args} defaultValue={'Default Value'} />
+      </>
+    );
+  },
+};

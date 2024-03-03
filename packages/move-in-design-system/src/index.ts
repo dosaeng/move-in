@@ -11,8 +11,16 @@ export { Toast } from './toast/Toast';
 export { useToast } from './toast/useToast';
 export { TextField } from './input/TextField';
 export { OutlinedTextField } from './input/OutlinedTextField';
+export type { OutlinedTextFieldProps } from './input/OutlinedTextField';
+export { OutlinedFieldContainer } from './input/OutlinedFieldContainer';
+export type { OutlinedFieldContainerProps } from './input/OutlinedFieldContainer';
 export { CheckBox } from './input/CheckBox';
-export { SelectBox, SelectBoxTrigger, SelectBoxOptionRow, SelectBoxModalContent } from './input/SelectBox';
+export {
+  SelectBox,
+  SelectBoxTrigger,
+  SelectBoxOptionRow,
+  SelectBoxModalContent,
+} from './input/SelectBox';
 export type { SelectBoxProps, SelectBoxOption } from './input/SelectBox';
 export { MultipleSelectBox } from './input/MultipleSelectBox';
 export type { MultipleSelectBoxProps } from './input/MultipleSelectBox';
@@ -29,18 +37,24 @@ export { Toggle } from './input/Toggle';
 export { BoxLabel } from './profile/BoxLabel';
 export { ProfileImage } from './profile/ProfileImage';
 export { AgentScoreBar } from './profile/AgentScoreBar';
-export { ChipButtonList } from './chip/ChipButtonList'
-export { ChipButton } from './chip/ChipButton'
+export { ChipButtonList } from './chip/ChipButtonList';
+export { ChipButton } from './chip/ChipButton';
 
-export { DateFormat } from './format/DateFormat'
-export { ProductDepositFormat, ProductMonthlyRentFormat } from './format/CurrencyFormat'
+export { DateFormat } from './format/DateFormat';
+export {
+  ProductDepositFormat,
+  ProductMonthlyRentFormat,
+} from './format/CurrencyFormat';
 
 export { FormInputLabel } from './form/FormInputLabel';
 export { StepIndicator } from './indicator/StepIndicator';
 export { TextArea } from './input/TextArea';
 
-export { ProductSuggestionRatingGraph } from './domain/ProductSuggestionRatingGraph'
-export { ProductSuggestionRatingView } from './domain/ProductSuggestionRatingView'
-export { ProductCostView } from './domain/ProductCostView'
-export { ProductMoveInView } from './domain/ProductMoveInView'
-export type { ProductSuggestionRatingModel } from './domain/ProductSuggestionRatingView'
+export { ProductSuggestionRatingGraph } from './domain/ProductSuggestionRatingGraph';
+export { ProductSuggestionRatingView } from './domain/ProductSuggestionRatingView';
+export { ProductCostView } from './domain/ProductCostView';
+export { ProductMoveInView } from './domain/ProductMoveInView';
+export type { ProductSuggestionRatingModel } from './domain/ProductSuggestionRatingView';
+
+export { OutlinedBox } from './box/OutlinedBox';
+export type { OutlinedBoxProps } from './box/OutlinedBox';

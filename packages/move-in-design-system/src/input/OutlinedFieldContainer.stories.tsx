@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import OutlinedFieldContainer from './OutlinedFieldContainer';
+import { OutlinedFieldContainer } from './OutlinedFieldContainer';
 import React from 'react';
 import { OutlinedTextField } from './OutlinedTextField';
 

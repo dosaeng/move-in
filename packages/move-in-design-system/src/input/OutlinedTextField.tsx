@@ -29,6 +29,7 @@ const inputStyle = sva({
       },
       _disabled: {
         backgroundColor: 'fill.light.02',
+        color: 'text.light.04',
       },
       _focusVisible: {
         borderWidth: '2px',
@@ -61,65 +62,76 @@ const inputStyle = sva({
         },
       },
     },
+    readOnly: {
+      true: {
+        input: {
+          borderWidth: '1px!important',
+          borderStyle: 'solid!important',
+          borderColor: 'stroke.light.03!important',
+        },
+        clearButton: {
+          display: 'none!important',
+        },
+      },
+    },
   },
 });
 
-interface OutlinedTextFieldProps
+export interface OutlinedTextFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   value?: string;
   defaultValue?: string;
   hasError?: boolean;
 }
 
-export const OutlinedTextField: React.FC<OutlinedTextFieldProps> =
-  React.forwardRef<HTMLInputElement, OutlinedTextFieldProps>(
-    ({ id, hasError, onChange, ...props }, ref) => {
-      const inputRef = React.useRef<HTMLInputElement | null | undefined>();
-      const classes = inputStyle({
-        hasError,
-      });
+export const OutlinedTextField = React.forwardRef<
+  HTMLInputElement,
+  OutlinedTextFieldProps
+>(({ id, hasError, onChange, className, ...props }, ref) => {
+  const inputRef = React.useRef<HTMLInputElement | null | undefined>();
+  const classes = inputStyle({
+    hasError,
+    readOnly: props.readOnly,
+  });
 
-      return (
-        <div className={classes.root}>
-          <input
-            {...props}
-            id={id}
-            ref={(element) => {
-              if (typeof ref === 'function') {
-                ref(element);
-              } else if (ref != null) {
-                ref.current = element;
-              }
+  return (
+    <div className={cx(classes.root, className)}>
+      <input
+        {...props}
+        id={id}
+        ref={(element) => {
+          if (typeof ref === 'function') {
+            ref(element);
+          } else if (ref != null) {
+            ref.current = element;
+          }
 
-              inputRef.current = element;
-            }}
-            placeholder={props.placeholder}
-            className={cx('peer', classes.input)}
-            onChange={onChange}
-          />
-          <div
-            className={classes.clearButton}
-            onClick={() => {
-              if (inputRef.current == null) {
-                return;
-              }
+          inputRef.current = element;
+        }}
+        placeholder={props.placeholder}
+        className={cx('peer', classes.input)}
+        onChange={onChange}
+      />
+      <div
+        className={classes.clearButton}
+        onClick={() => {
+          if (inputRef.current == null) {
+            return;
+          }
 
-              const valueSetter = Object.getOwnPropertyDescriptor(
-                window.HTMLInputElement.prototype!,
-                'value'
-              )!.set;
-              valueSetter?.call(inputRef.current, '');
+          const valueSetter = Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype!,
+            'value'
+          )!.set;
+          valueSetter?.call(inputRef.current, '');
 
-              inputRef.current.dispatchEvent(
-                new Event('input', { bubbles: true })
-              );
-            }}
-            // input blur 이벤트를 막기 위함
-            onMouseDown={(e) => e.preventDefault()}
-          >
-            <IconCircleXFilled size={24} />
-          </div>
-        </div>
-      );
-    }
+          inputRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+        }}
+        // input blur 이벤트를 막기 위함
+        onMouseDown={(e) => e.preventDefault()}
+      >
+        <IconCircleXFilled size={24} />
+      </div>
+    </div>
   );
+});

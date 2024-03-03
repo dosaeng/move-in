@@ -16,32 +16,28 @@ const labelStyle = cva({
   },
 });
 
-interface Props {
+export interface OutlinedFieldContainerProps {
   className?: string;
   id?: string;
   label?: string;
   errorText?: string;
 }
 
-const OutlinedFieldContainer: React.FC<React.PropsWithChildren<Props>> = ({
-  className,
-  id,
-  label,
-  errorText,
-  children,
-}) => {
+export const OutlinedFieldContainer: React.FC<
+  React.PropsWithChildren<OutlinedFieldContainerProps>
+> = ({ className, id, label, errorText, children }) => {
   const hasLabel = !!label || !!errorText;
 
   return (
     <div
       className={cx(
-        className,
         css({
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
           gap: '8px',
-        })
+        }),
+        className
       )}
     >
       {hasLabel && (
@@ -58,5 +54,3 @@ const OutlinedFieldContainer: React.FC<React.PropsWithChildren<Props>> = ({
     </div>
   );
 };
-
-export default OutlinedFieldContainer;
