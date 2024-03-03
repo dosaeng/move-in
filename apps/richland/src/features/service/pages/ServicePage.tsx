@@ -3,12 +3,12 @@ import { Divider, PageHeader } from '@move-in/design-system';
 import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHeader';
 import { css, cx } from '@move-in/styled-system/css';
 import { useNavigate } from 'react-router-dom';
+import ServicePageListAppVersionItem from '../components/ServicePageListAppVersionItem';
 import ServicePageListGroup from '../components/ServicePageListGroup';
 import ServicePageListItem from '../components/ServicePageListItem';
+import ServicePageListLogoutItem from '../components/ServicePageListLogoutItem';
 import ServicePageListNotificationItem from '../components/ServicePageListNotificationItem';
 import ServicePageNavigationBar from '../components/ServicePageNavigationBar';
-import ServicePageListAppVersionItem from '../components/ServicePageListAppVersionItem';
-import ServicePageListLogoutItem from '../components/ServicePageListLogoutItem';
 
 const horizontalPadding = css({
   paddingX: '20px',
@@ -24,7 +24,7 @@ const ServicePage: React.FC = () => {
           left={
             <PageHeaderBackButton
               onClick={() => {
-                navigate('/');
+                navigate(-1);
               }}
             />
           }
@@ -85,7 +85,12 @@ const ServicePage: React.FC = () => {
           </ServicePageListGroup>
           <Divider size="m" />
           <ServicePageListGroup className={horizontalPadding} title="앱 정보">
-            <ServicePageListItem title="이용 약관 및 개인정보 수집 이용" />
+            <ServicePageListItem
+              title="이용 약관 및 개인정보 수집 이용"
+              onClick={() => {
+                navigate('/service/terms');
+              }}
+            />
             <ServicePageListItem title="오픈소스 라이선스" />
             <ServicePageListAppVersionItem />
           </ServicePageListGroup>

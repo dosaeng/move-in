@@ -1,6 +1,7 @@
 import { TermModel } from '@/features/terms/hooks/useTerms';
 import { css } from '@move-in/styled-system/css';
-import TermsListItem from '../../terms/components/TermsListItem';
+import CheckTermsListItem from '../../terms/components/CheckTermsListItem';
+import { Browser } from '@capacitor/browser';
 
 const SignUpTermsListView: React.FC<{
   value?: number[];
@@ -25,7 +26,7 @@ const SignUpTermsListView: React.FC<{
     >
       {data.map((item) => {
         return (
-          <TermsListItem
+          <CheckTermsListItem
             key={item.id}
             label={`${item.required ? '(필수)' : '(선택)'} ${item.title}`}
             checked={value?.includes(item.id)}
@@ -37,7 +38,7 @@ const SignUpTermsListView: React.FC<{
               }
             }}
             onDetail={() => {
-              // TODO. 약관 상세 페이지로 이동
+              Browser.open({ url: item.url });
             }}
           />
         );

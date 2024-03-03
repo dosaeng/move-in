@@ -29,7 +29,7 @@ defineMock((mock) => {
       JSON.stringify([
         {
           id: 1,
-          title: '리치랜드드 서비스 이용약관',
+          title: '리치랜드 서비스 이용약관',
           url: 'https://www.naver.com',
           required: true,
         },

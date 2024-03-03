@@ -39,6 +39,7 @@ const WithdrawalMemberPage: React.FC = () => {
       />
       <IonHeader className="ion-no-border">
         <PageHeader
+          title="회원탈퇴"
           right={
             <PageHeaderCloseButton
               onClick={() => {

@@ -52,7 +52,7 @@ const ProfileEditPage: React.FC = () => {
             left={
               <PageHeaderBackButton
                 onClick={() => {
-                  navigate('/service');
+                  navigate(-1);
                 }}
               />
             }

@@ -1,41 +1,35 @@
-import { CheckBox, IconButton, IconChevronRight } from '@move-in/design-system';
-import { css } from '@move-in/styled-system/css';
+import { IconArrowRight } from '@move-in/design-system';
+import { css, cx } from '@move-in/styled-system/css';
 
-interface TermsListItemProps {
-  id?: string;
-  label: string;
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-  onDetail?: () => void;
+interface Props {
+  className?: string;
+  onClick?: () => void;
 }
 
-const TermsListItem: React.FC<TermsListItemProps> = ({
-  id,
-  label,
-  checked = false,
-  onChange,
-  onDetail,
+const TermsListItem: React.FC<React.PropsWithChildren<Props>> = ({
+  className,
+  onClick,
+  children,
 }) => {
   return (
     <div
-      className={css({
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '16px',
-      })}
+      className={cx(
+        className,
+        css({
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px',
+          textStyle: 'paragraph-16-r',
+          color: 'text.dark.03',
+          paddingY: '4px',
+          cursor: 'pointer',
+        })
+      )}
+      onClick={onClick}
     >
-      <CheckBox id={id} label={label} checked={checked} onChange={onChange} />
-      <IconButton
-        className={css({
-          color: 'text.dark.01',
-        })}
-        size="xs"
-        shape="clear"
-        theme="neutral"
-        icon={<IconChevronRight size={16} />}
-        onClick={onDetail}
-      />
+      {children}
+      <IconArrowRight size={20} />
     </div>
   );
 };
