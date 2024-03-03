@@ -16,11 +16,6 @@ export const Toggle: React.FC<ToggleProps> = ({
   onChange,
   ...props
 }) => {
-  const [value, setValue] = React.useState<boolean | undefined>(
-    props.defaultChecked
-  );
-  const checked = props.checked != null ? props.checked : value;
-
   return (
     <IonToggle
       {...props}
@@ -33,15 +28,11 @@ export const Toggle: React.FC<ToggleProps> = ({
           '&::part(track)': {
             width: '48px',
             height: '26px',
-          }
+          },
         })
       )}
       mode="ios"
-      checked={checked}
-      disabled={props.disabled}
       onIonChange={(e) => {
-        setValue(e.detail.checked);
-
         onChange && onChange(e.detail.checked);
       }}
     />

@@ -1,4 +1,5 @@
-import { Button, Popup } from '@move-in/design-system';
+import { Popup } from '@move-in/design-system';
+import { PopupViewButton } from '@move-in/design-system/src/popup/Popup';
 
 interface Props {
   isOpen?: boolean;
@@ -21,7 +22,7 @@ const WithdrawalMemberSuccessPopup: React.FC<Props> = ({
         </>
       }
       description={<>더욱 노력하는 리치랜드가 될게요</>}
-      actions={<Button label="다음에 또 만나요!" onClick={onDidDismiss} />}
+      actions={<PopupViewButton label="다음에 또 만나요!" onClick={onDidDismiss} />}
     />
   );
 };

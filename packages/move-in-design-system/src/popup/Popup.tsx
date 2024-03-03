@@ -100,7 +100,7 @@ export const PopupViewButton: React.FC<ButtonProps> = ({ ...props }: ButtonProps
     <Button
       {...props}
       className={css({
-        minWidth: '110px',
+        minWidth: '40px',
       })}
     />
   );
