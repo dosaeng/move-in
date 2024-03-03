@@ -13135,12 +13135,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.49.3":
-  version: 7.49.3
-  resolution: "react-hook-form@npm:7.49.3"
+"react-hook-form@npm:^7.51.0":
+  version: 7.51.0
+  resolution: "react-hook-form@npm:7.51.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: f8e5b2dcc3d97c820b4fbac262d7e914d74f385f26f34da31b8efc6c0f32ba995f2a2330bdfd3d8b7c8b56a52349a0cbc0c0dbe9053b3971e5e0c78003dfb7f0
+  checksum: 929464db00d1bc60bb7de41ab7c05cd2b28afba1d4d4ed10b02288919fb95fa81667e467bc571cbb403bec2bb9116b465211ce9962c3c0120a49dcbf47bfa699
   languageName: node
   linkType: hard
 
@@ -13644,7 +13644,7 @@ __metadata:
     postcss: "npm:^8.4.33"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-hook-form: "npm:^7.49.3"
+    react-hook-form: "npm:^7.51.0"
     react-query: "npm:^3.39.3"
     react-router-dom: "npm:^6.21.1"
     sass: "npm:^1.70.0"

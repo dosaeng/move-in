@@ -69,7 +69,12 @@ const ServicePage: React.FC = () => {
           })}
         >
           <ServicePageListGroup className={horizontalPadding} title="내 정보">
-            <ServicePageListItem title="회원 정보 수정" />
+            <ServicePageListItem
+              title="회원 정보 수정"
+              onClick={() => {
+                navigate('/service/profile');
+              }}
+            />
             <ServicePageListItem title="결제 내역 조회" />
           </ServicePageListGroup>
           <Divider size="m" />

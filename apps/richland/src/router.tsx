@@ -8,6 +8,7 @@ import SignUpPage from './features/sign-up/pages/SignUpPage';
 import SignUpErrorPage from './features/sign-up/pages/SignUpErrorPage';
 import IdentityVerificationPage from './features/identity-verification/pages/IdentityVerificationPage';
 import ServicePage from './features/service/pages/ServicePage';
+import ProfileEditPage from './features/profile/pages/ProfileEditPage';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ export const router = createBrowserRouter([
   {
     path: '/service',
     element: <ServicePage />,
+    loader: withAuthLoader(),
+  },
+  {
+    path: '/service/profile',
+    element: <ProfileEditPage />,
     loader: withAuthLoader(),
   },
   {

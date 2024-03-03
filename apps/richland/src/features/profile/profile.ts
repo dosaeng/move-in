@@ -1,9 +1,6 @@
-export enum SignUpType {
-  kakao,
-  apple,
-}
+import { SignUpType } from "../sign-up/sign-up";
 
-export const signUpTypeToString = (
+export const signUpTypeToMethodString = (
   type?: SignUpType,
   { defaultString = '' }: { defaultString?: string } = {}
 ) => {
@@ -11,8 +8,8 @@ export const signUpTypeToString = (
 
   switch (type) {
     case SignUpType.kakao:
-      return '카카오';
+      return '카카오로 가입';
     case SignUpType.apple:
-      return '애플';
+      return '애플로 가입';
   }
 };
