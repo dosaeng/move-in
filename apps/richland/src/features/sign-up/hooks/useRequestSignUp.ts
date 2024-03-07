@@ -1,4 +1,4 @@
-import { UseMutationOptions, useMutation } from 'react-query';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 import { SignUpType } from '../sign-up';
 import { HttpClientError, httpClient } from '@/common/utils/httpClient';
 import { defineMock } from '@/common/utils/defineMock';
@@ -24,11 +24,14 @@ const useRequestSignUp = (
     'mutationFn'
   >
 ) => {
-  return useMutation(async (params) => {
-    await httpClient.post<SignUpParams>(signUpEndpoint, {
-      body: params,
-    });
-  }, options);
+  return useMutation({
+    ...options,
+    mutationFn: async (params) => {
+      await httpClient.post<SignUpParams>(signUpEndpoint, {
+        body: params,
+      });
+    },
+  });
 };
 
 export default useRequestSignUp;

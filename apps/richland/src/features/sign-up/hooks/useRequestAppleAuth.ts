@@ -1,6 +1,6 @@
 import useSignInState from '@/features/sign-in/hooks/useSignInState';
 import { SignInWithApple } from '@capacitor-community/apple-sign-in';
-import { UseMutationOptions, useMutation } from 'react-query';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
 export interface AppleLoginTokenData {
   idToken: string;
@@ -15,22 +15,25 @@ const useRequestAppleAuth = (
 ) => {
   const { setAppleToken } = useSignInState();
 
-  return useMutation(async () => {
-    // TODO. 애플 로그인 정보 추가하기
-    const result = await SignInWithApple.authorize({
-      clientId: 'com.kreit.richland',
-      redirectURI: 'localhost:5173',
-      scopes: 'email name',
-    });
+  return useMutation({
+    ...options,
+    mutationFn: async () => {
+      // TODO. 애플 로그인 정보 추가하기
+      const result = await SignInWithApple.authorize({
+        clientId: 'com.kreit.richland',
+        redirectURI: 'localhost:5173',
+        scopes: 'email name',
+      });
 
-    const response = {
-      idToken: result.response.identityToken,
-    };
+      const response = {
+        idToken: result.response.identityToken,
+      };
 
-    setAppleToken(response);
+      setAppleToken(response);
 
-    return response;
-  }, options);
+      return response;
+    },
+  });
 };
 
 export default useRequestAppleAuth;

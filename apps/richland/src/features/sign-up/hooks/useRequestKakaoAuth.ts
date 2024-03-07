@@ -3,7 +3,7 @@ import KakaoLogin, {
 } from '@/common/plugins/KakaoLoginPlugin';
 import logger from '@/common/utils/logger';
 import useSignInState from '@/features/sign-in/hooks/useSignInState';
-import { UseMutationOptions, useMutation } from 'react-query';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
 // 카카오 로그인 시작
 const useRequestKakaoAuth = (
@@ -14,15 +14,18 @@ const useRequestKakaoAuth = (
 ) => {
   const { setKakaoToken } = useSignInState();
 
-  return useMutation(async () => {
-    const result = await KakaoLogin.loginWithKakaoTalk();
+  return useMutation({
+    ...options,
+    mutationFn: async () => {
+      const result = await KakaoLogin.loginWithKakaoTalk();
 
-    logger.debug(result);
+      logger.debug(result);
 
-    setKakaoToken(result);
+      setKakaoToken(result);
 
-    return result;
-  }, options);
+      return result;
+    },
+  });
 };
 
 export default useRequestKakaoAuth;

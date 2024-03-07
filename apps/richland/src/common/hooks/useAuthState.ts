@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { LoaderFunction, LoaderFunctionArgs, redirect } from 'react-router-dom';
 
 export enum AuthState {
@@ -47,7 +47,10 @@ export const withoutAuthLoader = (loader?: LoaderFunction) => {
 };
 
 const useAuthState = () => {
-  const { data, isLoading, refetch } = useQuery('authState', fetchAuthState);
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['authState'],
+    queryFn: fetchAuthState,
+  });
 
   return {
     data,

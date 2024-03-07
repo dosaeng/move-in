@@ -1,7 +1,7 @@
 import useAuthState from '@/common/hooks/useAuthState';
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
-import { UseMutationOptions, useMutation } from 'react-query';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
 // TODO. update endpoint
 const withdrawalMemberEndpoint = '/user/withdrawal';

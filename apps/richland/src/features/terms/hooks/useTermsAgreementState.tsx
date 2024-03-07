@@ -1,6 +1,6 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
-import { QueryOptions, useQuery } from 'react-query';
+import { QueryOptions, useQuery } from '@tanstack/react-query';
 
 export interface TermsAgreementStateModel {
   isAgreed: boolean;
@@ -18,9 +18,10 @@ const useTermsAgreementState = (
   termsId: number,
   options?: Omit<QueryOptions<TermsAgreementStateModel>, 'queryKey' | 'queryFn'>
 ) => {
-  return useQuery<TermsAgreementStateModel>(
-    getTermsAgreementState(termsId),
-    async () => {
+  return useQuery<TermsAgreementStateModel>({
+    ...options,
+    queryKey: [getTermsAgreementState(termsId)],
+    queryFn: async () => {
       const response = await httpClient.get<TermsAgreementStateDTO>(
         getTermsAgreementState(termsId)
       );
@@ -29,8 +30,7 @@ const useTermsAgreementState = (
         isAgreed: response.is_agreed,
       };
     },
-    options
-  );
+  });
 };
 
 export default useTermsAgreementState;

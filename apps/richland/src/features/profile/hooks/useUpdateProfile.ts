@@ -1,6 +1,6 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
-import { UseMutationOptions, useMutation, useQueryClient } from 'react-query';
+import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProfileEndpoint } from './useProfile';
 
 export interface UpdateProfileModel {

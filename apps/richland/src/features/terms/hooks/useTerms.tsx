@@ -1,7 +1,7 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import { HttpClientError } from '@move-in/core';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export interface TermModel {
   id: number;
@@ -14,10 +14,13 @@ export interface TermModel {
 const termsEndpoint = '/terms';
 
 const useTerms = () => {
-  return useQuery<TermModel[], HttpClientError>(termsEndpoint, async () => {
-    const response = await httpClient.get<TermModel[]>(termsEndpoint);
+  return useQuery<TermModel[], HttpClientError>({
+    queryKey: [termsEndpoint],
+    queryFn: async () => {
+      const response = await httpClient.get<TermModel[]>(termsEndpoint);
 
-    return response;
+      return response;
+    },
   });
 };
 

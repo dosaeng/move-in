@@ -1,7 +1,7 @@
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import { SignUpType } from '@/features/sign-up/sign-up';
-import { UseQueryOptions, useQuery } from 'react-query';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 
 export interface ProfileModel {
   name: string;

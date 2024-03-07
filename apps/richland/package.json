@@ -25,6 +25,7 @@
     "@ionic/react": "^7.6.4",
     "@move-in/core": "workspace:^",
     "@move-in/design-system": "workspace:^",
+    "@tanstack/react-query": "^5.25.0",
     "cap-set-version": "workspace:^",
     "date-fns": "^3.3.1",
     "fetch-mock": "^9.11.0",
@@ -32,7 +33,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.0",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.21.1",
     "zustand": "^4.5.0"
   },

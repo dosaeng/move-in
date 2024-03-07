@@ -1,5 +1,9 @@
 import { httpClient } from '@/common/utils/httpClient';
-import { MutationOptions, useMutation, useQueryClient } from 'react-query';
+import {
+  MutationOptions,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { getTermsAgreementState } from './useTermsAgreementState';
 import { defineMock } from '@/common/utils/defineMock';
 
@@ -24,8 +28,9 @@ const useUpdateTermsAgreementState = (
 ) => {
   const queryClient = useQueryClient();
 
-  return useMutation<boolean, unknown, UpdateTermsAgreementStateModel>(
-    async (data) => {
+  return useMutation<boolean, unknown, UpdateTermsAgreementStateModel>({
+    ...options,
+    mutationFn: async (data) => {
       await httpClient.patch<UpdateTermsAgreementStateDTO>(
         updateTermsAgreementState(data.id),
         {
@@ -35,12 +40,13 @@ const useUpdateTermsAgreementState = (
         }
       );
 
-      queryClient.invalidateQueries(getTermsAgreementState(data.id));
+      queryClient.invalidateQueries({
+        queryKey: [getTermsAgreementState(data.id)],
+      });
 
       return data.isAgreed;
     },
-    options
-  );
+  });
 };
 
 export default useUpdateTermsAgreementState;

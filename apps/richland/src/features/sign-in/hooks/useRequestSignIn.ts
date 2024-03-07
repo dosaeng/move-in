@@ -2,7 +2,7 @@ import useAuthState from '@/common/hooks/useAuthState';
 import { defineMock } from '@/common/utils/defineMock';
 import { httpClient, HttpClientError } from '@/common/utils/httpClient';
 import { SignUpType } from '@/features/sign-up/sign-up';
-import { UseMutationOptions, useMutation } from 'react-query';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
 export interface SignInParams {
   type: SignUpType;
@@ -31,18 +31,21 @@ const useRequestSignIn = (
 ) => {
   const { setAuthData } = useAuthState();
 
-  return useMutation(async (params) => {
-    const response = await httpClient.post<SignInParams, SignInResponse>(
-      signInEndpoint,
-      {
-        body: params,
-      }
-    );
+  return useMutation({
+    ...options,
+    mutationFn: async (params) => {
+      const response = await httpClient.post<SignInParams, SignInResponse>(
+        signInEndpoint,
+        {
+          body: params,
+        }
+      );
 
-    setAuthData(response);
+      setAuthData(response);
 
-    return response;
-  }, options);
+      return response;
+    },
+  });
 };
 
 export default useRequestSignIn;
