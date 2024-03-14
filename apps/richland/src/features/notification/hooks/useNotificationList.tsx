@@ -29,7 +29,7 @@ export interface NotificationListItemDTO {
 }
 
 // TODO. API 업데이트 필요
-const getNotificationListEndpoint = '/notification/list';
+export const getNotificationListEndpoint = '/notification/list';
 
 const useNotificationList = (initialParams?: PaginationQueryParams) => {
   return useInfiniteQuery<
