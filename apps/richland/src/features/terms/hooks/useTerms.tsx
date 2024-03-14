@@ -1,4 +1,4 @@
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import { HttpClientError } from '@move-in/core';
 import { useQuery } from '@tanstack/react-query';
@@ -27,9 +27,9 @@ const useTerms = () => {
 export default useTerms;
 
 defineMock((mock) => {
-  mock.get(termsEndpoint, () => {
-    return new Response(
-      JSON.stringify([
+  return [
+    mock.get(termsEndpoint, () => {
+      return HttpResponse.json([
         {
           id: 1,
           title: '리치랜드 서비스 이용약관',
@@ -54,10 +54,7 @@ defineMock((mock) => {
           url: 'https://www.naver.com',
           required: false,
         },
-      ]),
-      {
-        status: 200,
-      }
-    );
-  });
+      ]);
+    }),
+  ];
 });

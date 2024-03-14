@@ -1,7 +1,7 @@
 import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 import { SignUpType } from '../sign-up';
 import { HttpClientError, httpClient } from '@/common/utils/httpClient';
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 
 export interface SignUpParams {
   type: SignUpType;
@@ -37,7 +37,9 @@ const useRequestSignUp = (
 export default useRequestSignUp;
 
 defineMock((mock) => {
-  mock.post(signUpEndpoint, () => {
-    return new Response(JSON.stringify({}), { status: 200 });
-  });
+  return [
+    mock.post(signUpEndpoint, () => {
+      return HttpResponse.json({});
+    }),
+  ];
 });

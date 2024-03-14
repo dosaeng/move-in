@@ -1,8 +1,8 @@
 import {
   PaginationQueryParams,
-  PaginationResponseDTO
+  PaginationResponseDTO,
 } from '@/common/types/httpClient';
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import {
   InfiniteData,
@@ -78,40 +78,36 @@ const useNotificationList = (initialParams?: PaginationQueryParams) => {
 export default useNotificationList;
 
 defineMock((mock) => {
-  mock.get(new RegExp(getNotificationListEndpoint), (url) => {
-    const maxLength = 100;
-    const parsedUrl = new URL(url);
-    const page = Number(parsedUrl.searchParams.get('page'));
-    const size = Number(parsedUrl.searchParams.get('size'));
+  return [
+    mock.get(new RegExp(getNotificationListEndpoint), ({ request }) => {
+      const maxLength = 100;
+      const parsedUrl = new URL(request.url);
+      const page = Number(parsedUrl.searchParams.get('page'));
+      const size = Number(parsedUrl.searchParams.get('size'));
 
-    if ((page + 1) * size > maxLength) {
-      return {
-        status: 200,
-        body: JSON.stringify({
+      if ((page + 1) * size > maxLength) {
+        return HttpResponse.json({
           total_count: maxLength,
           list: [],
-        }),
-      };
-    }
+        });
+      }
 
-    const list = Array.from({ length: size }).map((_, index) => {
-      const id = `${page * size}-${index}`;
+      const list = Array.from({ length: size }).map((_, index) => {
+        const id = `${page * size}-${index}`;
 
-      return {
-        id,
-        title: `Title ${id}`,
-        content: `Content ${id}`,
-        thumbnail_url: `https://via.placeholder.com/150?text=${id}`,
-        created_at: new Date(),
-      };
-    });
+        return {
+          id,
+          title: `Title ${id}`,
+          content: `Content ${id}`,
+          thumbnail_url: `https://via.placeholder.com/150?text=${id}`,
+          created_at: new Date(),
+        };
+      });
 
-    return {
-      status: 200,
-      body: JSON.stringify({
+      return HttpResponse.json({
         total_count: maxLength,
         list,
-      }),
-    };
-  });
+      });
+    }),
+  ];
 });

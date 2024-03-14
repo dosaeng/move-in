@@ -5,7 +5,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { getTermsAgreementState } from './useTermsAgreementState';
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 
 export interface UpdateTermsAgreementStateModel {
   id: number;
@@ -52,9 +52,9 @@ const useUpdateTermsAgreementState = (
 export default useUpdateTermsAgreementState;
 
 defineMock((mock) => {
-  mock.patch(new RegExp(updateTermsAgreementState('[0-9]+')), () => {
-    return new Response('', {
-      status: 200,
-    });
-  });
+  return [
+    mock.patch(updateTermsAgreementState(':id'), () => {
+      return HttpResponse.json({});
+    }),
+  ];
 });

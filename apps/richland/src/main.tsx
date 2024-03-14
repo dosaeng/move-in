@@ -9,6 +9,7 @@ import logger from '@/common/utils/logger.ts';
 
 import '@move-in/design-system/src/index.css';
 import './index.css';
+import { enableMocking } from './common/utils/defineMock.ts';
 
 setupIonicReact({
   mode: 'md',
@@ -27,10 +28,12 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </React.StrictMode>
-);
+enableMocking().then(() => {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </React.StrictMode>
+  );
+});

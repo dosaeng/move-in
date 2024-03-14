@@ -1,4 +1,4 @@
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import { QueryOptions, useQuery } from '@tanstack/react-query';
 
@@ -36,14 +36,11 @@ const useTermsAgreementState = (
 export default useTermsAgreementState;
 
 defineMock((mock) => {
-  mock.get(new RegExp(getTermsAgreementState('[0-9]+')), () => {
-    return new Response(
-      JSON.stringify({
+  return [
+    mock.get(getTermsAgreementState(':id'), () => {
+      return HttpResponse.json({
         is_agreed: true,
-      }),
-      {
-        status: 200,
-      }
-    );
-  });
+      });
+    }),
+  ];
 });

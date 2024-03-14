@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { setupIonicReact } from '@ionic/react';
 import '@move-in/design-system/src/index.css';

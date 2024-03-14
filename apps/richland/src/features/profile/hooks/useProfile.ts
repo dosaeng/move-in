@@ -1,4 +1,4 @@
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import { SignUpType } from '@/features/sign-up/sign-up';
 import { UseQueryOptions, useQuery } from '@tanstack/react-query';
@@ -27,14 +27,12 @@ export interface ProfileDTO {
 export const getProfileEndpoint = '/user/profile';
 
 const useProfile = (
-  options?: Omit<
-    UseQueryOptions<ProfileModel>,
-    'queryFn' | 'queryKey'
-  >
+  options?: Omit<UseQueryOptions<ProfileModel>, 'queryFn' | 'queryKey'>
 ) => {
-  return useQuery<ProfileModel>(
-    getProfileEndpoint,
-    async () => {
+  return useQuery<ProfileModel>({
+    ...options,
+    queryKey: [getProfileEndpoint],
+    queryFn: async () => {
       const response = await httpClient.get<ProfileDTO>(getProfileEndpoint);
 
       return {
@@ -48,16 +46,15 @@ const useProfile = (
         signUpMethod: response.signUpMethodId,
       };
     },
-    options
-  );
+  });
 };
 
 export default useProfile;
 
 defineMock((mock) => {
-  mock.get(getProfileEndpoint, () => {
-    return new Response(
-      JSON.stringify({
+  return [
+    mock.get(getProfileEndpoint, () => {
+      return HttpResponse.json({
         name: '홍길동',
         // yyyyMMdd
         birthday: '19900101',
@@ -66,8 +63,7 @@ defineMock((mock) => {
         phoneNumber: '01012345678',
         email: 'supernovel@test.com',
         signUpMethodId: 0,
-      }),
-      { status: 200 }
-    );
-  });
+      });
+    }),
+  ];
 });

@@ -1,6 +1,10 @@
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
-import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  UseMutationOptions,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { getProfileEndpoint } from './useProfile';
 
 export interface UpdateProfileModel {
@@ -27,7 +31,9 @@ const useUpdateProfile = (
         },
       });
 
-      queryClient.invalidateQueries(getProfileEndpoint);
+      queryClient.invalidateQueries({
+        queryKey: [getProfileEndpoint],
+      });
     },
   });
 };
@@ -35,7 +41,9 @@ const useUpdateProfile = (
 export default useUpdateProfile;
 
 defineMock((mock) => {
-  mock.patch(updateProfileEndpoint, () => {
-    return new Response('', { status: 200 });
-  });
+  return [
+    mock.patch(updateProfileEndpoint, () => {
+      return HttpResponse.json({});
+    }),
+  ];
 });

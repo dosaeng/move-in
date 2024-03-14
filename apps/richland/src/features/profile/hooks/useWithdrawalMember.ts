@@ -1,5 +1,5 @@
 import useAuthState from '@/common/hooks/useAuthState';
-import { defineMock } from '@/common/utils/defineMock';
+import { HttpResponse, defineMock } from '@/common/utils/defineMock';
 import { httpClient } from '@/common/utils/httpClient';
 import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
@@ -24,7 +24,9 @@ const useWithdrawalMember = (
 export default useWithdrawalMember;
 
 defineMock((mock) => {
-  mock.post(withdrawalMemberEndpoint, () => {
-    return new Response('', { status: 200 });
-  });
+  return [
+    mock.post(withdrawalMemberEndpoint, () => {
+      return HttpResponse.json({});
+    }),
+  ];
 });

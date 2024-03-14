@@ -5,6 +5,7 @@ import {
   IconSearch,
 } from '@move-in/design-system';
 import { cx, css } from '@move-in/styled-system/css';
+import { useNavigate } from 'react-router';
 
 interface ItemProps {
   icon: React.ReactNode;
@@ -58,6 +59,8 @@ const ServicePageNavigationBarItem: React.FC<ItemProps> = ({
 const iconSize = 32;
 
 const ServicePageNavigationBar: React.FC<Props> = ({ className }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className={cx(
@@ -84,6 +87,9 @@ const ServicePageNavigationBar: React.FC<Props> = ({ className }) => {
       <ServicePageNavigationBarItem
         icon={<IconMailOpened size={iconSize} />}
         label="최근 알림"
+        onClick={() => {
+          navigate('/service/notification');
+        }}
       />
       <ServicePageNavigationBarItem
         icon={<IconEdit size={iconSize} />}

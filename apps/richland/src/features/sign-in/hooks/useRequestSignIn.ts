@@ -1,5 +1,5 @@
 import useAuthState from '@/common/hooks/useAuthState';
-import { defineMock } from '@/common/utils/defineMock';
+import { defineMock, HttpResponse } from '@/common/utils/defineMock';
 import { httpClient, HttpClientError } from '@/common/utils/httpClient';
 import { SignUpType } from '@/features/sign-up/sign-up';
 import { UseMutationOptions, useMutation } from '@tanstack/react-query';
@@ -51,13 +51,12 @@ const useRequestSignIn = (
 export default useRequestSignIn;
 
 defineMock((mock) => {
-  mock.post(signInEndpoint, () => {
-    return new Response(
-      JSON.stringify({
+  return [
+    mock.post(signInEndpoint, () => {
+      return HttpResponse.json({
         accessToken: 'accessToken',
         refreshToken: 'refreshToken',
-      }),
-      { status: 404 }
-    );
-  });
+      });
+    }),
+  ];
 });

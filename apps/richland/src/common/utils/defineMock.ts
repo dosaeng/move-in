@@ -1,9 +1,21 @@
-import { default as fetchMock, type FetchMockStatic } from 'fetch-mock';
+import { http, type RequestHandler } from 'msw';
+import { setupWorker, type SetupWorker } from 'msw/browser';
+export { HttpResponse } from 'msw';
 
-export const enableMock = import.meta.env.VITE_ENABLE_MOCK_API == 'true';
+const worker: SetupWorker = setupWorker();
 
-export const defineMock = (handler: (mock: FetchMockStatic) => void) => {
-  if (enableMock) {
-    handler(fetchMock);
+const enable = import.meta.env.VITE_ENABLE_MOCK_API == 'true';
+
+export const enableMocking = async () => {
+  if (!enable) return;
+
+  return worker.start();
+};
+
+export const defineMock = (
+  handler: (mock: typeof http) => RequestHandler[]
+) => {
+  if (enable) {
+    worker.use(...handler(http));
   }
 };
