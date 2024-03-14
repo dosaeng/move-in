@@ -11,6 +11,7 @@ import ServicePage from './features/service/pages/ServicePage';
 import ProfileEditPage from './features/profile/pages/ProfileEditPage';
 import WithdrawalMemberPage from './features/profile/pages/WithdrawalMemberPage';
 import TermsListPage from './features/terms/pages/TermsListPage';
+import NotificationPage from './features/notification/pages/NotificationPage';
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,11 @@ export const router = createBrowserRouter([
   {
     path: '/service/terms',
     element: <TermsListPage />,
+    loader: withAuthLoader(),
+  },
+  {
+    path: '/service/notification',
+    element: <NotificationPage />,
     loader: withAuthLoader(),
   },
   {
