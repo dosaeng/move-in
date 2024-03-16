@@ -15,7 +15,7 @@ export interface NotificationListItemModel {
   title: string;
   content: string;
   thumbnailUrl: string;
-  link?: string;
+  link?: URL;
   createdAt: Date;
 }
 
@@ -67,7 +67,7 @@ const useNotificationList = (initialParams?: PaginationQueryParams) => {
           title: item.title,
           content: item.content,
           thumbnailUrl: item.thumbnail_url,
-          link: item.link,
+          link: item.link != null ? new URL(item.link) : undefined,
           createdAt: item.created_at,
         };
       });

@@ -1,14 +1,19 @@
 import { cx, css } from '@move-in/styled-system/css';
-import useNotificationList from '../hooks/useNotificationList';
+import useNotificationList, {
+  NotificationListItemModel,
+} from '../hooks/useNotificationList';
 import { IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/react';
 import NotificationListItem from './NotificationListItem';
+import EmptyView from '@/common/components/EmptyView';
 
 interface Props {
   className?: string;
+  onClick?: (data: NotificationListItemModel) => void;
 }
 
-const NotificationListView: React.FC<Props> = ({ className }) => {
-  const { data, fetchNextPage } = useNotificationList();
+const NotificationListView: React.FC<Props> = ({ className, onClick }) => {
+  const { data, isSuccess, fetchNextPage } = useNotificationList();
+  const isEmpty = isSuccess && data?.pages?.at(0)?.length == 0;
 
   return (
     <div
@@ -21,15 +26,25 @@ const NotificationListView: React.FC<Props> = ({ className }) => {
         })
       )}
     >
-      {data?.pages.map((page) => {
-        return (
-          <>
-            {page.map((data) => {
-              return <NotificationListItem data={data} />;
-            })}
-          </>
-        );
-      })}
+      {isEmpty ? (
+        <EmptyView>알림 내역이 없습니다.</EmptyView>
+      ) : (
+        data?.pages.map((page) => {
+          return (
+            <>
+              {page.map((data) => {
+                return (
+                  <NotificationListItem
+                    key={data.id}
+                    data={data}
+                    onClick={() => onClick && onClick(data)}
+                  />
+                );
+              })}
+            </>
+          );
+        })
+      )}
       <IonInfiniteScroll
         onIonInfinite={(event) => {
           fetchNextPage().finally(() => {

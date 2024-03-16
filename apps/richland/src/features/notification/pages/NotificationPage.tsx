@@ -4,6 +4,7 @@ import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHead
 import { css } from '@move-in/styled-system/css';
 import { useNavigate } from 'react-router-dom';
 import NotificationListView from '../components/NotificationListView';
+import { Browser } from '@capacitor/browser';
 
 const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,7 +36,20 @@ const NotificationPage: React.FC = () => {
             알림
           </h2>
         </div>
-        <NotificationListView />
+        <NotificationListView
+          onClick={(data) => {
+            if (data.link == null) return;
+
+            if (data.link?.host == null) {
+              navigate(`${data.link.pathname}?${data.link.search}`);
+              return;
+            }
+
+            Browser.open({
+              url: data.link.href,
+            })
+          }}
+        />
       </IonContent>
     </IonPage>
   );
