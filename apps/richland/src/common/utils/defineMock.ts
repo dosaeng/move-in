@@ -4,7 +4,7 @@ export { HttpResponse } from 'msw';
 
 const worker: SetupWorker = setupWorker();
 
-const enable = import.meta.env.VITE_ENABLE_MOCK_API == 'true';
+export const enable = import.meta.env.VITE_ENABLE_MOCK_API == 'true';
 
 export const enableMocking = async () => {
   if (!enable) return;
