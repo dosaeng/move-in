@@ -1,9 +1,9 @@
 import { cx, sva } from '@move-in/styled-system/css';
-import React from 'react';
+import React, { useState } from 'react';
 import { IconCircleXFilled } from '../icons/icons';
 
 const inputStyle = sva({
-  slots: ['root', 'input', 'clearButton'],
+  slots: ['root', 'input', 'clearButton', 'suffixIcon'],
   base: {
     root: {
       position: 'relative',
@@ -43,12 +43,19 @@ const inputStyle = sva({
       height: '24px',
       cursor: 'pointer',
       color: 'text.light.04',
-      _peerFocusVisible: {
-        display: 'block',
-        position: 'absolute',
-        top: '14px',
-        right: '12px',
-      },
+      position: 'absolute',
+      top: '14px',
+      right: '12px',
+    },
+    suffixIcon: {
+      position: 'absolute',
+      top: '14px',
+      right: '12px',
+      width: '24px',
+      height: '24px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   },
   variants: {
@@ -58,6 +65,27 @@ const inputStyle = sva({
           color: 'error.red.03',
           _focusVisible: {
             borderColor: 'error.red.03',
+          },
+        },
+      },
+    },
+    hasSuffixIcon: {
+      true: {
+        input: {
+          paddingRight: '42px',
+        },
+      },
+    },
+    hasValue: {
+      true: {
+        clearButton: {
+          _peerFocusVisible: {
+            display: 'block',
+          },
+        },
+        suffixIcon: {
+          _peerFocusVisible: {
+            display: 'none',
           },
         },
       },
@@ -82,16 +110,22 @@ export interface OutlinedTextFieldProps
   value?: string;
   defaultValue?: string;
   hasError?: boolean;
+  suffixIcon?: React.ReactNode;
 }
 
 export const OutlinedTextField = React.forwardRef<
   HTMLInputElement,
   OutlinedTextFieldProps
->(({ id, hasError, onChange, className, ...props }, ref) => {
+>(({ id, hasError, onChange, className, suffixIcon, ...props }, ref) => {
   const inputRef = React.useRef<HTMLInputElement | null | undefined>();
+  const [internalValue, setInternalValue] = useState(
+    props.defaultValue ?? props.value
+  );
   const classes = inputStyle({
     hasError,
     readOnly: props.readOnly,
+    hasSuffixIcon: suffixIcon != null,
+    hasValue: internalValue != null && internalValue.length > 0,
   });
 
   return (
@@ -108,9 +142,12 @@ export const OutlinedTextField = React.forwardRef<
 
           inputRef.current = element;
         }}
-        placeholder={props.placeholder}
+        placeholder={props.placeholder ?? ' '}
         className={cx('peer', classes.input)}
-        onChange={onChange}
+        onChange={(event) => {
+          setInternalValue(event.target.value);
+          onChange && onChange(event);
+        }}
       />
       <div
         className={classes.clearButton}
@@ -132,6 +169,7 @@ export const OutlinedTextField = React.forwardRef<
       >
         <IconCircleXFilled size={24} />
       </div>
+      <div className={classes.suffixIcon}>{suffixIcon}</div>
     </div>
   );
 });

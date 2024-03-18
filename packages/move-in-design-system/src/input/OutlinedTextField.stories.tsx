@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 import { OutlinedTextField } from './OutlinedTextField';
+import { IconSearch } from '@tabler/icons-react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -84,6 +85,20 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   args: {
     readOnly: true,
+  },
+  render: (args) => {
+    return (
+      <>
+        <OutlinedTextField {...args} />
+        <OutlinedTextField {...args} defaultValue={'Default Value'} />
+      </>
+    );
+  },
+};
+
+export const SuffixIcon: Story = {
+  args: {
+    suffixIcon: <IconSearch size={20} color="#CCCCCC" />,
   },
   render: (args) => {
     return (
