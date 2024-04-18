@@ -15,6 +15,12 @@ const meta = {
   args: {
     placeholder: '관심 동네를 검색해주세요 (ex-도담동)',
   },
+  argTypes: {
+    theme: {
+      control: 'select',
+      options: ['neutral', 'brand'],
+    },
+  },
   decorators: [
     (Story) => (
       <div
