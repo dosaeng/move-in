@@ -7,19 +7,8 @@ const meta = {
   component: EmptyView,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: 'centered',
+    layout: 'fullscreen',
   },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          maxWidth: '375px',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } satisfies Meta<typeof EmptyView>;
 
 export default meta;

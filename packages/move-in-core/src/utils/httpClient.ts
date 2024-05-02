@@ -54,6 +54,13 @@ export class HttpClient {
       Object.entries(params).forEach(([key, value]) => {
         if (value == null) return;
 
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            url.searchParams.append(key, String(item));
+          });
+          return;
+        }
+
         url.searchParams.append(key, String(value));
       });
     }

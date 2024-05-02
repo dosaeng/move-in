@@ -5,12 +5,21 @@ import { PageHeaderBackButton } from '@move-in/design-system/src/header/PageHead
 import { css } from '@move-in/styled-system/css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UsageSelectorList from '../components/UsageSelectorList';
+import UsageSelectorList from '../components/usage/UsageSelectorList';
+import useSearchFormContext from '../hooks/useSearchFormContext';
 
 const UsageSelectPage: React.FC = () => {
-  const nativate = useNavigate();
+  const navigate = useNavigate();
   const [keyword, setKeyword] = useState<string>('');
-  const [selectedItems, setSelectedItems] = useState<ProductUsage[]>([]);
+  const {
+    value: { usageList: selectedItems },
+    updateValue,
+  } = useSearchFormContext();
+  const setSelectedItems = (items: ProductUsage[]) => {
+    updateValue({
+      usageList: items,
+    });
+  };
 
   return (
     <IonPage>
@@ -27,7 +36,7 @@ const UsageSelectPage: React.FC = () => {
         left={
           <PageHeaderBackButton
             onClick={() => {
-              nativate(-1);
+              navigate('/search');
             }}
           />
         }
@@ -42,7 +51,7 @@ const UsageSelectPage: React.FC = () => {
               cursor: 'pointer',
             })}
             onClick={() => {
-              // TODO. 필터 초기화
+              setSelectedItems([]);
             }}
           >
             초기화

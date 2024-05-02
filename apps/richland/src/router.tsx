@@ -12,6 +12,8 @@ import ProfileEditPage from './features/profile/pages/ProfileEditPage';
 import WithdrawalMemberPage from './features/profile/pages/WithdrawalMemberPage';
 import TermsListPage from './features/terms/pages/TermsListPage';
 import NotificationPage from './features/notification/pages/NotificationPage';
+import UsageSelectPage from './features/search/pages/UsageSelectPage';
+import SearchFormPage from './features/search/pages/SearchFormPage';
 
 export const router = createBrowserRouter([
   {
@@ -72,5 +74,16 @@ export const router = createBrowserRouter([
     path: '/search',
     element: <SearchPage />,
     loader: withAuthLoader(),
+    children: [
+      {
+        path: '',
+        index: true,
+        element: <SearchFormPage />,
+      },
+      {
+        path: 'usage-select',
+        element: <UsageSelectPage />,
+      },
+    ],
   },
 ]);

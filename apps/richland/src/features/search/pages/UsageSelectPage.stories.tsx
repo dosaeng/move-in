@@ -2,10 +2,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 
-import { IonApp } from '@ionic/react';
-import UsageSelectPage from './UsageSelectPage';
-import { HttpResponse, delay, http } from 'msw';
 import { getProductUsageListEndpoint } from '@/features/product/hooks/useProductUsageList';
+import { IonApp } from '@ionic/react';
+import { HttpResponse, http } from 'msw';
+import UsageSelectPage from './UsageSelectPage';
+import { SearchFormContextProvider } from '../hooks/useSearchFormContext';
 
 const meta = {
   component: UsageSelectPage,
@@ -17,7 +18,9 @@ const meta = {
     (Story) => {
       return (
         <IonApp>
-          <Story />
+          <SearchFormContextProvider>
+            <Story />
+          </SearchFormContextProvider>
         </IonApp>
       );
     },
@@ -30,11 +33,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => {
-    return <UsageSelectPage {...args} />;
+    return <UsageSelectPage key={'data'} {...args} />;
   },
   parameters: {
     msw: [
-      http.get(getProductUsageListEndpoint, () => {
+      http.get(getProductUsageListEndpoint, async () => {
         return HttpResponse.json(
           Array.from({ length: 100 }, (_, i) => ({
             id: i,
@@ -49,13 +52,11 @@ export const Default: Story = {
 
 export const 데이터_없음: Story = {
   render: (args) => {
-    return <UsageSelectPage {...args} />;
+    return <UsageSelectPage key={'empty'} {...args} />;
   },
   parameters: {
     msw: [
-      http.get(getProductUsageListEndpoint, () => {
-        delay(5000);
-
+      http.get(getProductUsageListEndpoint, async () => {
         return HttpResponse.json([]);
       }),
     ],
